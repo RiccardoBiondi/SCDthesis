@@ -1,4 +1,4 @@
-clone_folder: c:\projects\SCSthesis
+clone_folder: c:\projects\SCDthesis
 
 environment:
 
@@ -20,7 +20,7 @@ build: off
 
 install:
   - "%PYTHON%\\python.exe --version"
-  - cd %WORKSPACE%\PhDthesis
+  - cd %WORKSPACE%\SCDthesis
   - "conda install -c conda-forge latexmk inkscape"
 
 test_script:
