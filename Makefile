@@ -10,25 +10,11 @@ thesisfile = main.tex
 tesiout = main
 tex_dir = tex
 
-svg_img = $(sort $(wildcard img/*.svg))
-imgs    = $(patsubst img/%.svg, img/%, $(svg_img))
-pdf_img = $(patsubst img/%, img/%.pdf, $(imgs))
-
 
 all: thesis
 
-convert_img: $(pdf_img)
-
-img/%.pdf: img/%.svg
-	inkscape -D -z --file=$< --export-pdf=$@ --export-latex
-
-thesis: $(thesisfile) \
-	    $(pdf_img)
+thesis: $(thesisfile)
 	latexmk -synctex=1 -bibtex -interaction=nonstopmode -file-line-error -pdf $(basename $(thesisfile)) -jobname=$(tesiout)
-	$(MAKE) clean
-
-relazione:
-	latexmk -synctex=1 -bibtex -interaction=nonstopmode -file-line-error -pdf relazione.tex -jobname=relazione
 	$(MAKE) clean
 
 .PHONY: clean
