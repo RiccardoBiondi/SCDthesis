@@ -1,0 +1,20 @@
+\documentclass{standalone}
+\begin{document}
+	
+	\subsection{ITK and OpenCV}
+	
+	To perform image processing operations, like application of blurring filters or morphological operations, and to perform the color quantization I've used two different libraries, which provides a large collection of optimized tools for medical image processing and computer vision. Each tool was optimized, so it will help to takes the segmentation times as short as possible.
+	
+	\subsubsection*{OpenCV} 
+	
+	OpenCV, acronym for Open Source Computer Vision,  is an open source computer vision and machine learning software library. OpenCV was built to provide a common infrastructure for computer vision applications and to accelerate the use of machine perception in the commercial products.
+	I've used the tolls from this library to perform all the processing that involves the single image and, most important, to perform the color quantization, since the kmeans implementation offered by the library allows to perform the color quantization, by performing the kmeans clustering on a multi channel image. 
+	
+	\subsubsection*{ITK} 
+	
+	Insight Tool Kit (ITK) is an open source library which provides an extensive suite of tools for image analysis, developed since 1999 by US National Library of Medicine of the National Institutes of Health.This library provides tool useful to works also with N-dimensional images. 
+	During the developing of the pipeline I've used this library to read and write images in medical image format with meta-data preservation, and to perform operations on the whole image stack, like the detection of the connected components in 3 dimensions. 
+	 
+	
+	 
+\end{document}

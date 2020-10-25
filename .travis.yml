@@ -1,0 +1,29 @@
+sudo: true
+language: generic
+
+
+cache:
+  directories:
+    - $HOME/.cache/latex
+
+
+matrix:
+  include:
+    - os: linux
+      name: ubuntu 16.04
+      addons:
+         apt:
+           packages:
+             - texlive
+             - texlive-full
+             - inkscape
+             - wget
+             - curl
+             - sed
+             - grep
+
+  timeout: 3600
+
+script:
+
+  - make thesis

@@ -1,0 +1,17 @@
+\documentclass{standalone}
+\begin{document}
+
+\subsection{Region Growing Approach}
+
+Region growing approach allows to extract connected regions from an image. This algorithm start at seed location in the image(usually manually selected) and check the adjacent pixels against a predefined homogeneity criterion~\cite{INP:Withey}, based on intensity, and/or edges.   If the pixels met the criterion, they are added to the region. A continuos application of the rule allow the region to grow. \\
+Like thresholding, region growing is used in combination with other image segmentation operations, and usually allows the delineation of small and simple structures such as tumor and lesions~\cite{ART:Pham}.\\
+Regions growing can also be sensitive to noise so extracted regions may have holes or even become disconnected. May also happen that separate rion becomes connected due to partial volume effect. \\
+When we use this approach we have to consider that for each region we want to segment a seed must be planted. There are some algorithm, related to region growing, that does not require a seed point, like split and merge one. Split and merge operates in a recursive fashion. The first step is to check the pixel intensity homogeneity, if they are not homogeneous, the region is splitted into two equal sized sub-regions. This step leads to an oversegmentation, so a merging step is performed, which merge together adjacent regions with similar intensities~\cite{INP:Withey}. 
+
+\begin{figure}[hp]
+\label{fig:RegionGrowing}
+	\centering
+		\includegraphics[scale=.3]{placeholder.png}
+	\caption{Caption}
+\end{figure}
+\end{document}
