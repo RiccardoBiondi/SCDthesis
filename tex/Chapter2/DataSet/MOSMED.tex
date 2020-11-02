@@ -2,4 +2,36 @@
 \begin{document}
 	\subsection{MOSMED}
 	
+	MosMed is a dataset which contains 1110 anonymised CT scan of human lung from both patients affected by COVID-19 in several stages fo the disease, and healthy constrols. A small subset of this scans is labeled. The scans are obtained between 1st March and 25th of april 2020 by different Russian hospital. This dataset is born with educational and AI developing purpose. The studies are divided into 5 cathegories, from healty patients to the most several cases. Each scan of the dataset is saved in \emph{.nfti} format and diring the conversion from the original dicom series only 1 image every 10 was preserved.
+	The resulting dataset have the following characteristics: 
+	
+	\begin{table}[h!]
+		\centering
+		\begin{tabular}{|c|c|}
+			\hline
+			\textbf{Property} 		   				   & \textbf{value}	  \\ \hline
+			Number of Scans 		   				   & 1110             \\ 
+			Distribution by sex(M/F/O) 				   & 42/56/2          \\
+			Distribution by age(min/median/max)		   & 18/47/87         \\
+			Number of studies in each cathegory		   & 254/648/125/45/2 \\ \hline
+			
+		\end{tabular}
+	\end{table}
+
+	As I've said before, the CT scans are divided into 5 cathegories, depending on the percentage of the involved lung parenchima : 
+	\begin{table}[h!]
+		\centering
+		\begin{tabular}{|c|c|}
+			\hline
+			\textbf{Class} & \textbf{Description} \\ \hline
+			CT-0		   & Normal  lung tissues \\
+			CT-1		   & presence of GGO, lung parenchima involved less than $25\%$ \\
+			CT-2		   & GGO, involvement of lung parenchima in $25 - 50\%$ \\
+			CT-3		   & GGO and consolidation, involvement of lung parenchima in $50 - 75\%$ \\
+			CT-4		   & GGO, consolidation and reticular changes, lung parenchima involved more than $75\%$\\ \hline
+		\end{tabular}
+	\end{table}
+
+	Of these five cathegories only $50$ annotations are available, mostly invlves only the patients of CT-1 group, which is the only one used for the 
+	performances checking, since is the only one with the annotations. Scans have been annotated by the experts of Research and Practical Clinical Center for Diagnostics and Telemedicine Technologies of the Moscow Health Care Department.
 \end{document}

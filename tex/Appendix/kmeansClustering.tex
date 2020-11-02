@@ -1,0 +1,14 @@
+\documentclass{standalone}
+\begin{document}
+	\chapter*{kmeans clustering}\addcontentsline{toc}{chapter}{Appendix A - kmenas clustering}
+	
+	In this chapter I will describe the kmeans clustering algorithm, which is the one used for the computation of the centrioids set, which corresponds to the characteristic color of each lung structure we wish to segment.\\
+	Kmeans is a clustering technique that seek to assign each point to a particular cluster in a way that minimizethe average square distance between points in the same cluster~\cite{Arthur2007}. This algorithm doesn't require a prior knowledge about the correct labels, that means that is an unsupervised techinique.\\
+	Given an integer $k$ and a set of $n$ data points from $\mathbb{R}^d$, the kmeans clustering seek to find $k$ centers that minimize a potential function given by the sum of squares: 
+	\begin{equation}
+		\Phi = \sum_{x\in S}\min\| x - c\|^2
+	\end{equation} 
+	Where $S\sub \mathbb R^d$ is a set of points. In this work $\mathbb{R}^d$ is the colors space and $S$ is the space of color of each voxel.
+	
+	
+\end{document}

@@ -2,4 +2,46 @@
 	
 	\subsection{Labeling}
 	
+	This is the last step of the pipeline, which involves the actual segmentation. This task is performed by simply assign each voxel to the cluster corresponding to the nearest centroids, in this way an hard segmentation is achieved.\\
+	
+	The script takes as input the CT scan after the lung extraction and build the multichannel image as described before. after that will assign each voxel to the cluster of nearest centroids, which is the centroids that minimize the sum of square : 
+	\begin{equation}
+		cluster = \arg\min_{S}  \sum_{i=1}^k \sum_{S} \| x - \mu_i\|
+	\end{equation}
+
+	where $x$ is the color vector of the voxel and $\mu$ is the $i_th$ centroids. During this process the background is automatically assigned to the 0 label, since we know as a prior that its value is $0$.\\
+	Once this process is done, we can select only the label corresponding to the GGO, and our segmentation is achieved. After this step a refinement is performed  a simple median filter is applied to each image of the stack, which allows the removal of misclassified voxels. 
+	The pseudocode of this script is reported in algorithm\,\ref{alg:labeling}
+	 I've tested this algorithm on three different dataset, and the results are described in the following chapter.
+	 
+	 	\begin{algorithm}
+	 	\label{alg:labeling}
+	 	\SetAlgoLined
+	 	\DontPrintSemicolon
+	 	
+	 	\SetKwFunction{Flabel}{imlabeling}
+	 	\SetKwProg{Fn}{Function}{:}{}
+	 	
+	 	\Fn{\Flabel{$image,\, centroids$}}{{
+ 				\ForEach{$c\in centroids $}
+ 				{
+ 					distances$\leftarrow\| image - c\|^2$\;
+ 				}
+ 			labels$\leftarrow\arg\min\,(distances)$\;
+ 			}\textbf{return}\,labels
+ 		}\textbf{\textbf{End Function}}
+ 	
+ 		\KwData{CT scan to label, centroids}
+ 		\KwResult{GGO label}
+ 		
+ 		image$\leftarrow$build\_multi\_channel\;
+ 		labels$\leftarrow$imlabeling(image, centroids)\;
+ 		ggo$\leftarrow$ labels = GGO label\;
+	 
+	 	\caption{Pseudo-code for the labeling script}
+	 
+	 \end{algorithm}
+	 
+	
+	
 \end{document}

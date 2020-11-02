@@ -1,19 +1,22 @@
 \documentclass{standalone}
 \begin{document}
 	
-	\subsection{ITK and OpenCV}
+	\subsection{SimpleITK and OpenCV}
 	
 	To perform image processing operations, like application of blurring filters or morphological operations, and to perform the color quantization I've used two different libraries, which provides a large collection of optimized tools for medical image processing and computer vision. Each tool was optimized, so it will help to takes the segmentation times as short as possible.
 	
 	\subsubsection*{OpenCV} 
 	
 	OpenCV, acronym for Open Source Computer Vision,  is an open source computer vision and machine learning software library. OpenCV was built to provide a common infrastructure for computer vision applications and to accelerate the use of machine perception in the commercial products.
-	I've used the tolls from this library to perform all the processing that involves the single image and, most important, to perform the color quantization, since the kmeans implementation offered by the library allows to perform the color quantization, by performing the kmeans clustering on a multi channel image. 
+	I've used the tolls from this library to perform all the processing that involves the single image and, most important, to perform the color quantization, since the kmeans implementation offered by the library allows to perform the color quantization, by performing the kmeans clustering on a multi channel image.\\
+	This library allow to works only on a single image, so each operation must be repeated for each image of the stack. This means that we are working in a 2D, since each slice is processed independently.
 	
-	\subsubsection*{ITK} 
+	\subsubsection*{SimpleITK} 
 	
+	SimpleITK is a simplified programming interface to the algorithms and data structures of the Insight Toolkit (ITK) that support many programming languages. The library provides a simplified interface to use Insight Toll Kit(ITK) library. 
 	Insight Tool Kit (ITK) is an open source library which provides an extensive suite of tools for image analysis, developed since 1999 by US National Library of Medicine of the National Institutes of Health.This library provides tool useful to works also with N-dimensional images. 
-	During the developing of the pipeline I've used this library to read and write images in medical image format with meta-data preservation, and to perform operations on the whole image stack, like the detection of the connected components in 3 dimensions. 
+	This library provides a powerful tools for the reading and writing of the image. Since SimpleITK consider the image like spatial object and not like arrays of values, it store also infomations about voxel spacing, size and origins, provided as wall as the array, this makes us able to works only with the array by using numpy or OpenCV, by preserving the spatial information of the image. This library allow also to process the whole image volume, allowing 3D operations, which are used into many steps of the pipeline.
+	
 	 
 	
 	 

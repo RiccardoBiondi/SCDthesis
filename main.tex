@@ -14,25 +14,35 @@
 \usepackage{emptypage}
  % remove header in blanck pages
 
+% caption style
+\usepackage{caption}
+\captionsetup[figure]{labelfont=bf,textfont=it}
+\captionsetup[table]{labelfont=bf,textfont=it}
+
+% figure numeration
+\usepackage{chngcntr}
+\counterwithin{figure}{chapter}
+\counterwithin{figure}{section}
 
 
 \usepackage[a4paper,top=3cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
 
+
 %useful packages
 \usepackage{amsmath}
 \usepackage{graphicx}
-\usepackage[noend]{algpseudocode}
+\usepackage[ruled,vlined]{algorithm2e} % pseudocode
 
 % include file and not recompile it
 \usepackage{standalone}
 \usepackage{dsfont}
 
-
+% figures
+\usepackage{subfigure}
 %bibliografia
 \usepackage[backend=biber,style=numeric,autocite=plain]{biblatex}
 % include file and not recompile it
 
-\usepackage{standalone}
 
 \graphicspath{{img/}}
 \addbibresource{bibliography.bib}
@@ -51,6 +61,7 @@
 \tableofcontents
 
 \thispagestyle{empty}
+\pagenumbering{arabic}
 \input{./tex/introduction.tex}
 
 
@@ -59,7 +70,13 @@
 \input{./tex/Chapter3/chapter3.tex}
 
 
+% conclusions
+%\input{./tex/conslusions.tex}
+% appendix
+%\input{./tex/Appendix/kmeansClustering.tex}
+
 \printbibliography
+
 
 
 \end{document}
