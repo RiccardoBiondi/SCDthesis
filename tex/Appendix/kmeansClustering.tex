@@ -2,13 +2,26 @@
 \begin{document}
 	\chapter*{kmeans clustering}\addcontentsline{toc}{chapter}{Appendix A - kmenas clustering}
 	
-	In this chapter I will describe the kmeans clustering algorithm, which is the one used for the computation of the centrioids set, which corresponds to the characteristic color of each lung structure we wish to segment.\\
-	Kmeans is a clustering technique that seek to assign each point to a particular cluster in a way that minimizethe average square distance between points in the same cluster~\cite{Arthur2007}. This algorithm doesn't require a prior knowledge about the correct labels, that means that is an unsupervised techinique.\\
+	
+	
+	
+	In this appendix I will describe the kmeans clustering algorithm, which is the one used for the computation of the centroids set, which corresponds to the characteristic color of each lung structure we wish to segment. \\
+	Kmeans clustering is a clustering technique. Clustering technique are unsupervised classification technique which aims to divide data into non overlapping groups such that the data belonging to one group is similar to each other, but they are very distinct from data existing in the other groups~\cite{ART:Arshleen}~\cite{ART:Morisette}.\\ Since clustering techniques are unsupervised, aims to cluster by evaluating similarities and dissimilarities of intrinsic characteristics between clusters~\cite{ART:Morisette}, so no expected outcomes is given during method of learning~\cite{ART:Arshleen}.\\
+	Kmeans clustering seek to assign each point to a particular cluster in a way that minimize the average square distance between points in the same cluster~\cite{Arthur2007}. A vector representing the mean is used to describe each cluster, so this technique is described as a centroid model~\cite{ART:Morisette}.Each point is assigned to the cluster with the nearest mean.\\
+	
 	Given an integer $k$ and a set of $n$ data points from $\mathbb{R}^d$, the kmeans clustering seek to find $k$ centers that minimize a potential function given by the sum of squares: 
 	\begin{equation}
 		\Phi = \sum_{x\in S}\min\| x - c\|^2
 	\end{equation} 
-	Where $S\sub \mathbb R^d$ is a set of points. In this work $\mathbb{R}^d$ is the colors space and $S$ is the space of color of each voxel.
+	Where $S\subset \mathbb R^d$ is a set of points. In this work $\mathbb{R}^d$ is the colors space and $S$ is the space of color of each voxel.
 	
+	The steps of the algorithm are the following: 
+	\begin{enumerate}
+		\item Select the value of k as initial centroids
+		\item Form k cluster by allocating every point to its most nearest centroid
+		\item Recalculate the centroid for each cluster until the centroid does not change.
+
+	\end{enumerate}
 	
+	Arthur and Vassilvitskii ~\cite{Arthur2007} have pointed that this algorithm is not accurate and can produce arbitrarily bad clusters. So they have developed a popular algorithm, the "kmeans++" which improves the clustering accuracy by made an accurate choice of the initial cluster centers. 
 \end{document}

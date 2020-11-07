@@ -2,7 +2,7 @@
 	
 	\subsection{Training}
 	
-	This step consist in the estimation of the centroids of the color space. Is really time consung, but it is performed only once, so during the actual segmentation the corresponding script isn't run.\\
+	This step consist in the estimation of the centroids of the color space. May be  really time consuming, but it is performed only once, so during the actual segmentation the corresponding script isn't run.\\
 	To achieved the estimation of centroids, a kmeans clustering of the multichannel images of several CT scan from different patients is performed. 
 	Since to achieve a correct estimation a huge amount of scan must be provided, this task is time consuming an computational expansive, however is performed only once and isn't directly involved in the actual segmentation, so doesn't affect the segmentation time.\\
 	The achievement of this task involves two main steps : 
@@ -19,42 +19,44 @@
 		\begin{itemize}
 			\item Pure image; 
 			\item Median Blurred; 
-			\item Edges 
-			\item Standard Deviation map. 
+			\item Local Percentile filtered
+			\item Maximum eigenvalues map 
 		\end{itemize}
 	
-		\begin{figure}[h]\label{fig:MultiChannel}
+		\begin{figure}[h]
 			\centering
-				\includegraphics[scale=.55]{MultiChannel.png}
-			\caption{}
+				\includegraphics[scale=.55]{Multi_Channel.png}
+			\label{fig:MultiChannel}\caption{Image used for each dimension of the color space from left to right and from top to bottom we have the pure image, the median blurred image, the maximum eugenvalues map  and the percentile filtered.}
 		\end{figure}
 	
-		In \figurename\,\ref{fig:MultiChannel} I've displayed the 4 different channel of the image. The pure image will provides information about the tissue displayed in the single voxel; the median blurred allow us to consider information about the tissue surrounding each particular voxel, since lesions usually involves several group of voxels. The std map consist into the replacement of each voxel alue with the standard deviation of its neighborhood. This allow us to discriminates between the various regions and the edges, since we assume an intra-region homogeneity. Moreover this channel allow us to better discriminates bronchial regions from lesions, since bronchi have an elongated and thin structure that read in an higher std value on the neighborhood. In the end the last channel is a median blur of the edge map, which allow us to enhance the lesion regions, since presents an high number of edges.\\
+		In \figurename\,\ref{fig:MultiChannel} I've displayed the 4 different channel of the image. Each channel allow us to consider different information:\\ 
+		The pure image will provides information about the tissue displayed in the single voxel; 
+		The median blured image and the percetile filtered, allow us to consider also information about the tissue surrounding each particular voxel, since lesions usually involves several group of voxels.\\
+		In the end the maximum eigenvalues map allow us to consider also shape information. A source of error was the bronchial structures and the motion artifacts. Usually this features have a thin and elongated shape, in contrast with the lesion areas which are less thin or less elongated. Elongated structures presents na eigenvalues higher than the other. pn the other hand rounded structure presents eigenvalues more or less equal. This map allow us to discriminate between actual lesion regions and bronchial structures and motion artifacts.  In this way we are able to reduce the false positives caused by this kind of artifacts.
 		
 		The first step consist into the construction of the multichannel image of for each input series, after that all the images are shuffled and divided into several subsamples. The creation of several subsamples is made since the creation of a single, huge array with several images is not always possible, since requires a huge quantity of memory to be allocated, so we have chose to divide all the images into several subsamples and cluster them independently, after that a clustering on the estimated centroids is performed.\\
 
 		
 		\subsubsection*{Clustering} 
 		
-		This step consist into the performing of the kmeans clustering for the centroids estimation. To perform this task I've used the OpenCV algorithm, which provides an optimized implementation of the algorithm for multi channel images. A first clustering is applied on each subsaple, resulting in a set of centroids for each one of them. On this set is applied a second clustering, which provides the actual centroids. In both of the clustering, the initial centroids set is initialized by using the kmeans ++ algorithm, which allows to improve speed and accuracy of the clustering algorithm~\cite{Arthur2007}.
-		During this task we have to manage some issues. As we can see from \figurename\,\ref{fig:ClusteringHistogram} the number of voxel with $GL = 0$  is several order of magnitude higher than for other $GL$. As prior we know that these voxels belongig from background, so this cluster is over rapresented. Since kmenas cluster requres na homogenous representation for each cluster, this may raise problem during the centroids estimation. In order to overcome this issue we have simply removed this voxels from the clustering.  
+		This step consist into the performing of the kmeans clustering for the centroids estimation. To perform this task I've used the OpenCV algorithm, which provides an optimized implementation of the algorithm for multi channel images. A first clustering is applied on each sub-sample, resulting in a set of centroids for each one of them. On this set is applied a second clustering, which provides the actual centroids. In both of the clustering, the initial centroids set is initialized by using the kmeans ++ algorithm, which allows to improve speed and accuracy of the clustering algorithm~\cite{Arthur2007}.
+		During this task we have to manage some issues. As we can see from \figurename\,\ref{fig:ClusteringHistogram} the number of voxel with $GL = 0$  is several order of magnitude higher than for other $GL$. As prior we know that these voxels belonging from background, so this cluster is over represented. Since kmeans cluster requires an homogenous representation for each cluster, this may raise problem during the centroids estimation. In order to overcome this issue we have simply removed this voxels from the clustering.  
 		
 
-		\begin{figure}[h]\label{fig:ClusteringHistogram}
+		\begin{figure}[h]
 			\centering
 				\includegraphics[scale=.5]{PlaceHolder.png}
-				\centering{}
+					\label{fig:ClusteringHistogram}\centering{Histogram of the multichannel image to cluster, we can clearly see the overrepresented cluster at $0$ GL}
 		\end{figure}
 		
-	An other problem may be the estimation of the correct number of clusters. Kmeans clustering requires a prior knowledge on the number of clusters which is a crucial choice. In our case the anatomical knowledge about the lung may help, since we can consider one cluster for each anatomical structure. In the end we have found that 4 cluster are an optimal choice, and the considered structures are the following: 
+	An other problem may be the estimation of the correct number of clusters. Kmeans clustering requires a prior knowledge on the number of clusters which is a crucial choice. In our case the anatomical knowledge about the lung may help, since we can consider one cluster for each anatomical structure. In the end we have found that 3 clusters are an optimal choice, and the considered structures are the following: 
 	\begin{itemize}
 		\item Lung Parenchima;
 		
-		\item Ground Glass Opacities;
+		\item Ground Glass Opacities and consolidation;
 		
 		\item Bronchi;
-		
-		\item Eventual noise and motion artifacts. 
+
 	\end{itemize}
 
 	

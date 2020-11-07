@@ -20,13 +20,14 @@
 	text localization/detection, non photorealistic rendering and content-based retrieval~\cite{ART:Ozturk}.\\
 	
 	
-	In this work I've applied this technique to segment CT scans of patients affected by COVID-19. Use this technique as medical image segmentation implies that each different tissue is assigned to a particular color(properly it is a range of colors since the image is affected by noise and also the tissue may not have the same density in each point)so must exist a relationship between the kind of tissue and the color used to represent it. In case of CT scans this relation is given by the Hounsfield Units(HU) : voxels colors are proportional to HU, which are defined as a linear transformation of the linear attenuation coefficient($\mu$). HU normalize the $\mu$ of a particular tissue according to a reference one, usually water($\mu_{H_2 O}$), ss we can see in equation\,\ref{eq:HU} : 
+	In this work I've applied this technique to segment CT scans of patients affected by COVID-19. Use this technique as medical image segmentation implies that each different tissue is assigned to a particular color(properly it is a range of colors since the image is affected by noise and also the tissue may not have the same density in each point)so must exist a relationship between the kind of tissue and the color used to represent it. 
+	For CT scan which are in gray scale, each color is represented by a single value given by the Hounsfield Units(HU) : voxels colors are proportional to HU, which are defined as a linear transformation of the linear attenuation coefficient($\mu$). HU normalize the $\mu$ of a particular tissue according to a reference one, usually water($\mu_{H_2 O}$), ss we can see in equation\,\ref{eq:HU} : 
 	
 	\begin{equation}\label{eq:HU}
 		HU = k\times\frac{\mu - \mu_{H_2 O}}{\mu_{H_2 O}}
 	\end{equation}
 	Where $\mu_{H_20}$ is the linear attenuation coefficient of the water, $\mu$ is the linear attenuation coefficient of the tissue in the voxel and $k$ is a multiplicative constant, which can be $1000$ or $1024$ depending on the manufacturer of the CT scan.	
-	In the end each color results proportional to the linear attenuation coefficient, different from each tissue, so exist a relation between the GL and the tissue type which is exploit by its intensity, that makes this techniques available. \\
+	In the end each color results proportional to the linear attenuation coefficient, different from each tissue, so exist a relation between the GL and the tissue type that makes this techniques available. \\
 	
 	Color quantization and the properties of digital images allow us to consider also other properties of the image besides the single voxel intensity.
 	This purpose can be achieved by building a suitable color space: \\
@@ -34,20 +35,11 @@
 	and the last one the number of channels. Gray scale images requires only one channel, so each pixel has a numeric values whose range may change 
 	according to the image format. On the other hand color images requires 3 channels, and the value of each channel represent the level of the primary 
 	color stored in this particular channel, so each color is represented by 3 different values, according to Young model. \\
-	In our case we have decided to use more than 3 channels and each one of them incorporates different information about the image lijke 
-	features like image edges and median neighbouring voxel intensity. This information are useful since lesions areas involves many closest voxel, not only a single one.
+	In this work the different channel are used to takes in account different properties, exploited by the application of different filters. This allow us to consider also neighbouring pixels, that is really suitable for the segmentation since the  lesions areas involves many closest voxel, not only a single one. We have also used this features to discriminate between and other lung regions like bronchi by exploit spatial information.\\
 	
 	Once we have build the color space, we have to found the characteristic color of each tissue under study, which is represented by a centroids in the color space. In order to perform this task and achieve the centroid estimation a simple kmeans clustering was used, since it provides a suitable segmentation with good time performances and it is efficiently implemented for multi-channel images in OpenCV~\cite{OpenCV}. 
-	Kmeans clustering requires a prior knowledge about the number of cluster, which in our case is given by the anatomical structure of the lung, so each cluster will correspond to a different anatomical structure: 
-	\begin{itemize}
-		\item Total lung parenchima;
-		\item Bronchial and vessels;
-		\item \textbf{GGO}, which is the cluster in which we are interested in;
-		\item Eventual noise;
-	\end{itemize}
-
-	
-	Once we have estimated the centroids for each tissue, we use that for the actual segmentation, by assign each voxel to the cluster of the closest centroids: int this way the estimation step, that we will call "training", needs to be performed only once, so can be time expansive since is not involved in the actual segmentation.\\
+	Kmeans clustering requires a prior knowledge about the number of cluster, which in our case is given by the anatomical structure of the lung, so each cluster will correspond to a different anatomical structure.\\
+	Once we have estimated the centroids for each tissue, we use that for the actual segmentation, by assign each voxel to the cluster of the closest centroids: in this way the estimation step, that we will call "train", needs to be performed only once, so can be time expansive since is not involved in the actual segmentation.\\
 
 
 	

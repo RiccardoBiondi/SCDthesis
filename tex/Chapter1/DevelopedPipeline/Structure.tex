@@ -2,21 +2,21 @@
 \begin{document}
 	\subsection{Pipeline Structure}
 	
-	In this section I will discuss the general structure of the pipeline, more details about the actual implementation will be given in the next chapter. As I've said before the pipeline is divided into two main phases, one for the centroids estimation, which is performed only once, and one of the actual segmentation, which is performed at least once for each scan to segment. Before each of these step we need also a preliminary step to achieve pre processing and a lung region isolation, useful to focus the segmentation in the region of interest and to avoid false positives.\\
+	In this section I will discuss the general structure of the pipeline, more details about the actual implementation will be given in the next chapter.
+	To perform the color quantization I've to found the characteristic color(centroids in the color space) of each tissue and use these colors for the actual segmentation, so the pipeline will be divided int two main steps. Before each of these steps we need a preliminary phase that aim to isolate the lung regions in order to exclude the extra lung areas and reduce the false positives.
 	In the end the pipeline structure is divided in three main blocks as we can see in \figurename\,\ref{fig:Pipeline} : 
 	\begin{itemize}
-		\item \textbf{Pre-Processing and lung extraction}: Preliminary step, involves registration and isolation of lung regions;
-		\item \textbf{Training} : involves the estimation of the centroids, is performed only ones; 
-		\item \textbf{Labeling} : involves the assignement of each voxel to the cluster of the closest centroids, it is the actual segmentation.
+		\item \textbf{Pre-Processing and lung extraction}: Preliminary step, involves registration of HU and isolation of lung regions;
+		\item \textbf{Training} : estimation of the centroids, is performed only ones; 
+		\item \textbf{Labeling} :  assignment of each voxel to the cluster of the closest centroids, it is the actual segmentation.
 	\end{itemize}
 	
 		
-	\begin{figure}[h!]\label{fig:Pipeline}
+	\begin{figure}[h!]
 		\centering 
-		\includegraphics[width=.7\textwidth]{Pipeline.png}
-		\caption{Flow chart of the main structure of the developed pipeline. The training process, which allows the estimation of the centroids, is perfromed only one time.}
+			\includegraphics[width=.7\textwidth]{Pipeline.png}
+		\label{fig:Pipeline}\caption{Flow chart of the main structure of the developed pipeline. The training process, which allows the estimation of the centroids, is perfromed only one time.}
 	\end{figure} 
-	
 	
 	\subsubsection*{Pre Processing and Lung Extraction}
 	
@@ -26,21 +26,24 @@
 	
 	\subsubsection*{Training}
 	
-	This step involves the estimation of the centroids for each tissue. This step requires different patients, in order to have a good statistical representation of each structure, this the kmeans requires an homogeneous representation of each cluster. This makes the entire process time consuming and computational expansive,but, as I've said before, this process need to be performed only once, so isn't involved in the actual segmentation and doesn't affect the segmentation time.\\ The implementation of this step involves the building of the multichannel image, to takes into account the different features of the images like neighborhooding voxel intensity or edges, the managing of the over represented clusters like the background and the actual centroids estimation via kmeans clustering. All of these steps will be discuss in details in the next session.
+	This step involves the estimation of the centroids for each tissue. To achieve this purpose we have chose to perform a clustering by using the kmeans algorithm. We have to takes into account that the kmenas clustering requires an homogeneous representation for each cluster. As we will see we have to to manage this problem. One way to overcome this issue is to select several CT scans, which may be time consuming, or we can carefully select only one scan which provides an homogeneous representation of each cluster, as I've done in this work.\\
+	In summary, the implementation of this step involve the building of the multi-channel image, which allow us to takes into account also the neighbouring information, the managing of the over represented clusters  and the actual centroids estimation.
 
-	
 	\subsection*{Labeling}
 	
-	This step involves the actual segmentation. The script which perform it requires as inputs the image after the lung extraction, and the previously estimated centroids. This block of the pipeline simply assign each voxel to the cluster corresponding to the nearest centroids and the end of the procedure only the cluster corresponding to the GGO are provided. In this way we are performing a pixel classification by assign regions to a particular labels according only to intensities information, without exploiting spatial information: this allow us to group on the same cluster objects that are spatially disconnected as often happen in medical imaging field. 
-	To found the closest centroids we simply compute the euclidean distance between each voxel and each centroids and assign the vocxel to the closest cluster.
+	This step involves the actual segmentation. The script which perform it requires as inputs the CT scans after the lung extraction, and the previously estimated centroids. This block of the pipeline simply assign each voxel to the cluster corresponding to the nearest centroids and the select only the one corresponding to GGO and CS. In this way we are performing a pixel classification by assign regions to a particular labels according only to intensities information, without exploiting spatial information: this allow us to group on the same cluster objects that are spatially disconnected as often happen in medical imaging field.\\
+	The distance between voxel color and each centroid is defined as euclidean distance :
+	\begin{equation*}
+		d(x_j, c_i) = \sqrt{(x_j - c_i)^2}
+	\end{equation*} 
+	Where $x_j$ is the color vector for the $jth$ voxel and $c_i$ is the $ith$ centroid.\\
 	
-	In the end, once we have estimated the centroids, the segmentation pipeline will results of only two steps, as shown in \figurename\,\ref{fig:FinalPipeline} , in which we can observe the flowchart of each step with an image that shown the partial results.
+	To summarize, once the centroids are estimated, the segmentation pipeline will results in $2$ main steps : \textbf{lung extraction} and \textbf{labeling}, as shown in  \figurename\,\ref{fig:FinalPipeline} n which we can observe the flowchart of each step with an image that shown the partial results.
 	
-	
-	\begin{figure}\label{fig:FinalPipeline}
+	\begin{figure}
 		\centering
 			\includegraphics[width=.75\textwidth]{final_pipeline.png}
-			\caption{Actual segmentation step, from left to right we can see the input image stack, the isolated lung regions and the final label. To performed the labeling a set of pre-computed centroids was used.}
+			\label{fig:FinalPipeline}\caption{Actual segmentation step, from left to right we can see the input image stack, the isolated lung regions and the final label. To performed the labeling a set of pre-computed centroids was used.}
 	\end{figure}
 	
 	

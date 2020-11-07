@@ -7,7 +7,7 @@
 	To achievement of the lung extraction involves 3 main steps: 
 	  
 	\begin{enumerate}
-		\item \textbf{Pre-Processing} :  Which register the HU in a common space, crop the outliers, and denoise the image;
+		\item \textbf{Pre-Processing} :  Which register the HU in a common space, crop the outliers, and de-noise the image;
 		
 		\item \textbf{Thresholding and reconstruction} : Which is the actual segmentation, that takes care to preserve all the intra-lung regions exept for the main bronchial structures.
 		
@@ -17,18 +17,18 @@
 	
 	\subsubsection{Pre-processing} 
 	
-	As I've said before, the $k$ constant in the HU definition (equation\,\ref{eq:HU}) may change according to the scan manufacturer or scan model. Moreover, during the scan acquisition, all the regions outside the CT tube aren't sampled, so the padding values, to obtain a square $N\times N$ image for each slice, are different according to the scan, for instance in the CT scan in \figurename\,\ref{fig:Pre-Processing}(a) the padding value is $-3000 HU$ and the air value is $-1024$. So the first thing to do is to make the padding value and the air value equal for each scan considered and shift them to $0$, because for the de-noising operation we need to works with unsigned int 16-bit gray scale image.\\
+	As I've said before, the $k$ constant in the HU definition (equation\,\ref{eq:HU}) may change according to the scan manufacturer or scan model. Moreover, during the scan acquisition, all the regions outside the CT tube aren't sampled, so to obtain a square $N\times N$ image for each slice some padding values are added, which different values according to the scan manufacturer: for instance in the CT scan in \figurename\,\ref{fig:Pre-Processing}(a) the padding value is $-3000 HU$ and the air value is $-1024$. The first thing to do is to make the padding value and the air value equal for each scan considered and shift them to $0$, because for the de-noising operation we need to works with unsigned int 16-bit gray scale image.\\
 	May also happen that some Hu are out of range, that because some patients may have metallic prosthesis that make the so called \textit{metallic artifacts}. However we haven't to worry about this kind of artifacts because they will involves only body regions and not the lung ones,and so are removed during this step.
-	In \figurename\,\ref{fig:Pre-Processing}(a) we can see the histogram of a CT scan before the pre processing, were it is clear the peak around $-3000\,HU$ of the padding values and the peck around $-1024\,HU$ of the air value. In \figurename\,\ref{fig:Pre-Processing}(b) we can observe the histogram of the same scan after this pre-processing step, it is clear that both the padding and air values are set equal and shifted to zero, making positives all the other units.
+	In \figurename\,\ref{fig:Pre-Processing}(b) we can observe the histogram of the same scan after this pre-processing step, it is clear that both the padding and air values are set equal and shifted to zero, making positives all the other units.
 	
-	\begin{figure}[h]\label{fig:Pre-Processing}
+	\begin{figure}[h]
 		\centering
 		\subfigure[Histogram of a CT scan before registration]
-		{\includegraphics[scale=.4]{HU_before_rescaling.png}}
+			{\includegraphics[scale=.4]{HU_before_rescaling.png}}
 		%\hspace{1mm}
 		\subfigure[Histogram of a CT scan after the registration]
-		{\includegraphics[scale=.4]{HU_after_rescaling.png}}
-		\caption{Histogram of voxel values before and after the pre-processing. We can observe that before the pre processing there are some HU out of range, which are the values used to fill the regions outside the tube, and the air value is around $-1000\,HU$ according to HU definition. After the rescaling we can observe that all the values are non-negatives.}
+			{\includegraphics[scale=.4]{HU_after_rescaling.png}}
+		\label{fig:Pre-Processing}\caption{Histogram of voxel values before and after the pre-processing. We can observe that before the pre processing there are some HU out of range, which are the values used to fill the regions outside the tube, and the air value is around $-1000\,HU$ according to HU definition. After the rescaling we can observe that all the values are non-negatives.}
 	\end{figure}
 	
 	
@@ -58,20 +58,20 @@
 	
 	
 	
-	\begin{figure}[h]\label{fig:lungSelection}
+	\begin{figure}[h]
 		\centering
 		\subfigure[]
-		{\includegraphics[scale=.4]{PlaceHolder.png}}
+		{\includegraphics[scale=.65]{before_cc.png}}
 		%\hspace{1mm}
 		\subfigure[]
-		{\includegraphics[scale=.4]{PlaceHolder.png}}
-		\caption{}
+		{\includegraphics[scale=.65]{after_cc.png}}
+		\label{fig:lungSelection}\caption{3D rendering of the selected lung structure. In figure (a) we can see the volume selected after the threshold. It possible to see that also the intestine is selected along with extra lung regions. In figure (b) the selected volume after the connected compoents. We can obseve how all the extra lung regions are correctly removed.} 
 	\end{figure}
 	
 	On the other end the intestine is disconnected from the lung regions, since are structures anatomically disconnected. So we can use this characteristics to select only the lung. To perform this step I've used a suitable function from SimpleITK, which allow us to found the connected components by considering the whole image tensor, this means that we are able to found the connected components by considering all the 3 dimensions. At the end of the process, the components with the higher volume is the one corresponding to the lung and trachea regions, so we can simply select this component to achieve a correct selection of lung, as we see in \figurename\,\ref{fig:lungSelection}(b).
 	
 	
-	In this way a lung mask is created and its applied to the pre-process image. THe results will be saved in '.nii' format, which allows to preserve the spatial information about the voxel.
+	In this way a lung mask is created and its applied to the pre-process image. The results will be saved in '.nii' format, which allows to preserve the spatial information about the voxel.
 	
 	
 	
