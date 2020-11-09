@@ -15,9 +15,10 @@
 	
 	SimpleITK is a simplified programming interface to the algorithms and data structures of the Insight Toolkit (ITK) that support many programming languages. The library provides a simplified interface to use Insight Toll Kit(ITK) library. 
 	Insight Tool Kit (ITK) is an open source library which provides an extensive suite of tools for image analysis, developed since 1999 by US National Library of Medicine of the National Institutes of Health.This library provides tool useful to works also with N-dimensional images. 
-	This library provides a powerful tools for the reading and writing of the image. Since ITK, ans so SimpleITK,  consider the image like spatial object and not like arrays of values, it store also infomation about voxel spacing, size and origins, provided as wall as the array, this makes us able to works only with the array by using numpy or OpenCV, by preserving the spatial information of the image. This library allow also to process the whole image volume, allowing 3D operations, which are used into many steps of the pipeline.
+	This library provides a powerful tools for the reading and writing of the image. Since ITK, ans so SimpleITK,  consider the image like spatial object and not like arrays of values, it store also information about voxel spacing, size and origins, provided as wall as the array, this makes us able to works only with the array by using numpy or OpenCV, by preserving the spatial information of the image. This library allow also to process the whole image volume, allowing 3D operations, which are used into many steps of the pipeline.
 	
 	 \subsection{scikit-image}
+	 scikit-image~\cite{scikit-image} is an image processing library that implements algorithms and utilities for use in research, education and industry applications. scikit-image implements a rich collection of image processing functions implemented in python. The implemented filters are used when a corresponding implementation in OpenCV was not available. In particular the functions to compute the hessian filter and the percentile filter are extended to the whole stack of images. This library, like OpenCV, consider the image as an array, so doesn't used the spatial information about voxels.
 	
 	 
 \end{document}

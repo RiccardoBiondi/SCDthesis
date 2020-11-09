@@ -26,27 +26,27 @@
 		\begin{figure}[h]
 			\centering
 				\includegraphics[scale=.55]{Multi_Channel.png}
-			\label{fig:MultiChannel}\caption{Image used for each dimension of the color space from left to right and from top to bottom we have the pure image, the median blurred image, the maximum eugenvalues map  and the percentile filtered.}
+			\label{fig:MultiChannel}\caption{Image used for each dimension of the color space from left to right and from top to bottom we have the pure image, the median blurred image, the maximum eigenvalues map  and the percentile filtered.}
 		\end{figure}
 	
 		In \figurename\,\ref{fig:MultiChannel} I've displayed the 4 different channel of the image. Each channel allow us to consider different information:\\ 
 		The pure image will provides information about the tissue displayed in the single voxel; 
-		The median blured image and the percetile filtered, allow us to consider also information about the tissue surrounding each particular voxel, since lesions usually involves several group of voxels.\\
+		The median blurred image and the percentile filtered, allow us to consider also information about the tissue surrounding each particular voxel, since lesions usually involves several group of voxels.\\
 		In the end the maximum eigenvalues map allow us to consider also shape information. A source of error was the bronchial structures and the motion artifacts. Usually this features have a thin and elongated shape, in contrast with the lesion areas which are less thin or less elongated. Elongated structures presents na eigenvalues higher than the other. pn the other hand rounded structure presents eigenvalues more or less equal. This map allow us to discriminate between actual lesion regions and bronchial structures and motion artifacts.  In this way we are able to reduce the false positives caused by this kind of artifacts.
 		
-		The first step consist into the construction of the multichannel image of for each input series, after that all the images are shuffled and divided into several subsamples. The creation of several subsamples is made since the creation of a single, huge array with several images is not always possible, since requires a huge quantity of memory to be allocated, so we have chose to divide all the images into several subsamples and cluster them independently, after that a clustering on the estimated centroids is performed.\\
+		The first step consist into the construction of the multichannel image of for each input series, after that all the images are shuffled and divided into several sub-samples. The creation of several sub-samples is made since the creation of a single, huge array with several images is not always possible, since requires a huge quantity of memory to be allocated, so we have chose to divide all the images into several sub-samples and cluster them independently, after that a clustering on the estimated centroids is performed.\\
 
 		
 		\subsubsection*{Clustering} 
 		
 		This step consist into the performing of the kmeans clustering for the centroids estimation. To perform this task I've used the OpenCV algorithm, which provides an optimized implementation of the algorithm for multi channel images. A first clustering is applied on each sub-sample, resulting in a set of centroids for each one of them. On this set is applied a second clustering, which provides the actual centroids. In both of the clustering, the initial centroids set is initialized by using the kmeans ++ algorithm, which allows to improve speed and accuracy of the clustering algorithm~\cite{Arthur2007}.
-		During this task we have to manage some issues. As we can see from \figurename\,\ref{fig:ClusteringHistogram} the number of voxel with $GL = 0$  is several order of magnitude higher than for other $GL$. As prior we know that these voxels belonging from background, so this cluster is over represented. Since kmeans cluster requires an homogenous representation for each cluster, this may raise problem during the centroids estimation. In order to overcome this issue we have simply removed this voxels from the clustering.  
+		During this task we have to manage some issues. As we can see from \figurename\,\ref{fig:ClusteringHistogram} the number of voxel with $GL = 0$  is several order of magnitude higher than for other $GL$. As prior we know that these voxels belonging from background, so this cluster is over represented. Since kmeans cluster requires an homogeneous representation for each cluster, this may raise problem during the centroids estimation. In order to overcome this issue we have simply removed this voxels from the clustering.  
 		
 
-		\begin{figure}[h]
+		\begin{figure}[h!]
 			\centering
-				\includegraphics[scale=.5]{PlaceHolder.png}
-					\label{fig:ClusteringHistogram}\centering{Histogram of the multichannel image to cluster, we can clearly see the overrepresented cluster at $0$ GL}
+				\includegraphics[scale=.5]{HistMC.png}
+					\label{fig:ClusteringHistogram}\caption{Histogram of the multichannel image to cluster, we can clearly see the overrepresented cluster at $0$ GL}
 		\end{figure}
 		
 	An other problem may be the estimation of the correct number of clusters. Kmeans clustering requires a prior knowledge on the number of clusters which is a crucial choice. In our case the anatomical knowledge about the lung may help, since we can consider one cluster for each anatomical structure. In the end we have found that 3 clusters are an optimal choice, and the considered structures are the following: 

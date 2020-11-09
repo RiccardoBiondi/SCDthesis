@@ -35,10 +35,10 @@
 	
 	Before starting the actual lung segmentation, we need to performs a de-noising operations, which allow us to increase the differences between the GL of the body regions, and to sharp the edges. According to the procedure described in ~\cite{ART:Abdullah}, I've used the bit plane slices. This approach allows to use the way in which each numerical values is stored in the computer by converting  each values with its binary representation, this allows us to construct an image in which each voxel intensity is given only by the bits representing the regions multiplied by their significance.
 	
-	\begin{figure}[h]\label{fig:BinaryRepr}
+	\begin{figure}[h]
 		\centering
 			\includegraphics[scale=.45]{bit_plane_slices.png}
-		\caption{}
+		\label{fig:BinaryRepr}\caption{Images corresponding to each one of the 16 bits. The image form the $1\,st$ to the $8\,th $ bit carry only noise, and the images form the $12\,th$ to the $161,th$ doesn't  contains any information. The de noised image is composed of the $9\,th,\,10th,\,and 11\,th$ bits times their significance. }
 	\end{figure}
 
 	In \figurename\,\ref{fig:BinaryRepr} are displayed the images for each bit. As we can see all the bits from the 1st to the 11th doesn't carry any useful information but only noise, on the other and the bits from the 12th to the 16th aren't used in the image representation. In the end the de-noised image is constructed by using only the 9th, 10th and 11th bits times their significance that is defined as $significance = 2^{bit}$
@@ -69,6 +69,17 @@
 	\end{figure}
 	
 	On the other end the intestine is disconnected from the lung regions, since are structures anatomically disconnected. So we can use this characteristics to select only the lung. To perform this step I've used a suitable function from SimpleITK, which allow us to found the connected components by considering the whole image tensor, this means that we are able to found the connected components by considering all the 3 dimensions. At the end of the process, the components with the higher volume is the one corresponding to the lung and trachea regions, so we can simply select this component to achieve a correct selection of lung, as we see in \figurename\,\ref{fig:lungSelection}(b).
+	
+	\subsubsection*{Motion Artifact Removal}
+	
+	Once we have found a mask for the lung, we have to manage the motion artifacts. This artifacts are related to cardiac or respiratory motion, and interfere with the identification of infection areas, since they are identified like ground glass regions.  In this step we remove this kind of artifacts in order to reduce the number o false positives.\\ As we can see in  \figurename\,\ref{fig:Motion} this kind of artifacts are usually located near lung or heart regions and have an elongated form. The application of an hybrid hessian filter allow us to compute the contiguos edges, and in this way we are able to create a mask for the lung regions. However this method is not precise and can remove also interesting lung regions, so after that a reconstruction process is performed.\\
+	
+	\begin{figure}[h!]
+		\centering
+			\includegraphics[scale=1.5]{Motion.png}
+			\caption{From left to right the image with motion artifacts, the created mask and the image after the removal}
+			\label{fig:Motion}
+	\end{figure}
 	
 	
 	In this way a lung mask is created and its applied to the pre-process image. The results will be saved in '.nii' format, which allows to preserve the spatial information about the voxel.
