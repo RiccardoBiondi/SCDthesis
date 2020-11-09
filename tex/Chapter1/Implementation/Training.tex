@@ -32,7 +32,7 @@
 		In \figurename\,\ref{fig:MultiChannel} I've displayed the 4 different channel of the image. Each channel allow us to consider different information:\\ 
 		The pure image will provides information about the tissue displayed in the single voxel; 
 		The median blurred image and the percentile filtered, allow us to consider also information about the tissue surrounding each particular voxel, since lesions usually involves several group of voxels.\\
-		In the end the maximum eigenvalues map allow us to consider also shape information. A source of error was the bronchial structures and the motion artifacts. Usually this features have a thin and elongated shape, in contrast with the lesion areas which are less thin or less elongated. Elongated structures presents na eigenvalues higher than the other. pn the other hand rounded structure presents eigenvalues more or less equal. This map allow us to discriminate between actual lesion regions and bronchial structures and motion artifacts.  In this way we are able to reduce the false positives caused by this kind of artifacts.
+		In the end the maximum eigenvalues map allow us to consider also shape information. A source of error was the remaining bronchial structures and  motion artifacts. Usually this features have a thin and elongated shape, in contrast with the lesion areas which are less thin or less elongated. Elongated structures presents an eigenvalues higher than the other. pn the other hand rounded structure presents eigenvalues more or less equal. This map allow us to discriminate between actual lesion regions and bronchial structures and motion artifacts.  In this way we are able to reduce the false positives caused by this kind of artifacts.
 		
 		The first step consist into the construction of the multichannel image of for each input series, after that all the images are shuffled and divided into several sub-samples. The creation of several sub-samples is made since the creation of a single, huge array with several images is not always possible, since requires a huge quantity of memory to be allocated, so we have chose to divide all the images into several sub-samples and cluster them independently, after that a clustering on the estimated centroids is performed.\\
 
@@ -68,7 +68,7 @@
 		
 		
 	\begin{algorithm}
-	\label{alg:training}
+	
 	\SetAlgoLined
 	\DontPrintSemicolon
 	
@@ -114,8 +114,8 @@
 	centroid\_vector$\leftarrow$kmeans\_on\_subsamples(subsamples, n\_centroids)\;
 	centroid$\leftarrow$kmeans\_clustering(centroid\_vector, n\_centroids)\;
 	
-	\caption{Pseudo-code for the training script}
-	\label{Training Function}
+	\label{alg:training}\caption{Pseudo-code for the training script}
+	
 \end{algorithm}
 
 	

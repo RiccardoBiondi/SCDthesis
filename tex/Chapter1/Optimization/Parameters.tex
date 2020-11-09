@@ -7,7 +7,7 @@
 	To build this routine I've used the tools given by scikit-optimize library. The idea behind the optimization process is very simple but requires some ground truth labels. I've simply generates many set of parameters, train the centroids with this set and label some images, after that I've compute the according of this labels with ground truth ones. After that I've simply chose the set of paramenter which guarantees the best according with the references. The whole procedure is sketched in \figurename\,\ref{alg:optimize}
 	
 	\begin{algorithm}[h!]
-		\label{alg:optimize}
+	
 		\SetAlgoLined
 		\DontPrintSemicolon
 		\SetKwRepeat{Do}{do}{while}%
@@ -23,7 +23,7 @@
 				best\_paramenters$\leftarrow$ parameters\;}
 			old\_iou$\leftarrow$iou}
 		
-		\caption{Parameter Optimization Algorithm}
+			\label{alg:optimize}\caption{Parameter Optimization Algorithm}
 	\end{algorithm}
 		
 		
