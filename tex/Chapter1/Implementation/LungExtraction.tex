@@ -43,7 +43,7 @@
 		\label{fig:BinaryRepr}\caption{Images corresponding to each one of the 16 bits. The image form the $1\,st$ to the $8\,th $ bit carry only noise, and the images form the $12\,th$ to the $161,th$ doesn't  contains any information. The de noised image is composed of the $9\,th,\,10th,\,and 11\,th$ bits times their significance. }
 	\end{figure}
 
-	In \figurename\,\ref{fig:BinaryRepr} are shown the images corresponding to ech one of the 16-bit represented as binary imagesn and not as . As we can see all the bits from the 1st to the 11th doesn't carry any useful information but only noise, on the other and the bits from the 12th to the 16th aren't used in the image representation. In the end the de-noised image is constructed by using only the 9th, 10th and 11th bits times their significance that is defined as $significance = 2^{bit}$
+	In \figurename\,\ref{fig:BinaryRepr} are shown the images corresponding to each one of the 16-bit represented as binary images and not as significance. As we can see all the bits from the 1st to the 11th doesn't carry any useful information but only noise, on the other hand the bits from the 12th to the 16th aren't used in the image representation. In the end the de-noised image is constructed by using only the 9th, 10th and 11th bits times their significance that is defined as $significance = 2^{bit}$
 	In this way we have constructed an image in which the noise is highly reduced and the different regions are well separated.\\
 	After these procedures the scan is ready for the actual lung segmentation.
 	
@@ -51,7 +51,7 @@
 
 	\subsubsection*{Thresholding and reconstruction}
 	
-	For the actual lung segmentation we have found that the most suitable technique is simply a global fixed threshold, since now the GL of the different body regions are well separated. This allow us to include all the intra-lung regions including the GGO, which are usually dropped if an adaptive threshold, like otsu, is performed.
+	For the actual lung segmentation we have found that the most suitable technique is simply a global fixed threshold, since now the GL of the different body regions are well separated. This allow us to include all the intra-lung regions including the GGO, which are usually dropped if is applied an adaptive threshold, like otsu.
 	However after this process  also extra lung regions, like intestine are segmented as lung. This is the reason why we need the next step which allow to select only the lung regions.
 	
 	\subsubsection*{Lung Selection}

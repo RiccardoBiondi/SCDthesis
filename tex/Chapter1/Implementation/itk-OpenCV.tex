@@ -3,7 +3,7 @@
 	
 	\subsection{Frameworks}
 	
-	In order to perform all the necessary image processing operations both involving 2D and 3D filters, to perform the color quantization and to manage the input and output medical image format, I've used mainly two libraries for image processing and computer vision. Both of the libraries has been written on C++ but has multi language support. I've performed all the 2D image processing operations like median blurring or filter application by using OpenCV~\cite{OpenCV}. For the managing of medical image formats, ensuring the preservation of voxel spatial information, and for the 3D operations, I've used SimpleITK. To perform all the image filtering that aren't implemented in OpenCV like entropy calculation or percentile filter application I've used also scikit-image, which provides a large set of image processing tools.
+	In order to perform all the necessary image processing operations both involving 2D and 3D filters, to perform the color quantization and to manage the input and output medical image format, I've used mainly three libraries for image processing and computer vision. Two of the three libraries has been written on C++ but has multi language support. I've performed all the 2D image processing operations like median blurring or filter application by using OpenCV~\cite{OpenCV}. For the managing of medical image formats, ensuring the preservation of voxel spatial information, and for the 3D operations, I've used SimpleITK. To perform all the image filtering that aren't implemented in OpenCV like hybrid hessian filter I've used also scikit-image, which provides a large set of image processing tools.
 	
 	\subsubsection*{OpenCV} 
 	
@@ -18,7 +18,7 @@
 	This library provides a powerful tools for the reading and writing of the image. Since ITK, ans so SimpleITK,  consider the image like spatial object and not like arrays of values, it store also information about voxel spacing, size and origins, provided as well as the array, this makes us able to works only with the array by using numpy or OpenCV, by preserving the spatial information of the image. This library allow also to process the whole image volume, allowing 3D operations, which are used into many steps of the pipeline.
 	
 	 \subsection{scikit-image}
-	 scikit-image~\cite{scikit-image} is an image processing library that implements algorithms and utilities for use in research, education and industry applications. scikit-image implements a rich collection of image processing functions implemented in python. The implemented filters are used when a corresponding implementation in OpenCV was not available. In particular the functions to compute the hessian filter and the percentile filter are extended to the whole stack of images. This library, like OpenCV, consider the image as an array, so doesn't use the spatial information about voxels.
+	 scikit-image~\cite{scikit-image} is an image processing library that implements algorithms and utilities for use in research, education and industry applications. scikit-image implements a rich collection of image processing functions implemented in python. The implemented filters are used when a corresponding implementation in OpenCV was not available. In particular the functions to compute the hessian filter are extended to the whole stack of images. This library, like OpenCV, consider the image as an array, so doesn't use the spatial information about voxels.
 	
 	 
 \end{document}

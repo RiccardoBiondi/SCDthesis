@@ -23,5 +23,18 @@
 
 	\end{enumerate}
 	
-	Arthur and Vassilvitskii ~\cite{Arthur2007} have pointed that this algorithm is not accurate and can produce arbitrarily bad clusters. So they have developed a popular algorithm, the "kmeans++" which improves the clustering accuracy by made an accurate choice of the initial cluster centers. 
+	Arthur and Vassilvitskii ~\cite{Arthur2007} have pointed that this algorithm is not accurate and can produce arbitrarily bad clusters. So they have developed a popular algorithm, the "kmeans++" which improves the clustering accuracy by made an accurate choice of the initial cluster centers.\\ 
+	They pointed out that the bad clustering is caused to the fact that $\frac{\Phi}{\Phi_{opt}}$ is unbounded even if the number of clusters and points are fixed, where $\Phi_{opt}$ is the potential function in the optimal centroids case. They have proposed a variant for the choosing of the centroids, instead of chose the centroids randomly, the weight the initial points according to the distance square ($D(x)^2$) from the closest center already chosen. So the final algorithm is equal to the kmeans except for the intial centroids selection that is made as follows: 
+	\begin{enumerate}
+		\item Take one center $c_1$, chosen uniformly at random from $\Xi$.
+		
+		\item  Take a new center $c_i$, choosing $x \in \Xi$ with probability $\frac{D(x)^2}{\sum _{x \in \Xi} D(x)^2}$
+		
+		\item Repeat the step 2 till $k$ centers are choose
+		
+		\item Proceed like a classical kmeans clustering.
+	
+	\end{enumerate}
+
+	This is the algorithm that we have used to found the characteristic color for the structure to segment. 
 \end{document}

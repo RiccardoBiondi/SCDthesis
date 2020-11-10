@@ -15,11 +15,12 @@
 	
 		This step involves the preparation of images, with the building of the multi channel image that incorporates neighbouring and edges informations as well as the registration in a common space and the managing of an allocation memory problem.\\
 		
+		First of all we have to apply a local equalization of the histogram in order to enhance the contrast between the different lung regions, after that we can start to build the multichannel image.\\		
 		As I've said the multichannel image is build to incorporate more information during the clustering. We have found that a 4 channel image will provides good segmentation results. The 4 channel of the image are built as follows  : 
 		\begin{itemize}
-			\item Pure image; 
-			\item Median Blurred; 
-			\item Local Percentile filtered
+			\item Pure image after histogram equalization; 
+			\item Median Blurred of the equalized image; 
+			\item standard deviation map of the pure image
 			\item Maximum eigenvalues map 
 		\end{itemize}
 	
@@ -31,8 +32,8 @@
 	
 		In \figurename\,\ref{fig:MultiChannel} I've displayed the 4 different channel of the image. Each channel allow us to consider different information:\\ 
 		The pure image will provides information about the tissue displayed in the single voxel; 
-		The median blurred image and the percentile filtered, allow us to consider also information about the tissue surrounding each particular voxel, since lesions usually involves several group of voxels.\\
-		In the end the maximum eigenvalues map allow us to consider also shape information. A source of error was the remaining bronchial structures and  motion artifacts. Usually this features have a thin and elongated shape, in contrast with the lesion areas which are less thin or less elongated. Elongated structures presents an eigenvalues higher than the other. pn the other hand rounded structure presents eigenvalues more or less equal. This map allow us to discriminate between actual lesion regions and bronchial structures and motion artifacts.  In this way we are able to reduce the false positives caused by this kind of artifacts.
+		The median blurred image allow us to consider also information about the tissue surrounding each particular voxel, since lesions usually involves several group of voxels.\\
+		In the end the maximum eigenvalues map allow us to consider also shape information. A source of error was the remaining bronchial structures and  motion artifacts. Usually this features have a thin and elongated shape, in contrast with the lesion areas which are less thin or less elongated. Elongated structures presents an eigenvalues higher than the other. on the other hand rounded structure presents eigenvalues more or less equal. This map allow us to discriminate between actual lesion regions and bronchial structures and motion artifacts.  In this way we are able to reduce the false positives caused by this kind of artifacts. In the end the standard deviation map, which consist in the replacement of each pixel value with the standard deviation of its neighborhood. 
 		
 		The first step consist into the construction of the multichannel image of for each input series, after that all the images are shuffled and divided into several sub-samples. The creation of several sub-samples is made since the creation of a single, huge array with several images is not always possible, since requires a huge quantity of memory to be allocated, so we have chose to divide all the images into several sub-samples and cluster them independently, after that a clustering on the estimated centroids is performed.\\
 
@@ -49,9 +50,13 @@
 					\label{fig:ClusteringHistogram}\caption{Histogram of the multichannel image to cluster, we can clearly see the overrepresented cluster at $0$ GL}
 		\end{figure}
 		
-	An other problem may be the estimation of the correct number of clusters. Kmeans clustering requires a prior knowledge on the number of clusters which is a crucial choice. In our case the anatomical knowledge about the lung may help, since we can consider one cluster for each anatomical structure. In the end we have found that 3 clusters are an optimal choice, and the considered structures are the following: 
+	An other problem may be the estimation of the correct number of clusters. Kmeans clustering requires a prior knowledge on the number of clusters which is a crucial choice. In our case the anatomical knowledge about the lung may help, since we can consider one cluster for each anatomical structure. In the end we have found that 5 clusters are an optimal choice, and the considered structures are the following: 
 	\begin{itemize}
 		\item Lung Parenchima;
+		
+		\item Edges
+		
+		\item vessel sutounding bronchial structures
 		
 		\item Ground Glass Opacities and consolidation;
 		
