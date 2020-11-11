@@ -6,7 +6,8 @@
 	To perform the color quantization I've to found the characteristic color(centroids in the color space) of each tissue and use these colors for the actual segmentation, so the pipeline will be divided int two main steps. Before each of these steps we need a preliminary phase that aim to isolate the lung regions in order to exclude the extra lung areas and reduce the false positives and motion artifacts.
 	In the end the pipeline structure is divided in three main blocks as we can see in \figurename\,\ref{fig:Pipeline} : 
 	\begin{itemize}
-		\item \textbf{Pre-Processing and lung extraction}: Preliminary step, involves registration of HU, isolation of lung regions and reduction of motion artifacts;
+		\item \textbf{Pre-Processing and lung extraction}: Preliminary step, involves registration of HU, isolation of lung regions.
+		
 		\item \textbf{Training} : estimation of the centroids, is performed only ones; 
 		
 		\item \textbf{Labeling} :  assignment of each voxel to the cluster of the closest centroids, it is the actual segmentation.
@@ -15,15 +16,27 @@
 		
 	\begin{figure}[h!]
 		\centering 
-			\includegraphics[width=.7\textwidth]{Pipeline.png}
-		\label{fig:Pipeline}\caption{Flow chart of the main structure of the developed pipeline. The training process, which allows the estimation of the centroids, is performed only one time.}
+			\includegraphics[scale=.65]{Pipeline.png}
+		\caption{Flow chart of the main structure of the developed pipeline. The training process, which allows the estimation of the centroids, is performed only one time.}\label{fig:Pipeline}
 	\end{figure} 
 	
 	\subsubsection*{Pre Processing and Lung Extraction}
 	
-	This preliminary step is performed before both training and labeling.\\
-	First of all performs a registration of the HU on a common space, in order to overcomes the issues that may raise from the different padding values and multiplicative constant for HU computation(equation\,\ref{eq:HU}) used by the different manufacturer of the CT scans.\\
-	This process is followed by a segmentation fo the lung regions, which allows to remove all the extra lung regions avoiding the formation of false positives. During this process a particular attention was paid on the removal of the main bronchial structures, which can interfere with the actual segmentation, and the preservation of the lung regions which are the ones in which we are interested in. An other aims of this step is the reduction of the motion artifacts caused by respiratory and cardiac cycle, which interferes with the actual segmentation since they may be wrongly classified as infection regions.
+	This preliminary step is performed before both training and labeling; involves the managing of the HU and the isolation of lung regions.\\
+	The registration of the HU on a common space in necessary to overcome the issues that may raise from the different padding values and multiplicative constant for HU computation(equation\,\ref{eq:HU}) used by the different manufacturer of the CT scans.\\
+	The lung isolation allow us to found a mask for the lung regions, excluding so all the body regions, the CT tube and the extra-lung organs like intestine and heart, avoiding the fomation of false positives.\\
+	To achieve this purpose I have used a pre-trained UNet~\cite{ART:Johannes}~\cite{REP:lungmask}, that provide a good segmentation of the lung regions. 
+	A simple threshold followed by a connected components algorithm, as usually used for lung segmentation, may exclude interesting lung areas for patient with severe ILD as we can see in \figurename\,\ref{fig:UNetVSThr}, for this reason a more fine approach is used.\\
+	The UNet is a supervised approach, however is used only on this preliminary step, as we will see the identification of infection regions is made with an unsupervised approach.\\
+	
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[scale=.5]{UNetVSThr.png}
+		\caption{From left to right the original CT scan of a patient with severe ILD, the lung segmented by threshold and connected components, UNet lung segmentation. We can clearly see the missing areas in the fist segmentation, corrected identified in the UNet one.}\label{fig:UNetVSThr}
+		
+	\end{figure}
+	
+	However this kind of segmentation include in the lung region also motion artifacts and airpockets, which we will see are the principal cause of false positives.
 	
 	\subsubsection*{Training}
 	
@@ -43,8 +56,8 @@
 	
 	\begin{figure}
 		\centering
-			\includegraphics[width=.75\textwidth]{final_pipeline.png}
-			\label{fig:FinalPipeline}\caption{Actual segmentation step, from left to right we can see the input image stack, the isolated lung regions and the final label. To performed the labeling a set of pre-computed centroids was used.}
+			\includegraphics[width=.87\textwidth]{final_pipeline.png}
+			\caption{Actual segmentation step, from left to right we can see the input image stack, the isolated lung regions and the final label. To performed the labeling a set of pre-computed centroids was used.}\label{fig:FinalPipeline}
 	\end{figure}
 	
 	

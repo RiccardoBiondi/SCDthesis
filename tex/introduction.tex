@@ -9,10 +9,10 @@ Since the end of 2019, COVID-19 has widely spread all over the world.Up to now t
 	
 \begin{figure}[h!]
 	\centering
-	\includegraphics[scale=.5]{healthy.png}
+	\includegraphics[scale=.55]{healthy.png}
 	\quad
-	\includegraphics[scale=.5]{ggo.png}
-	\label{fig:HealthVSCovid}\caption{CT scan of thorax for an healthy patient(left) and a COVID-19 affected one(right) in which we can observe a huge amount of GGO in the right lung}
+	\includegraphics[scale=.55]{ggo.png}
+	\caption{CT scan of thorax for an healthy patient(left) and a COVID-19 affected one(right) in which we can observe a huge amount of GGO in the right lung}\label{fig:HealthVSCovid}
 \end{figure} 
 
 
@@ -21,7 +21,7 @@ Austin in Glossary of terms for CT of the lungs~\cite{ART:Austin} define the Gro
 For the reason given before, the identification of this kind of lesions in CT scans of lung is very important. Up to now the segmentation is made in a manual or semiautomatic way, which are time consuming and subjective, since involves the interaction with trained personnel. An automatic and fast way for the identification of this features is desired.\\
 In this thesis work I will present an automatic and fast pipeline for the identification of these kind of lesions. The pipeline was developed by using $83$ chest CT scans of COVID-19 affected patients, kindly provided by Sant'Orsola hospital. Also scans from two public dataset (ZENODO~\cite{DATA:ZENODO}, MOSMED~\cite{DATA:MOSMED}) are used as benchmark.\\
 The developed pipeline is completely unsupervised and its based on the color quantization, so the relation between the HU and the different linear attenuation coefficient of tissues is exploited. In order to takes into account other features, like the spatial extension of the lesion areas, or the different shape of the lung structure, a suitable color space was build.\\
-The pipeline was implemented in python and to perform the different operations different image processing libraries where used : \emph{SimpleITK}, \emph{OpenCV} and \emph{scikit-image}.\\
+The pipeline was implemented in python and to perform the different operations different image processing libraries where used : \emph{SimpleITK} and  \emph{OpenCV}.\\
 The time performance of the pipeline are verified on the DIFA servers and the segmentation accuracy on labels provided by the manual segmentation performed by experts.
 
 \end{document}
