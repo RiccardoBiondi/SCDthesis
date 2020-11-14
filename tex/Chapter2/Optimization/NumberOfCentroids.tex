@@ -19,7 +19,7 @@
 
 	Notice that the background of the image isn't considered as a cluster since it is removed from the segmentation for the reasons explained before.\\
 	In order to verify that this number of clusters is the best one, I've considered the internal cluster variability.\\
-	Clustering techniques try to group the data in different clusters  in order to maximize the difference between points in different clusters and to maximize the similarity within each cluster.  If the number of cluster is too low, the similarity within each cluster is low and increasing the number of clusters will reduce the internal variability to $0$, when the number of cluster is eqaual to the number of samples.\\ this means that after a a centain point the diminishing of the internal variability is no more significant, since do not correspond the the correct choice of the cluster.\\
+	Clustering techniques try to group the data in different clusters  in order to maximize the difference between points in different clusters and to maximize the similarity within each cluster.  If the number of cluster is too low, the similarity within each cluster is low and increasing the number of clusters will reduce the internal variability to $0$, when the number of cluster is equal to the number of samples.\\ This means that after a a centain point the diminishing of the internal variability is no more significant, since do not correspond to the correct choice of the cluster.\\
 	To found the correct number of clusters we are seek to for a number of clusters which still provides a small amount of internal variability. \\
 	To achieve this purpose, the clustering was repeated several times increasing the number of clusters and for each iteration the internal variability was measured by the sum of squares error (SSE) : 
 	\begin{equation}\label{eq:SumOfSquare}
@@ -30,13 +30,11 @@
 	
 	\begin{figure}[h!]
 		\centering
-		\includegraphics[scale=.7]{PlaceHolder.png}
-		\label{fig:ElbowCurve}\caption{Elbow curve}
+		\includegraphics[scale=.3]{ElbowCurve.png}
+		\caption{Intra-cluster variance vs the number fo clusters(blue); right joining firts and last point(orange). We can se the elbow shape of the graph; the elbow location in the one which maximize the distance between the right joining line and the elbow curve.}\label{fig:ElbowCurve}
 	\end{figure}
 
 	The optimal number of cluster is the one that corresponds to the elbow of the curve. Since found this feature is visually difficult , I've took as elbow the point which maximize the distance between the right joining the first and the last point.\\
-	
-	From this analysis results that the best number of clusters is 
-	
+	From this analysis we have found that the optimal number of clusters in $5$, which corresponds to the same that we have found considering the lung anatomy.
 	
 \end{document}
