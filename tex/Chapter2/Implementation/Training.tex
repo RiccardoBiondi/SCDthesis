@@ -15,25 +15,23 @@
 		\subsubsection*{Preparation of Images} 
 	
 		This step involves the preparation of images, with the building of the multi channel image that incorporates neighbouring and edges information as well as the registration in a common space and the managing of an allocation memory problem.\\
-		
-		First of all we have to apply a local equalization of the histogram in order to enhance the contrast between the different lung regions, after that we can start to build the multichannel image.\\		
+			
 		As I've said the multichannel image is build to incorporate more information during the clustering. We have found that a 4 channel image will provides good segmentation results. The 4 channel of the image are built as follows  : 
 		\begin{itemize}
 			\item Pure image after histogram equalization; 
-			\item Median Blurred of the equalized image; 
-			\item standard deviation map of the pure image
-			\item Maximum eigenvalues map 
+			\item Median Blurring of the equalized image; 
+			\item Gamma corrected image;
+			\item Standard filtered image.
 		\end{itemize}
 	
 		\begin{figure}[h]
 			\centering
 				\includegraphics[scale=.55]{Multi_Channel.png}
-			\caption{Image used for each dimension of the color space from left to right and from top to bottom we have the pure image, the median blurred image, the std filtered and the maximum eigenvalues map.}\label{fig:MultiChannel}
+			\caption{Channels of the image. From left to right and from top to bottom the imageaffter the histogram equalization, the gamma corrected image, the median blurred image and the std fitered image. This channels allow us to consider informations about the single voxel but also about the neighbouring voxels and their variability. }\label{fig:MultiChannel}
 		\end{figure}
 	
-		In \figurename\,\ref{fig:MultiChannel} I've displayed the 4 different channel of the image. Each channel allow us to consider different information:\\ 
-		The pure image will provides information about the tissue displayed in the single voxel; 
-		The median blurred image allow us to consider also information about the tissue surrounding each particular voxel, since lesions usually involves several group of voxels.\\ The maximum eigenvalues map allow us to consider also shape information. A source of error was the remaining bronchial structures and  motion artifacts. Usually this features have a thin and elongated shape, in contrast with the lesion areas which are less thin or less elongated. Elongated structures presents an eigenvalues higher than the other. on the other hand rounded structure presents eigenvalues more or less equal. This map allow us to discriminate between actual lesion regions and bronchial structures and motion artifacts.  In this way we are able to reduce the false positives caused by this kind of artifacts. In the end the standard deviation map, which consist in the replacement of each pixel value with the standard deviation of its neighborhood, help us, like the maximum eigenvalues map, to distinguish the bronchial and artifact structures.
+		In \figurename\,\ref{fig:MultiChannel} I've displayed the 4 different channel of the image. Each channel allow us to consider different information\\
+		The histogram equalized image and the gamma corrected allows to takes into account information about the single voxel. The histogram equalization is applied in order to ehance the image contrast by improving the GL usage. For each slice the histogram is equalized operatiing in small image regions, in order to takes care of the over-amplification of the contrast.\\ The gamma correction is a non linear operation and is used to decode the lumnance, and to made in evidence the less evident lesions. Both of this filters involves the single voxel.\\The median blurring allow us to consider also the information of the neighborhood voxels, allowing the reduction of the outliers. The usage of this filter is justified since the lesions involves several closest voxels.\\The last channel used is the image after the application of a local standard deviation filter which consist in the replacement of each pixel value with the standard deviation of its neighborhood, help us to distinguish the remaining bronchial and artifact structures.\\
 		
 		The first step consist into the construction of the multichannel image of for each input series, after that all the images are shuffled and divided into several sub-samples. The creation of several sub-samples is made since the creation of a single, huge array with several images is not always possible, since requires a huge quantity of memory to be allocated, so we have chose to divide all the images into several sub-samples and cluster them independently, after that a clustering on the estimated centroids is performed.\\
 
