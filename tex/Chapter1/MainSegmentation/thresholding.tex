@@ -5,11 +5,11 @@
 
 Thresholding approach is very simple and basically segments a scalar image by creating a binary partitioning of image intensities~\cite{ART:Pham}. It can be applied on an image to distinguish regions with contrasting intensities and thus differentiate between tissue regions represented within the image~\cite{INP:Withey}. \figurename\,\ref{fig:Histogram} show an histogram of a scalar image with two classes, threshold based approach attempts to determine an intensity value, called \emph{threshold} which separate the desired classes~\cite{ART:Pham}. So to achieve the segmentation ve can group all the pixels with intensity higher than the threshold in one class an all the remaining in the other class. 
 
-\begin{figure}[hp]
+\begin{figure}[h!]
 
 	\centering
-		\includegraphics[scale=.5]{hist.png}
-	\label{fig:Histogram}\caption{Histogram of a GL image with two well delineated regions. We can clearly see a threshold value around 500}
+		\includegraphics[scale=.35]{hist.png}
+	\caption{Histogram of a GL image with two well delineated regions.The threshold value(red line) was setvisually at -400 HU}\label{fig:Histogram}
 \end{figure}
 
 The threshold value is usually setting by visual assessment, but can also be automatized by algorithm like otsu one.\\

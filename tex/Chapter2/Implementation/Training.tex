@@ -3,17 +3,18 @@
 	\subsection{Training}
 	
 	This step consist in the estimation of the centroids of the color space. May be  really time consuming, but it is performed only once, so during the actual segmentation the corresponding script isn't run.\\
-	To achieved the estimation of centroids, a kmeans clustering of the multichannel images of several CT scan from different patients is performed. 
-	Since to achieve a correct estimation a huge amount of scan must be provided, this task is time consuming an computational expansive, however is performed only once and isn't directly involved in the actual segmentation, so doesn't affect the segmentation time.\\
+	To achieved the estimation of centroids, a k-means clustering of the multichannel images of several CT scan from different patients is performed. 
+	In order to achieve a uniform representation of each cluster, the scans included in the training set were carefully selected from the $3$ datasets used in this work. The main rule used for the selection is that in each scan must me present a huge amount of infection areas and also a well representation of artifacts, in order to takes into account all the possible features.\\
 	The achievement of this task involves two main steps : 
 	\begin{enumerate}
 		\item \textbf{Preparation of images} : involves the building of the multi channel images, and the registration in a common space; 
+		
 		\item \textbf{Clustering} : Actual clustering, involves also the managing of the background problem.
 	\end{enumerate}
 
 		\subsubsection*{Preparation of Images} 
 	
-		This step involves the preparation of images, with the building of the multi channel image that incorporates neighbouring and edges informations as well as the registration in a common space and the managing of an allocation memory problem.\\
+		This step involves the preparation of images, with the building of the multi channel image that incorporates neighbouring and edges information as well as the registration in a common space and the managing of an allocation memory problem.\\
 		
 		First of all we have to apply a local equalization of the histogram in order to enhance the contrast between the different lung regions, after that we can start to build the multichannel image.\\		
 		As I've said the multichannel image is build to incorporate more information during the clustering. We have found that a 4 channel image will provides good segmentation results. The 4 channel of the image are built as follows  : 
@@ -39,7 +40,7 @@
 		
 		\subsubsection*{Clustering} 
 		
-		This step consist into the performing of the kmeans clustering for the centroids estimation. To perform this task I've used the OpenCV algorithm, which provides an optimized implementation of the algorithm for multi channel images. A first clustering is applied on each sub-sample, resulting in a set of centroids for each one of them. On this set is applied a second clustering, which provides the actual centroids. In both of the clustering, the initial centroids set is initialized by using the kmeans ++ algorithm, which allows to improve speed and accuracy of the clustering algorithm~\cite{Arthur2007}.
+		This step consist into the performing of the k-means clustering for the centroids estimation. To perform this task I've used the OpenCV algorithm, which provides an optimized implementation of the algorithm for multi channel images. A first clustering is applied on each sub-sample, resulting in a set of centroids for each one of them. On this set is applied a second clustering, which provides the actual centroids. In both of the clustering, the initial centroids set is initialized by using the k-means ++ algorithm, which allows to improve speed and accuracy of the clustering algorithm~\cite{Arthur2007}.
 		During this task we have to manage some issues. As we can see from \figurename\,\ref{fig:ClusteringHistogram} the number of voxel with $GL = 0$  is several order of magnitude higher than for other $GL$. As prior we know that these voxels belonging from background, so this cluster is over represented. Since kmeans cluster requires an homogeneous representation for each cluster, this may raise problem during the centroids estimation. In order to overcome this issue we have simply removed this voxels from the clustering.  
 		
 
@@ -49,7 +50,7 @@
 				\caption{Histogram of the multichannel image to cluster, we can clearly see the overrepresented cluster at $0$ GL}	\label{fig:ClusteringHistogram}
 		\end{figure}
 		
-	An other problem may be the estimation of the correct number of clusters. Kmeans clustering requires a prior knowledge on the number of clusters which is a crucial choice. In our case the anatomical knowledge about the lung may help, since we can consider one cluster for each anatomical structure. In the end we have found that 5 clusters are an optimal choice, and the considered structures are the following: 
+	An other problem may be the estimation of the correct number of clusters. k-means clustering requires a prior knowledge on the number of clusters which is a crucial choice. In our case the anatomical knowledge about the lung may help, since we can consider one cluster for each anatomical structure. In the end we have found that 5 clusters are an optimal choice, and the considered structures are the following: 
 	\begin{itemize}
 		\item Lung Parenchima;
 		
@@ -68,7 +69,7 @@
 	In the end a set of centroids for each subsamples was estimated and a second clustering was performed, to found the optimal centroids. 
 	This process takes a lot of time, but once we have estimated the optimal centroid set, we haven't to repeat it.\\
 	
-	The pseudocode of this script is reported in algorithm\,\ref{alg:training}
+	The whole step is summarized in the pseudocode in \figurename\,\ref{alg:training}.
 		
 		
 	\begin{algorithm}

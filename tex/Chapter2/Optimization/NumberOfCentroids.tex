@@ -1,0 +1,42 @@
+\documentclass{standalone}
+\begin{document}
+	\subsection{Estimation of the Number of Clusters}
+	
+	The designed algorithm for the centroids estimation is the k-means clustering that requires a prior knowledge about the number of clusters to use. This is very important since a bad choice will badly affect the whole segmentation results. In order to chose the proper number of clusters, I've consider two different source of information: the anatomical knowledge about the lung and the internal variability of the lung. \\
+	From anatomical knowledge about the lung, we can derive 5 clusters, corresponding to: 
+	
+	\begin{itemize}
+		\item Lung Parenchima; 
+		
+		\item  Edges;
+		
+		\item vessel surrounding bronchial structures;
+		
+		\item  Ground Glass Opacities and consolidation;
+		
+		\item Bronchi.
+	\end{itemize}
+
+	Notice that the background of the image isn't considered as a cluster since it is removed from the segmentation for the reasons explained before.\\
+	In order to verify that this number of clusters is the best one, I've considered the internal cluster variability.\\
+	Clustering techniques try to group the data in different clusters  in order to maximize the difference between points in different clusters and to maximize the similarity within each cluster.  If the number of cluster is too low, the similarity within each cluster is low and increasing the number of clusters will reduce the internal variability to $0$, when the number of cluster is eqaual to the number of samples.\\ this means that after a a centain point the diminishing of the internal variability is no more significant, since do not correspond the the correct choice of the cluster.\\
+	To found the correct number of clusters we are seek to for a number of clusters which still provides a small amount of internal variability. \\
+	To achieve this purpose, the clustering was repeated several times increasing the number of clusters and for each iteration the internal variability was measured by the sum of squares error (SSE) : 
+	\begin{equation}\label{eq:SumOfSquare}
+		SSE = \sum (x_i - c_j)^2
+	\end{equation}
+	
+	Once this task is completed, the results was printed in \figurename\,\ref{fig:ElbowCurve}. 
+	
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[scale=.7]{PlaceHolder.png}
+		\label{fig:ElbowCurve}\caption{Elbow curve}
+	\end{figure}
+
+	The optimal number of cluster is the one that corresponds to the elbow of the curve. Since found this feature is visually difficult , I've took as elbow the point which maximize the distance between the right joining the first and the last point.\\
+	
+	From this analysis results that the best number of clusters is 
+	
+	
+\end{document}

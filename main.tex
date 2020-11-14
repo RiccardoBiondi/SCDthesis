@@ -20,9 +20,9 @@
 \captionsetup[table]{labelfont=bf,textfont=it}
 
 % figure numeration
-\usepackage{chngcntr}
-\counterwithin{figure}{chapter}
-\counterwithin{figure}{section}
+%\usepackage{chngcntr}
+%\counterwithin{figure}{chapter}
+%\counterwithin{figure}{section}
 
 
 \usepackage[a4paper,top=3cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
@@ -33,7 +33,9 @@
 \usepackage{amssymb} % mathematics
 \usepackage{graphicx}
 \usepackage[ruled,vlined]{algorithm2e} % pseudocode
+
 \usepackage{hyperref}
+
 
 % include file and not recompile it
 \usepackage{standalone}
@@ -59,6 +61,7 @@
 \pagenumbering{gobble}
 \input{./tex/abstract.tex}
 
+
 \pagenumbering{gobble}
 \tableofcontents
 
@@ -75,8 +78,7 @@
 % conclusions
 %\input{./tex/conslusions.tex}
 % appendix
-\input{./tex/Appendix/kmeansClustering.tex}
-\input{./tex/Appendix/U-Net.tex}
+%\input{./tex/Appendix/kmeansClustering.tex}
 \printbibliography
 
 

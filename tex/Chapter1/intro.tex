@@ -1,25 +1,11 @@
 \documentclass{standalone}
 \begin{document}
-	\chapter{Infection Identification Pipeline}
+	\chapter{Review on Image Segmentation techniques}
+	Image segmentation consist in the partitionng of an image into non overlapping, consinstent regions that are homogeneous respect to some characteristics such as intensity or texture~\cite{ART:Pham}.
+	Nowadays several non-invasive medical imaging techniques are available, such as Computed Tomography(CT), Magnetic Resonance Imaging (MRI) or X-Ray imaging,. that provides a map of the subject anatomy. Image segmentation play a crucial role in many medical-imaging applications by automating or facilitate the delineation of anatomical structures and other regions of interest~\cite{ART:Pham}.  Manual segmentation is  possible, but is time consuming and subject to operator variability; making the results difficult to reproduce~\cite{INP:Withey}, so automatic or semi-automatic methods are preferable. \\
+	A major difficulty of medical image segmentation is the high variability in medical images. First and foremost, the human anatomy itself shows major modes of variation. Furthermore many different modalities (X-ray, CT, MRI, etc.) are used to create medical images~\cite{ART:Pooja}.\\
+	The results of segmentation can be used to perform feature extraction, that provides fundamental information about organs or lesion volumes, cell counting, etc. If the patient perform several analysis during time, image segmentation is a useful tool to monitor the evolution of particular lesions or tumors during, for example, a therapy.\\
 	
-	
-	In this chapter I will discuss the developed pipeline. In the first section I will describe the basic idea behind the pipeline, given some concept about the color quantization and discuss the main structure of the pipeline, by speaking about the aims and the problem managed by each block.\\
-	After that, in the second section, I will describe the actual pipline implementation, by given some concept about the used frameworks and by describe in details the implementation of each block of the pipeline.\\
-	In the end, in the last section, I will speak about the routines used to optimize the several parameters involved.\\
-	
-	
-
-	%Since the end of 2019, COVID-19 has widely spread all over the world. Up to now the gold standard for the identification of the pathology is the 
-	%RT-PCR even if it is reported that its sensitivity might not be enough for COVID-19 identifications~\cite{ART:Ai} and requires a lot of time to provide results.\\Has been observed that  several chest CT scans collected from COVID-19 patients shown bilateral patchy shadows or ground glass opacity (GGO) in the lung~\cite{ART:Ai}~\cite{ART:Wang}, which makes interesting to investigates this technique to help diagnosis, monitoring the course of the disease and check the recovery of healed patients, since the GGO pattern may change according to the state of the disease~\cite{ART:Bernheim}.
-	%Austin in Glossary of terms for CT of the lungs~\cite{ART:Austin} define the Ground Glass Opacities as \emph{hazy increased attenuation of lung, with 
-	%preservation of bronchial and vascular margins caused by partial filling of air spaces, interstitial thickening, partial collapse of alveoli, normal expiration, or increased capillary blood volume}. This kind of lesion is not exclusive of COVID-19 but can be associated to many other disorders like edema, bacteria infection or alveolar haemorrhage.  
-	%However the study of the particular pattern, in combination with other techniques, may help early diagnosis of this pathology and the monitoring of the recovery, has shown by ~\cite{ART:Bernheim}, since the GGO pattern and the involving of lung parenchima changes according to the severity of the disesase and the recovery stage, since some infection areas may be identified even if the patient result negative after $2$ consecutive nucleic acid tests~\cite{ART:Zhao}. On the other hand the study of these pattern may have research purpose, since may help to study the infection pathogenesis\\
-	%Up to know the identification of these lesions is made mainly by manual or semi-automatic segmentation, both of them are time consuming, error prone and subjective, since require the interaction of specialized operators. To overcome this issues an automatic way to obtain these information is desirable, since allows to obtain measures that do not depend n operator subjectivity; moreover it is desirable to obtain segmentation results in a small amount of time, which is not compatible with manual or semi-automatic segmentation.\\
-	
-	%In this chapter I will describe in details the implementation of a segmentation pipeline which allows a fast and automatic segmentation of GGO. 
-	
-		 
-
-	
+	This chapter contains a brief introduction on medical digital images and a brief review on the image segmentation techniques such as clustering or threshold. 
 	
 \end{document}

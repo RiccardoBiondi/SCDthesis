@@ -1,11 +1,8 @@
 \documentclass{standalone}
 \begin{document}
-	\chapter{Review on Image Segmentation techniques}
-	Image segmentation consist in the partitionng of an image into non overlapping, consinstent regions that are homogeneous respect to some characteristics such as intensity or texture~\cite{ART:Pham}.
-	Nowadays several non-invasive medical imaging techniques are available, such as Computed Tomography(CT), Magnetic Resonance Imaging (MRI) or X-Ray imaging,. that provides a map of the subject anatomy. Image segmentation play a crucial role in many medical-imaging applications by automating or facilitate the delineation of anatomical structures and other regions of interest~\cite{ART:Pham}.  Manual segmentation is  possible, but is time consuming and subject to operator variability; making the results difficult to reproduce~\cite{INP:Withey}, so automatic or semi-automatic methods are preferable. \\
-	A major difficulty of medical image segmentation is the high variability in medical images. First and foremost, the human anatomy itself shows major modes of variation. Furthermore many different modalities (X-ray, CT, MRI, etc.) are used to create medical images~\cite{ART:Pooja}.\\
-	The results of segmentation can be used to perform feature extraction, that provides fundamental information about organs or lesion volumes, cell counting, etc. If the patient perform several analysis during time, image segmentation is a useful tool to monitor the evolution of particular lesions or tumors during, for example, a therapy.\\
+	\chapter{Results}
 	
-	This chapter contains a brief introduction on medical digital images and a brief review on the image segmentation techniques such as clustering or threshold. 
-	
+	In this chapter, after a description of the used dataset, I will discuss the results of the segmentation. The pipeline was mainly tested on the samples kindly provided by Sant'Orsola hospital, even if also some test on MOSMED and ZENODO was made. The results involves both timing and quality of the segmentation. The centroids used for the segmentation where trained over the 10 CT scans belonging from the different dataset. The scans was selcted in order to have a good representation of the different features in the lung, like anatomical structures, bronchial and artifacts.\\
+	I've also used the some healthy scan patient to ensure that no lesion areas are identified.\\
+	As reference I've used some manual segmentation performed by expert radiologist. To match the ground truth and the label under test I've used as metrics the intersection over union(IoU).\\ 
 \end{document}
