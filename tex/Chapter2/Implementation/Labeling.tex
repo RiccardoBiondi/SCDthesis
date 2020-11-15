@@ -20,22 +20,18 @@
 	 	
 	 	\SetKwFunction{Flabel}{imlabeling}
 	 	\SetKwProg{Fn}{Function}{:}{}
-	 	
-	 	\Fn{\Flabel{$image,\, centroids$}}{{
- 				\ForEach{$c\in centroids $}
- 				{
- 					distances$\leftarrow\| image - c\|^2$\;
- 				}
- 			labels$\leftarrow\arg\min\,(distances)$\;
- 			}\textbf{return}\,labels
- 		}\textbf{\textbf{End Function}}
- 	
+	
  		\KwData{CT scan to label, centroids}
  		\KwResult{GGO label}
  		
  		image$\leftarrow$build\_multi\_channel\;
- 		labels$\leftarrow$imlabeling(image, centroids)\;
- 		ggo$\leftarrow$ labels = GGO label\;
+		\tcc{Compute distances and found the minimum}
+ 		\ForEach{$c\in centroids $}
+ 		{
+ 			distances$\leftarrow\| image - c\|^2$\;
+ 		}
+ 		
+ 		labels$\leftarrow\arg\min\,(distances)$\;
 	 
 	 	\caption{Pseudo-code for the labeling script}\label{alg:labeling}
 	 

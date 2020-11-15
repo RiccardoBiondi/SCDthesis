@@ -2,11 +2,17 @@
 \begin{document}
 	\subsection{Kernel Size Optimization}
 	
-	During the building of the multi channel image, we have to compute different image features, that requires the setting of different parameters, like median or standard filter kernel size. In order to achieve the best segmentation, we have performed an optimization step. This step aims to found the parameters that allows to obtain the best segmentation; notice that this process is not necessary and a good segmentation can be achieved also by setting this parameters manually.\\
-	In order to perform the optimization, I've used \href{https://github.com/scikit-optimize}{scikit-optimize}~\cite{skopt}, more specifically the \href{https://scikit-optimize.github.io/stable/modules/generated/skopt.gp_minimize.html}{gc\_minimize} method.\\
+	During the building of the multi channel image, we have to compute different image features, that requires the setting of different parameters, like median or standard filter kernel size. In order to achieve the best segmentation, we have performed an optimization step. This step aims to found the parameters that allows to obtain the best segmentation. 
+	
+	Notice that this process is not necessary and a good segmentation can be achieved also by setting this parameters manually.
+
+	In order to perform the optimization, I've used \textsc{scikit-optimize}~\cite{skopt}, more specifically the gc\_minimize method.
+	
 	This method seek to perform a Bayesian optimization by using a Gaussian process to approximate an objective function. The function values are assumed to follow a multivariate Gaussian. The covariance of the function values are given by a GP kernel between the parameters. Then a smart choice to choose the next parameter to evaluate can be made by the acquisition function over the Gaussian prior which is much quicker to evaluate~\cite{skopt}.
 
-	In the end an objective function is minimized. The used objective function is defined in algorithm\,\ref{alg:optimize} in which is also reported the whole minimization pseudocode. The used function seek to minimize $1 - IoU$ where the IoU(Intersection over Union) is computed between the output labels and a reference one.\\ I 've decided to use the IoU instead of accuracy since the number of pixels concerning the labeled object would be very few against the number of pixels related to the background. Thus, the label would be a matrix with a large amount of zeros (background) and only few ones (object). In this case the standard metric functions have to consider an unbalanced number of samples; so the solution was to use the IoU which  measures the ration between the Intersection and Union of the output labels and the binary ground truth~\cite{PhDtheis}:
+	In the end an objective function is minimized. The used objective function is defined in algorithm\,\ref{alg:optimize} in which is also reported the whole minimization pseudocode. The used function seek to minimize $1 - IoU$ where the IoU(Intersection over Union) is computed between the output labels and a reference one.
+	
+	I 've decided to use the IoU instead of accuracy since the number of pixels concerning the labeled object would be very few against the number of pixels related to the background. Thus, the label would be a matrix with a large amount of zeros (background) and only few ones (object). In this case the standard metric functions have to consider an unbalanced number of samples; so the solution was to use the IoU which  measures the ration between the Intersection and Union of the output labels and the binary ground truth~\cite{PhDtheis}:
 	\begin{equation}
 		IoU = \frac{Area\,of\,Overlap}{Area\,of\,Union}
 	\end{equation}
@@ -38,6 +44,8 @@
 	\end{algorithm}
 		
 		
-	This process allows to optimize the parameters in order to obtain the best results as possible. As reference labels I've used the ones valuated as gold standard from expert radiologist.\\ This procedure allows only to tune the parameters for a better segmentation, but the learning process remains unsupervised.
+	This process allows to optimize the parameters in order to obtain the best results as possible. As reference labels I've used the ones valuated as gold standard from expert radiologist.
+	
+	This procedure allows only to tune the parameters for a better segmentation, but the learning process remains unsupervised.
 
 \end{document}

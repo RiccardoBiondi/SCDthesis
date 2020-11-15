@@ -1,12 +1,13 @@
 \documentclass{standalone}
 \begin{document}
-	\chapter{Infection Identification Pipeline}
+	\chapter{Lung Lesion Segmentation}
 	
+	In this chapter I will discuss the pipeline developed for the segmentation of GGO and CS areas in chest CT scans of patients affected by COVID-19.
 	
-	In this chapter I will discuss the developed pipeline. In the first section I will describe the basic idea behind the pipeline and describe the main structure, paying attention on the aims and the problems managed by each block. like the artifact removal. \\
-	In the second section is described the actual implementation, by giving details about how each step is achieved. I've also provide a brief description of the used frameworks and tools.\\
-	In the end the routines for the optimization of the internal parameters is described, given details about how the correct number of cluster was estimated.
-
+	In the first section I will first start defining GGO and CS and then I will describe how color quantization was used to achieve the segmentation and the main pipeline structure; paying attention on the aims of each block.
 	
+	In the second section I will going into details on the actual pipeline implementation, describing how each step is achieved. Also a brief description of the of the used frameworks and tools was provided.
+	
+	In the end I will describe the routines used for the tuning of parameters, used to achieve a best segmentation performances.
 	
 \end{document}

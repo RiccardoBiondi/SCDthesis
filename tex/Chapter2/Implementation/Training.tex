@@ -5,7 +5,7 @@
 	This step consist in the estimation of the centroids of the color space. May be  really time consuming, but it is performed only once, so during the actual segmentation the corresponding script isn't run.\\
 	To achieved the estimation of centroids, a k-means clustering of the multichannel images of several CT scan from different patients is performed. 
 	In order to achieve a uniform representation of each cluster, the scans included in the training set were carefully selected from the $3$ datasets used in this work. The main rule used for the selection is that in each scan must me present a huge amount of infection areas and also a well representation of artifacts, in order to takes into account all the possible features.\\
-	The achievement of this task involves two main steps : 
+	The achievement of the training task involves two main steps : 
 	\begin{enumerate}
 		\item \textbf{Preparation of images} : involves the building of the multi channel images, and the registration in a common space; 
 		
@@ -31,20 +31,30 @@
 		\end{figure}
 	
 		In \figurename\,\ref{fig:MultiChannel} I've displayed the 4 different channel of the image. Each channel allow us to consider different information\\
-		The histogram equalized image and the gamma corrected allows to takes into account information about the single voxel. The histogram equalization is applied in order to ehance the image contrast by improving the GL usage. For each slice the histogram is equalized operatiing in small image regions, in order to takes care of the over-amplification of the contrast.\\ The gamma correction is a non linear operation and is used to decode the lumnance, and to made in evidence the less evident lesions. Both of this filters involves the single voxel.\\The median blurring allow us to consider also the information of the neighborhood voxels, allowing the reduction of the outliers. The usage of this filter is justified since the lesions involves several closest voxels.\\The last channel used is the image after the application of a local standard deviation filter which consist in the replacement of each pixel value with the standard deviation of its neighborhood, help us to distinguish the remaining bronchial and artifact structures.\\
+		The histogram equalized image and the gamma corrected allows to takes into account information about the single voxel. The histogram equalization is applied in order to ehance the image contrast by improving the GL usage. For each slice the histogram is equalized operating in small image regions, in order to takes care of the over-amplification of the contrast.
 		
-		The first step consist into the construction of the multichannel image of for each input series, after that all the images are shuffled and divided into several sub-samples. The creation of several sub-samples is made since the creation of a single, huge array with several images is not always possible, since requires a huge quantity of memory to be allocated, so we have chose to divide all the images into several sub-samples and cluster them independently, after that a clustering on the estimated centroids is performed.\\
+		 The gamma correction is a non linear operation and is used to decode the luminance, and to made in evidence the less evident lesions. Both of this filters involves the single voxel.\\The median blurring allow us to consider also the information of the neighborhood voxels, allowing the reduction of the outliers. The usage of this filter is justified since the lesions involves several closest voxels.
+		 
+		 The last channel used is the image after the application of a local standard deviation filter which consist in the replacement of each pixel value with the standard deviation of its neighborhood, help us to distinguish the remaining bronchial and artifact structures.
+		
+		Each image channel is normalized according to means and standard deviation of the whole scan.
+		
+		The first step consist into the construction of the multichannel image of for each input series, after that all the images are shuffled and divided into several sub-samples. If the provided training dataset is huge, may happen that the required memory cannot be allocated. Divide the training set into several subsamples lead to less memory requirement, allowing the training. From this step we obtain a several set of centroids, on whoch a second clustering is performed, in order to found the final centroid matrix.
+		
+		
+		The creation of several sub-samples is made since the creation of a single, huge array with several images is not always possible, since requires a huge quantity of memory to be allocated, so we have chose to divide all the images into several sub-samples and cluster them independently, after that a clustering on the estimated centroids is performed.\\
 
 		
 		\subsubsection*{Clustering} 
 		
 		This step consist into the performing of the k-means clustering for the centroids estimation. To perform this task I've used the OpenCV algorithm, which provides an optimized implementation of the algorithm for multi channel images. A first clustering is applied on each sub-sample, resulting in a set of centroids for each one of them. On this set is applied a second clustering, which provides the actual centroids. In both of the clustering, the initial centroids set is initialized by using the k-means ++ algorithm, which allows to improve speed and accuracy of the clustering algorithm~\cite{Arthur2007}.
+		
 		During this task we have to manage some issues. As we can see from \figurename\,\ref{fig:ClusteringHistogram} the number of voxel with $GL = 0$  is several order of magnitude higher than for other $GL$. As prior we know that these voxels belonging from background, so this cluster is over represented. Since kmeans cluster requires an homogeneous representation for each cluster, this may raise problem during the centroids estimation. In order to overcome this issue we have simply removed this voxels from the clustering.  
 		
 
 		\begin{figure}[h!]
 			\centering
-				\includegraphics[scale=.5]{HistMC.png}
+				\includegraphics[scale=.32]{HistMC.png}
 				\caption{Histogram of the multichannel image to cluster, we can clearly see the overrepresented cluster at $0$ GL}	\label{fig:ClusteringHistogram}
 		\end{figure}
 		
@@ -75,47 +85,29 @@
 	\SetAlgoLined
 	\DontPrintSemicolon
 	
-	\SetKwFunction{FSub}{shuffle\_and\_split}
-	\SetKwFunction{Fk}{kmeans\_on\_subsamples}
-	\SetKwProg{Fn}{Function}{:}{}
-	
-	\Fn{\FSub{$images,\, number of subsamples$}}{{
-	
-			images$\leftarrow$shuffle(images)\;
-			output$\leftarrow$split(images, number of subsamples )\;
-		}
-		\textbf{return} $ output $ 
-	}
-	\textbf{End Function}
-
-	\Fn{\Fk{$subsamples,\, number of centroids$}}{{
-			
-			centroids <- []\;
-			\ForEach{$ Sub \in subsamples $}
-			{
-				center$\leftarrow$kmeans(sub, number of centroids)\;
-				centroids$\leftarrow$append(center)
-				
-			}
-		
-		}
-		\textbf{return} $ centroids $ 
-	}
-	\textbf{End Function}
-	
 	\KwData{CT scans with Extracted lung}
-	\KwResult{Centroid matrix}
+	\KwResult{Centroid matrix}\;
 	
 	\ForEach{$scan \in input\_scans$}{
 	
 		read the scan\;
 		sample$\leftarrow$image\_array\;
-	}
-
+	}\;
+	\tcc{prepare subsamples}
 	sample$\leftarrow$ build\_multichannel(sample)\;
-	subsamples$\leftarrow$shuffle\_and\_split(sample, number of subsamples)\;
-	centroid\_vector$\leftarrow$kmeans\_on\_subsamples(subsamples, n\_centroids)\;
-	centroid$\leftarrow$kmeans\_clustering(centroid\_vector, n\_centroids)\;
+	sample$\leftarrow$shuffle(sample)\;
+	subsamples$\leftarrow$split(sample)\;
+	
+	\tcc{start the first clustering}
+	\ForEach{$ Sub \in subsamples $}
+	{
+		center$\leftarrow$kmeans(sub, number of centroids)\;
+		centroid\_vector$\leftarrow$append(center)
+		
+	}\;
+
+	\tcc{Refinement}
+	centroid\_matrix$\leftarrow$kmeans\_clustering(centroid\_vector, n\_centroids)\;
 	
 	\caption{Pseudo-code for the training script}\label{alg:training}
 	
