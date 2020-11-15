@@ -2,7 +2,8 @@
 \begin{document}
 	\chapter{Results}
 	
-	In this chapter, after a description of the used dataset, I will discuss the results of the segmentation. The pipeline was mainly tested on the samples kindly provided by Sant'Orsola hospital, even if also some test on MOSMED and ZENODO was made. The results involves both timing and quality of the segmentation. The centroids used for the segmentation where trained over the 10 CT scans belonging from the different dataset. The scans was selcted in order to have a good representation of the different features in the lung, like anatomical structures, bronchial and artifacts.\\
-	I've also used the some healthy scan patient to ensure that no lesion areas are identified.\\
-	As reference I've used some manual segmentation performed by expert radiologist. To match the ground truth and the label under test I've used as metrics the intersection over union(IoU).\\ 
+	In this final chapter I will presents and discuss the results of the segmentation achieved by developed the pipeline.\\
+	In the first section I will describe the dataset used for the implementation of the pipeline and the segmentation. After that i will show the actual segmentation results.\\
+	The segmentation performances were measured by visual assessment, expert blind evaluation  and quantitative comparison with the gold standard segmentation. As a control also segmentation on healthy patient were made, in order to ensure that no lesion were detected.\\
+	The centroid set used to obtain the segmentation is estimated on $10$ CT scans carefully selected from the available dataset, in order to obtain a uniform representation of each cluster.
 \end{document}

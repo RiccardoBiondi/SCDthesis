@@ -3,22 +3,16 @@
 	
 	\section{Results}
 	
-	I n this section I will describe and discuss the segmentation results. The segmentation was made on $123$ patients belonging from three different dataset: 
+	In this section I will describe the results. Each one of the three available dataset was segmented. The segmentation, performed on DIFA servers takes less than $2\,min$ for each patient. The achieved segmentation will be matched with the manual segmentation available with the scans. Three different method were used : 
 	\begin{itemize}
-		\item Sant'Orsola
 		
-		\item ZENODO~\cite{DATA:ZENODO}
+		\item Visual comparison, made collaboration with the Department of Diagnostic and Preventive Medicine of the Poloclinico Sant'Orsola - Malpighi, 
 		
-		\item MOSMED~\cite{DATA:MOSMED}
+		\item Blind expert evaluation
+		
+		\item Quantitative comparison with the gold standard
 	\end{itemize}
 
-	For each scans also manual segmentation was available, however only $5$ scans provides labels such that can be considered as gold standard. Together with COVID-19 affected patients, also heathy controls were provided, which we have used as benchmark to ensure that no lesion areas were detected, or at least to have a measure of false positives.\\
-	A visual assessment between the labels provided by ZENODO and MOSMED and our segmentation was made, in order to made a comparison . Moreover two more relevant check were made : 
-	\begin{itemize}
-		\item Matching between our segmentation and gold standard; 
-		
-		\item Double blind check between our segmentation and manual ones.		
-	\end{itemize}
-
-	In the end, in the last part, we discuss the results.
+	Also segmentation on healthy controls was takes into account, in order to check that no area was selected and estimate the false positives.
+	
 \end{document}
