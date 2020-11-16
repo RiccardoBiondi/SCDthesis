@@ -4,11 +4,11 @@
 	\subsection{Clustering}
 
 		Clustering approach is similar to classifiers one but in an unsupervised faishon, so doesn't require a training dataset.
-		Clustering iteratively alternate between segmenting tha image and characterizing the  proprieties of each class. In this way we can say that clustering approach train itself by using the data available information.\\
+		Clustering iteratively alternate between segmenting the image and characterizing the  proprieties of each class. In this way we can say that clustering approach train itself by using the data available information.\\
 		We can identify 3 main clustering algorithms: 
 		\begin{itemize}
 	
-			\item \textbf{k-means clustering: } that iteratively compute a mean intensity for each class and segmentats the image by classifying each pixel in the class with the closest mean;
+			\item \textbf{k-means clustering: } that iteratively compute a mean intensity for each class and segments the image by classifying each pixel in the class with the closest mean;
 	
 			\item \textbf{Fuzzy C-means: } this algorinthm generalize the K-means clustering in order to achieve soft- segmentation;
 		
@@ -19,13 +19,14 @@
 		This approach doesn't requires training data, but suffer to an high sensitivity to the initial parameters and do not incorporates spatial model, so it is a pixel classification technique~\cite{ART:Pham}. 
 		
 		
-		The most used algorithm for clustering is the k-means clustering, which seek to assign each point to a particular cluster in a way that minimize the average square distance between points in the same cluster~\cite{Arthur2007}. A vector representing the mean is used to describe each cluster, so this technique is described as a centroid model~\cite{ART:Morisette}.Each point is assigned to the cluster with the nearest mean.\\
+		The most used algorithm for clustering is the k-means clustering, which seek to assign each point to a particular cluster in a way that minimize the average square distance between points in the same cluster~\cite{Arthur2007}. A vector representing the mean is used to describe each cluster, so this technique is described as a centroid model~\cite{ART:Morisette}. The labeling is performed by assign to each point to the cluster with the nearest centroid.
+		Each point is assigned to the cluster with the nearest mean.\\
 		
-		Given an integer $k$ and a set of $n$ data points from $\mathbb{R}^d$, the kmeans clustering seek to find $k$ centers that minimize a potential function given by the sum of squares: 
+		Given an integer $k$ and a set of $n$ data points from $\mathbb{R}^d$, the k-means clustering seek to find $k$ centers that minimize a potential function given by the sum of squares: 
 		\begin{equation}
 			\Phi = \sum_{x\in S}\min\| x - c\|^2
 		\end{equation} 
-		Where $S\subset \mathbb R^d$ is a set of points. In this work $\mathbb{R}^d$ is the colors space and $S$ is the space of color of each voxel.
+		Where $S\subset \mathbb R^d$ is a set of points. In this work $\mathbb{R}^d$ will be the colors space and $S$ is the space of color of each voxel.
 		
 		The steps of the algorithm are the following: 
 		\begin{enumerate}

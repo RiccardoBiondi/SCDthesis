@@ -5,11 +5,16 @@
 \markboth{Conclusions}{Conclusions}
 
 In this work I've developed a fully automatic pipeline for the identification of lesions(GGO and CS) in chest CT scans of patient affected by COVID-19.
-The whole pipeline achieve the segmentation by using color quantization technique, that allows to exploit the color similarity between voxel belonging from the same tissue.  The multichannel nature of digital images has allowed also to consider other properties besides the single voxel intensity; so also neighboring voxel information are takes into account.\noindent
-To achieve the segmentation, we have found the characteristic color of each tissue by performing a k-means clustering in the color space.  The actual segmentation is achieved by assign each voxel to the cluster corresponding to the nearest color.\\
-As a preliminary step, a lung segmentation is performed by using a pre trained UNet, followed by a bronchial removal, which aims to reduce the rate of false positives.\\
+The whole pipeline achieve the segmentation by using color quantization technique, that allows to exploit the color similarity between voxel belonging from the same tissue.  The multichannel nature of digital images has allowed also to consider other properties besides the single voxel intensity; so also neighboring voxel information are takes into account.
 
-\noindent The pipeline, tested on three different dataset, has provided good segmentation for the typical lesions cases with an accurate identification of GGO and CS. The proposed algorithm have also shown some limitation due to the eventual presence of motion artifacts, cased by heartbeat and respiratory cycle; this behaviour was observed also on segmentation made on healthy controls, which have shown some misclassified points in these areas.\\
+To achieve the segmentation, we have found the characteristic color of each tissue by performing a k-means clustering in the color space.  The actual segmentation is achieved by assign each voxel to the cluster corresponding to the nearest color.
+As a preliminary step, a lung segmentation is performed by using a pre trained UNet, followed by a bronchial removal, which aims to reduce the rate of false positives. 
+
+The pipeline, tested on three different dataset, has provided good segmentation for the typical lesions cases with an accurate identification of GGO and CS. The proposed algorithm have also shown some limitation due to the eventual presence of motion artifacts, cased by heartbeat and respiratory cycle; this behaviour was observed also on segmentation made on healthy controls, which have shown some misclassified points in these areas.
+
+In the end we have developed a fully automated pipeline which achieve a good segmentation for the most typical cases. 
+
+Color quantization has shown to be a suitable approach to face this kind of problems, and some improvement, like removal of motion artifacts are still possible.
 
 
 

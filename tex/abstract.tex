@@ -4,8 +4,14 @@
 	\chapter*{Abstract}\addcontentsline{toc}{chapter}{Abstract}
 	\markboth{Abstract}{Abstract}
 
-	SARS-CoV-2 virus has widely spread all over the world since the beginning of 2020. This virus affect lung areas and causes respiratory illness.In this scenario is highly desirable a method to identify in CT images the lung injuries caused by COVID-19.\\
-	The approach proposed here is based on color quantization to identify the infection regions(GGO and Consolidation). 
-	We have segmented CT scans belonging from 3 different dataset and match the results with manual segmentation made by experts.
-	The proposed approach aims to segment the scan basing on the voxel and the
+	SARS-CoV-2 virus has widely spread all over the world since the beginning of 2020, and it is responsible of the COrina VIrus Disease (COVID). This disease affect lung areas and cause respiratory illness. 
+		
+	Patient affected by this pathology have shown a particular pattern of ground glass opacities(GGO) and consolidation(CS) in chest CT scans and that are  made in relation both with the stage of the disease and its severity; moreover the study of these pattern on healed patient was used to check the actual recovery.
+	
+	Considering this scenario, a segmentation of these areas is desirable. Up to now the gold standard for the identification and quantification of these areas is made by manual or semiautomatic segmentation; which are subjective and time consuming. So an automatic way for the identification is desired. 
+	
+	In this work I will present an automatic pipeline for the segmentation of GGO and CS. The pipeline achieve the segmentation by applying the color quantization as medical image segmentation technique, achieve a classification based on voxel intensity. Exploiting the properties of digital multichannel images, we was able to incorporates alse other image properties beside the single voxel intensity. 
+	
+	The proposed approach, tested on three datasets, has shown to achieve good segmentation on chest CT with typical lesions. 
+
 \end{document}
