@@ -2,31 +2,49 @@
 \begin{document}
 	\subsection{Gold Standard}
 	
-	In this section I will discuss the quantitative match between the achieved segmentation and the gold standard. The gold stantrd used involves $5$ semiautomatic segmentation made by a certified software and refined and checked by experts. This segmentation was provided by the Department of Diagnostic and Preventive Medicine of the Poloclinico Sant'Orsola - Malpighi.
-	The comparison was made for all the scans by Dice similarity coefficient. We have considered the semiautomatic segmentation as ground truth, that because of the high quality of the segmented masks. 
-	So we have considered the segmentation labels as a boolean mask, in which $True$ corresponds to the identified lesion area, and $False$ to other areas. This mask was compared to the actual ground truth, given by the gold standard, so we are able to compute the True Positives (TP), True Negative (TN), False Positives(FP) and False Negatives(FN) rate. Once we have computed these quantities, we are able to compute the dice score coefficient, given by :  
-	\begin{equation}
-		DSC = \frac{2TP}{2TP + FP + FN}
+	In order to obtain quantitative measures about the performances of the developed pipeline, I have compared the results with the manual annotation provided by the Department of Diagnostic and Preventive Medicine of the Poloclinico Sant'Orsola - Malpighi. 
+	
+	The comparison was made using sensitivity and and specificity scores. 
+	\paragraph{Sensitivity} refers to the ability to correctly detect ill areas. It is defined as the number of voxel classified as lesions among all the lesions. in other world is defined as the number of true positives over the total number of lesions voxels (True POsitives + False negtives) : 
+	\begin{equation}\label{eq:sensitivity}
+		Sensitivity : \frac{True Positive}{True Positive + False Negatives}
 	\end{equation}
 
-	This coefficient, which is in $[0, 1]$, will provide a measure of the goodness of the segmentation.\\ Dica coefficient were computed for all the five patients and the results are reported in table\,\ref{tab:DSC}. 
+	\paragraph{specificity} relates to the  ability to correctly reject healthy areas. Is defined as the number of rejected pixels(True Negative) agains the total numner of healthy areas (True Negative + False Positives) : 
+	\begin{equation}
+		spcificity : \frac{True Negative}{True Negative + False Positives}
+	\end{equation}
 	
+	As ground truth I have considered the $5$ gold standard segmentations.
+	
+	The results of these measures are displayed in table\,\ref{tab:Measures}
 	\begin{table}[h!]
 		\centering
-		\begin{tabular}{|c|c|c|c|c|c|}
+		\begin{tabular}{|c|c|c|c|c|}
 			\hline
-				  &DSC		&TP	($\%$)	&TN	($\%$)&FP($\%$)	&FN	($\%$)	\\ \hline
-		Patient 1 &	$0.519$	& $0.033$	& $99.90$ &	$0.048$	& $0.014$	\\
-		Patient 2 & $0.559$	& $0.417$	& $98.93$ &	$0.031$	& $0.627$	\\
-		Patient 3 &	$0.708$	& $0.649$	& $98.82$ & $0.045$	& $0.489$	\\
-		Patient 4 &	$0.546$	& $0.0298$	& $99.92$ &	$0.021$	& $0.028$	\\
-		Patient 5 &	$0.765$	& $0.269$	& $99.56$ &	$0.006$	& $0.159$	\\ \hline
-
-		\end{tabular}\caption{Table of the dice coefficient for each gold standard patient. The accurate manual segmentation was takes as ground truth. }\label{tab:DSC}
+			\multirow{2}{*}{}		  & \multicolumn{2}{c|}{Predicted} & \multicolumn{2}{c|}{Annotation} \\ \hline
+						& Sensitivity & Specificity	 		& Sensitivity & Specificity		 \\ \hline
+			Patient 1	& $0.412$	  &	$\sim 1.00$			&	$0.676$	  &	$ 0.999$ 		 \\ 
+			Patient 2	& $0.399$	  & $\sim 1.00$ 		&	$0.698$	  & $ 0.995$		 \\
+			Patient 3	& $0.570$	  &	$\sim 1.00$			&	$0.653$	  & $ 0.999$		 \\
+			Patient 4	& $0.512$	  & $\sim 1.00$			&	$0.325$	  & $ 0.999$		 \\
+			Patient 5 	& $0.628$	  & $\sim 1.00$			&	$0.974$	  &	$ 0.999$		 \\ \hline
+		\end{tabular}\caption{Sensitivity and Specificity for the pipeline segmentation and annotation. As a ground truth was used a sem-automatic segmentation made and evaluated by $5$ experts with at least $2$ years of experience.}\label{tab:Measures}
+		
 	\end{table}
+	
+	
+	The first thing we can notice is that the segmentation performances achieved by the semi-automatic method seems to have better quality perfomances, achieving a better capability to detect lesion areas. However we have to point out that the semi-automatic method requires several hours and the involved of trained experts. The proposed pipeline requires only few minutes and no trained personnel.
+	
+	We have also to point out that the achieved semiautomatic segmentation is subject on the experience of the operator. Only few patients per days may be segmented without lack of performances, since after several subsequent segmentation the level of concentration will drop.
+	
+	
+	 
+	We have also to point out that the developed pipeline may segment several patient without lack of performances. The training personnel may segment only one or two patient per days, 
+	
+	The specificity values allow us to think that the developed pipeline doesn't produce an high number of false positives. The  sensitivity may suggest that some lesion areas may be missed. We will see that each area is identified, however there is an uderestimation of the total lesion volume. 
+	
 
-	The first thing that we can notice is that the percentage of the true negative is much higher than the other; that because the number of pixels concerning the labeled object would be very few against the number of pixels related to the background.\\ An other thing we can notice is that not all the patient have similar agreement: Patient 1, 2, and 4 show DSC near the $0.55$, the remaining two near $0.73$. This may be caused to the fact that the chosen patients presents different severity of the disease and lesion characteristics: as we will see the developed method performs well in case of normal or severe lesions, but have some difficult to identify low contrast lesion areas. 
-	 	
  		\begin{figure}[h!]
  		\centering
  				\subfigure[Ground truth for Axial, sagittal and coronal view of the first patient]
@@ -50,7 +68,7 @@
  		\caption{Comparison between the gold standard segmentation(blue) and the pipeline results(pink) for axial, sagittal and coronal view for a patient with a large involvement of lung parenchima. We can see how the lesion areas are correctly identified}\label{fig:pat3}
  		\end{figure}
  	
- 	In \figurename\,\ref{fig:pat3} I've reported a comparison between the ground truth (blue) and the pipeline segmentation (pink) for the third patient in axial, sagittal and coronal view. The patient presents an high involvement of lung regions.  The lesion areas, which  in this case presents an high contrast with the lung regions, are correctly selected. In this case no misclassified points are detected, which is in agreement with the low FP percentage detected by the dice score. So for these cases the method seems to be pretty accurate.
+ 	In \figurename\,\ref{fig:pat3} I've reported a comparison between the ground truth (blue) and the pipeline segmentation (pink) for the third patient in axial, sagittal and coronal view. The patient presents an high involvement of lung regions.  The lesion areas, which  in this case presents an high contrast with the lung regions, are correctly selected. In this case no misclassified points are detected. This suggest that the pipeline is able to correctly identify the lesion areas. 
  	
  	
 	

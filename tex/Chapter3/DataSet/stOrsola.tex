@@ -2,19 +2,22 @@
 \begin{document}
 	\subsection{Sant'Orsola}
 	
-	Sant'Orsola data was the ones mainly considered in this work. The consist into 83 anonimyzed CT scans from $83$ different patients affected by COVID-19, manually labeled by interns; and $8$ healthy control.
-	The series are distributed as follows: 
+	Sant'Orsola data was the ones mainly considered in this work. It consist into 83 anonimyzed CT scans from $83$ different patients affected by COVID-19 and $8$ scans from healthy controls. 
+	Within these scans, also manual annotation were provided. These annotations were obtained with a semi-automatic approach. The built of each annotation may requires several hours.
+	
+		The series are distributed as follows: 
 	\begin{table}[h!]
 		\centering
 		\begin{tabular}{|c|c|}
 			\hline
-					\textbf{Property}   		&	\textbf{Value} \\ \hline
-					Number of Scans 			& 83			   \\ 
+			\textbf{Property}   		&	\textbf{Value} \\ \hline
+			Number of Scans 			& 83			   \\ 
 			Distribution by sex(M/F/O)  		& 66.3/33.7/0    \\
 			Distribution by age(min/median/max) & 35/60/89	\\ \hline
 		\end{tabular}
 	\end{table}
-
-	For this dataset were available $5$ manual segmentation, made and validated by expert. These segmentation were used as the ground truth for quantitative evaluation.
+	
+	
+	For $5$ scans were provided also other semi-automatic segmentations. These segmentation were obtained by refining the initial segmentation of a certified software. The building of these labels has required several days. In the end this results are validated by $5$ experts with at least $2$ years of experience. These $5$ segmentation represents the gold standard and are used as ground truth.
 	
 \end{document}

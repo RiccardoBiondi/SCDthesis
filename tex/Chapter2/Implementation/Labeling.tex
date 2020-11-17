@@ -2,14 +2,36 @@
 	
 	\subsection{Labeling}
 	
-	This is the last step of the pipeline, which involves the actual segmentation. This task is performed by simply assign each voxel to the cluster corresponding to the nearest centroids, in this way an hard segmentation is achieved.\\
+	This is the last step of the pipeline, which involves the actual segmentation. This task is performed by simply assign each voxels to the cluster corresponding to the nearest centroids, in this way an hard segmentation is achieved.
+	This step is performed by the function \textsc{imlabeling} implemented as follows: 
+		
+	\lstset{style=python}
+	\begin{lstlisting}[language=python, caption=kmenas\_on\_subsamples, label=code:kmeans]
+		
+	import numpy as np
 	
-	The script takes as input the CT scan after the lung extraction and build the multichannel image as described before. after that will assign each voxel to the cluster of nearest centroids, which is the centroids that minimize the distance : 
+	def imlabeling(image, centroids, weight = None) :
+
+
+	if weight  is not None :
+		distances = np.asarray([np.linalg.norm(image[weight != 0] -c, axis = 1) for c in centroids])
+		
+		weight[weight != 0] = np.argmin(distances, axis = 0)
+		return weight
+	else :
+		distances = np.asarray([np.linalg.norm(image -c, axis = 3) for c in centroids])
+		labels = np.argmin(distances, axis = 0)
+		return labels
+	
+	
+	\end{lstlisting}
+	
+	The script takes as input the CT scan after the lung extraction and it build the multichannel image as described before. After that it assigns each voxel to the cluster of nearest centroids, which is the one that minimize the distance : 
 	\begin{equation}
 		cluster = \arg\min_{S}  \sum_{i=1}^k \sum_{S} \| x - \mu_i\|
 	\end{equation}
 
-	where $x$ is the color vector of the voxel and $\mu$ is the $ith$ centroid. During this process the background is automatically assigned to the 0 label, since we know as a prior that its value is $0$.\\
+	where $x$ is the color vector of the voxel and $\mu$ is the $ith$ centroid. During this process the background is automatically assigned to the 0 label, by passing a mask which assume False on the volxel background and True for the other one.
 	To summarize the process, the pseudocode of the script is reported in algorithm\,\ref{alg:labeling}
 	 I've tested this algorithm on three different dataset, the results are described in the next chapter.
 	 
