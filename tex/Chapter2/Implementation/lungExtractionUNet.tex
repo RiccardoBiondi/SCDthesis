@@ -2,7 +2,38 @@
 \begin{document}
 	\subsection{Lung Extraction}
 	
-	This script aims to achieve the HU registration, the lung segmentation and the bronchial removal. 
+	This script aims to achieve the HU registration, the lung segmentation and the bronchial removal. It takes as input the CT scan in each format supported by \textsc{SimpleITK}. As output will returns the stack after the lung extraction in \textit{nifti} format. Also other medical image format are supported. Its workflow is summarized in\ref{alg:lungExtraction}.
+	
+		 
+	\begin{algorithm}
+		
+		\SetAlgoLined
+		\DontPrintSemicolon
+	
+		\KwData{Volume (CT scan)}
+		\KwResult{Volume with extracted lung}\;
+		
+		mask$\leftarrow$ApplyUNetVolume(Volume)\;
+		
+		volume$\leftarrow$(volume < 1200) =air\_hu\;
+		volume$\leftarrow$ShiftMinimumTo1(volume)\;
+		
+		\tcc{Start the bronchial removal}\;
+		
+		eigen$\leftarrow$ maxEigenvalues(lung)\;
+		bronchial\_mask$\leftarrow$ (eigen < threshold)\;
+		lung\_woBronchi$\leftarrow$ (lung $\circ$ bronchial\_mask)\;
+		
+		\tcc{Refine the bronchial mask}\;
+		
+		eigen$\leftarrow$maxEigenvalues(lung\_woBronchi)\;
+		bronchial\_mask$\leftarrow$(eigen < threshold)\;
+		lung\_woBronchi$\leftarrow$ (lung\_woBronchi $\circ$ bronchial\_mask)\;
+	
+		\caption{Lung Extraction}\label{alg:lungExtraction}
+		
+	\end{algorithm}
+	
 	
 	The lung mask was created by applying the suitable method from~\cite{REP:lungmask}. 
 
@@ -15,7 +46,7 @@
 		
 	def shif_and_crop(tensor) :
 		
-		tensor[tensor <  -1024] = tenor[tensor > -1024].min()
+		tensor[tensor <  -1200] = tenor[tensor > -1200].min()
 		tensor = tensor - tensor.min()
 	
 		return tensor
@@ -25,7 +56,7 @@
 	
 	In the end the computing of the eigenvalues map is made by the following function: 
 		\lstset{style=python}
-	\begin{lstlisting}[language=python, caption=HU registering function, label=code:saf]
+	\begin{lstlisting}[language=python, caption=HU registration function, label=code:saf]
 		
 	import cv2
 	import numpy as np
@@ -47,10 +78,7 @@
 
 	Once the required parameter were setted, the \textsc{OpenCV} function is iterate over the axial slices. The following transposition and selection of tensor elements, are needed since the function returns also the eigenvectors, in which we are not interested in. 
 	
-	At the end of the whole procedure, the resulting tensor is saved into a medical image formats. In this step I have paid attention to preserve also spatial informations.
-	
-	
-
+	At the end of the whole procedure, the resulting tensor is saved into a medical image formats. 
 	%This is a pre-processing step, which involves the creation of a lung mask and the managing of the Hounsfield Unit. The creation of a mask for the lung regions aims to reduce the number of clusters and avoid the formation of false positives by removing external structures, which can be source of errors. In order to achieve this purpose, I have decided to use a pre-trained neural networks~\cite{REP:lungmask} which code is open source. 
 	
 	%\textbf{red}{Once we have found a suitable mask for the lung, a managing of HU must be performed. The $k$ constant in the HU definition (equation\,\ref{eq:HU}) may change according to the scan manufacturer or scan model; moreover, during the scan acquisition, all the regions outside the CT tube aren't sampled, so to obtain a square $N\times N$ image for each slice some padding values are added, which different values according to the scan manufacturer: for instance in the CT scan in \figurename\,\ref{fig:Pre-Processing}(a) the padding value is $-3000 HU$ and the air value is $-1024$. }

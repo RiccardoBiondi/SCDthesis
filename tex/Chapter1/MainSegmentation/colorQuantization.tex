@@ -3,11 +3,7 @@
 	\subsection{Color Quantization}
 	
 
-	Color quantization is the process of reducing the number of colors in a digital image. The main objective of quantization process is that 
-	significant information should be preserved while reducing the number of colors in an image, in other word quantization process shouldn’t cause 
-	significant information loss in the image. 
-	Color quantization, accepted as a pre-processing application, is used to reduce the number of colors in images with minimum distortion such that the 
-	reproduced image should be very close to the original image visually, as in \figurename\,\ref{fig:ColorQuantization}. 
+	Color quantization is the process of reducing the number of colors in a digital image preserving significant information. In other world quantization process should not cause significant information loss in the image.  The color quantizes image should be very close to the original image visually, as in \figurename\,\ref{fig:ColorQuantization}. 
 
 	\begin{figure}[h!]
 		
@@ -16,11 +12,11 @@
 		\caption{\textit{Color quantized GL image. We observe the original image, a 32 color image which look similar to the original one, a 16 colors image and 8 colors image. Tissue are grouped by color similarity. Reduce the color to the number of cluster will }}\label{fig:ColorQuantization}
 	\end{figure}
 
-	Color quantization play an important role in many filed of applications such as segmentation, compression, color texture analysis, watermarking, 
+	Color quantization plays an important role in many application fields such as segmentation, compression, color texture analysis, watermarking, 
 	text localization/detection, non photorealistic rendering and content-based retrieval~\cite{ART:Ozturk}.\\
 	
 	
-	Color quantization may be used for image segmentation. Use that for this purpose means to reduce the number of colors to the number of the different objects we seek to segment. This means that is is based on the assumption that to each different object class in the image is assigned an unique characteristic color. This is the case of image segmentation, in which each image color represent a particular characteristic of the tissue displayed(i.e in x-ray represent$\mu$). 
+	Color quantization is used for image segmentation. To this purpose the algorithm aim to reduce the number oin the image is assigned an unique characteristic color. This is the case of medical image segmentation, in which each image color represents a particular characteristic of the tissue displayed (i.e in x-ray represent$\mu$). 
 	To perform this technique, different algorithms may be used to group the colors, like clustering algorithm or the principal component analysis.
 
 

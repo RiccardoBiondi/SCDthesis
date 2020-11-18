@@ -3,26 +3,25 @@
 
 	\subsection{Clustering}
 
-		Clustering approach is similar to classifiers one but in an unsupervised faishon, so doesn't require a training dataset.
-		Clustering iteratively alternate between segmenting the image and characterizing the  proprieties of each class. In this way we can say that clustering approach train itself by using the data available information.\\
+		Clustering approach is similar to the classifiers one, but in an unsupervised faishon, so does not require a training dataset.
+		Clustering iteratively alternates between the image segmentation and the its còasses properties characterization. In this way we can say that clustering approach trains itself by using the available data information.
 		We can identify 3 main clustering algorithms: 
 		\begin{itemize}
 	
-			\item \textbf{k-means clustering: } that iteratively compute a mean intensity for each class and segments the image by classifying each pixel in the class with the closest mean;
+			\item \textbf{k-means clustering: } partition $n$ observations in $k$ clusters iteratively computing a mean intensity for each class. It segments the image by classifying each pixel in the class with the closest mean
 	
-			\item \textbf{Fuzzy C-means: } this algorinthm generalize the K-means clustering in order to achieve soft- segmentation;
+			\item \textbf{Fuzzy C-means: } this algorithm generalizes the K-means clustering in order to achieve soft-segmentation;
 		
-			\item \textbf{Expectation Maximization:} use the same clustering principle as k-means by assuming that the pixel follows a Gaussian mixture model. It iterates between posterior probability and compute the the Maximul Likelihood estimates for the means, covariances and mixing coefficients of the mixture model. 
-	
+			\item \textbf{Expectation Maximization:} uses the same clustering principle as k-means by assuming that each observation belongs to a Gaussian mixture model. It is an iterative method that seek to to find maximum likelihood estimates means, covariances and mixing coefficients of the mixture model.
 		\end{itemize}
 
-		This approach doesn't requires training data, but suffer to an high sensitivity to the initial parameters and do not incorporates spatial model, so it is a pixel classification technique~\cite{ART:Pham}. 
+		It does not require training data, but if suffers of an high sensitivity to the initial parameters and it does not incorporate spatial models: it is a pixel classification technique~\cite{ART:Pham}. 
 		
 		
-		The most used algorithm for clustering is the k-means clustering, which seek to assign each point to a particular cluster in a way that minimize the average square distance between points in the same cluster~\cite{Arthur2007}. A vector representing the mean is used to describe each cluster, so this technique is described as a centroid model~\cite{ART:Morisette}. The labeling is performed by assign to each point to the cluster with the nearest centroid.
-		Each point is assigned to the cluster with the nearest mean.\\
+		The most used algorithm for clustering is the k-means clustering, which seeks to assign each pixel to a particular cluster aiming to minimize the average square distance between pixels in the same cluster~\cite{Arthur2007}. Each cluster is described by a vector representing its center, so this technique is described as a centroid model~\cite{ART:Morisette}. The labeling is performed by assigning each point to the cluster with the nearest centroid.
+		Each point is assigned to the cluster with the nearest center.
 		
-		Given an integer $k$ and a set of $n$ data points from $\mathbb{R}^d$, the k-means clustering seek to find $k$ centers that minimize a potential function given by the sum of squares: 
+		Given an integer $k$ and a set of $n$ data points from $\mathbb{R}^d$, the k-means clustering seeks to find the $k$ centers that minimize a potential function given by the sum of squares: 
 		\begin{equation}
 			\Phi = \sum_{x\in S}\min\| x - c\|^2
 		\end{equation} 
@@ -30,24 +29,25 @@
 		
 		The steps of the algorithm are the following: 
 		\begin{enumerate}
-			\item Select the value of k as initial centroids
-			\item Form k cluster by allocating every point to its most nearest centroid
-			\item Recalculate the centroid for each cluster until the centroid does not change.
+			\item Randomly initialize the values of the $k$ centers,
+			\item Generates the $k$ clusters associating each point to its nearest centroid
+			\item Re-compute the centroid for each cluster until the centroid does not change.
 			
 		\end{enumerate}
 		
-		Arthur and Vassilvitskii ~\cite{Arthur2007} have pointed that this algorithm is not accurate and can produce arbitrarily bad clusters. So they have developed a popular algorithm, the "k-means++" which improves the clustering accuracy by made an accurate choice of the initial cluster centers.\\ 
-		They pointed out that the bad clustering is caused to the fact that $\frac{\Phi}{\Phi_{opt}}$ is unbounded even if the number of clusters and points are fixed, where $\Phi_{opt}$ is the potential function in the optimal centroids case. They have proposed a variant for the choosing of the centroids, instead of chose the centroids randomly, the weight the initial points according to the distance square ($D(x)^2$) from the closest center already chosen. So the final algorithm is equal to the k-means except for the initial centroids selection that is made as follows: 
+		Arthur and Vassilvitskii ~\cite{Arthur2007} have pointed out that this algorithm is not accurate and can produce arbitrarily bad clusters. So they have developed a method, the "k-means++" which improves the clustering accuracy by made an accurate choice of the initial cluster centers.
+		
+		They pointed out that the bad clustering is caused to the fact that $\frac{\Phi}{\Phi_{opt}}$ is unbounded even if the number of clusters and points are fixed, where $\Phi_{opt}$ is the potential function in the optimal centroids case. They proposed a variant for the choosing of the centroids: They randomly chose omly the first centroid. To chose the other, they weight the initial points according to the distance square ($D(x)^2$) from the closest center already chosen. So the final algorithm is equal to the k-means except for the initial centroids selection that is made as follows: 
 		\begin{enumerate}
 			\item Take one center $c_1$, chosen uniformly at random from $S$.
 			
 			\item  Take a new center $c_i$, choosing $x \in Si$ with probability $\frac{D(x)^2}{\sum _{x \in S} D(x)^2}$
 			
-			\item Repeat the step 2 till $k$ centers are choose
+			\item Repeat the step 2 till $k$ centers are chosen
 			
 			\item Proceed like a classical k-means clustering.
 			
 		\end{enumerate}
 		
-		They have proved that this approach leads to better results in less time. For more details refer to ~\cite{Arthur2007}
+		They have proved that this approach leads to better results in less time. For more details refer to ~\cite{Arthur2007}.
 \end{document}

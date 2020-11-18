@@ -2,19 +2,17 @@
 \begin{document}
 	\section{Medical Images}
 	
-	Digital images are represented by 3 dimensional tensor, where the three dimensions corresponds respectively to height, with and number of channel, where channel refers to the number of image components. For instance a Gray level image is represented with a $h\times w$ matrix, on the other hand, an RGB image is composed by three $h\times w$ matrices, each of them represent a different primary. 
+	A digital image is represented by 3 dimensional tensor, where the three dimensions correspond respectively to height, with and number of channel. A  Gray scale image is represented with a $h\times w$ matrix, while, an RGB image is composed by three $h\times w$ matrices, each of them represent a different primary color.
 	
-	Each value of the tensor is in a range that change according to the image format. The most common are $[0, 255]$ for $8-$bit integer image, of $[0, 1]$ for float. Also other formats are available, like $16-$bit integers, widely used to represent medical images.
+	Each value of the tensor is integer of floating point number belonging to a domain related to the image format. The most common are $[0, 255]$ for $8-$bit integer image, of $[0, 1]$ for float. Also other formats are available, like $16-$bit integers, widely used to represent medical images.
 
-	Medical images provides a map of the subject anatomy and so are computed on a uniformly x-y-z spatial space, allowing a non invasive visualization of internal organs and tissues. At each point the data is represented by a $16-$bit integer. The meaning o the data change according to the image acquisition modality(CT, MRI, PET, etc.).
+	Medical images allows non invasive visualization of internal organs and tissues, providing a map of the subject anatomy computed on a uniformly x-y-z spatial space. At each point the data is represented by a $16-$bit integer. The meaning o the data changes according to the image acquisition modality (CT, MRI, PET, etc.).
 	
-	Computed Tomography(CT) is a medical imaging techniques which aims to reproduce  cross-section images and the 3D anatomy of the examined subject, each data represent the capability  of the corresponding volume to attenuate an x-ray beam. In order to be able to match results from different scans the beam attenuation is measured in Housfied Units(HU) : 
+	Computed Tomography (CT) is a medical imaging technique which aims to reproduce  cross-section images and the 3D anatomy of the examined subject. Each data represents the capability  of the corresponding volume to attenuate an x-ray beam. In order to match results from different scans the beam attenuation is measured in Housfied Units(HU) : 
 	\begin{equation}\label{eq:HU}
 		CT-number = k\times\frac{\mu - \mu_{H_2O}}{\mu_{H_2O}}
 	\end{equation}
 	
-	Where $\mu$ is the linear attenuation coefficient of the tissue, $\mu_{H_20}$ is the linear attenuation coefficient of the water, took as a reference. , and $k$ is a constant which can be $1000$ or $1024$ according to manufacturer scan. The linear attenuation coefficient of the air is considered as $0$, so the corresponding CT number is $-1000$; for the bones, that have a density double than water, the CT number is $1000$. 
-	
-	The resulting image tensor have a 16-bit depth and each voxel value is in relation with the capability to attenuate an x-ray beam of the tissue in object, which is different between tissues.
+	Where $\mu$ is the linear attenuation coefficient of the tissue, $\mu_{H_20}$ is the linear attenuation coefficient of the water, took as a reference, and $k$ is a constant which can be $1000$ or $1024$ according to manufacturer scan. The linear attenuation coefficient of the air is considered as $0$, so the corresponding CT number is $-1000$; for the bones, that have a density double than water, the CT number is $1000$. 
 		
 \end{document}

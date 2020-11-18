@@ -1,0 +1,14 @@
+\documentclass{standalone}
+\begin{document}
+	\subsection*{Labeling}
+	
+	This step requires as input the multichannel image and a pre-estimated centroid set. It involves the assigning of each voxel to the cluster corresponding to the nearest centroid and the selections of the one corresponding to GGO and CS areas. In this way we are performing a pixel classification by assigning the regions to a particular labels according only to their intensities information: this allow us to group on the same cluster objects that are spatially disconnected as often happen in the medical imaging field.
+	
+	The distance between voxel colors and each centroid is defined as the euclidean distance:
+	\begin{equation*}
+		d(x_j, c_i) = \sqrt{(x_j - c_i)^2}
+	\end{equation*} 
+	Where $x_j$ is the color vector for the $j_{th}$ voxel and $c_i$ is the $i_{th}$ centroid.\\
+	
+	
+\end{document}

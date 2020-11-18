@@ -2,11 +2,49 @@
 	
 	\subsection{Labeling}
 	
-	This is the last step of the pipeline, which involves the actual segmentation. This task is performed by simply assign each voxels to the cluster corresponding to the nearest centroids, in this way an hard segmentation is achieved.
-	This step is performed by the function \textsc{imlabeling} implemented as follows: 
+	
+	
+	
+	This is the last step of the pipeline and involves assigning of  each voxels to the cluster corresponding to the nearest centroids, in this way an hard segmentation is achieved.
+	
+	The script takes as input the CT scan after the lung extraction and it build the multichannel image as described before. After that it assigns each voxel to the cluster of nearest centroids, which is the one that minimize the distance : 
+	\begin{equation}
+		cluster = \arg\min_{S}  \sum_{i=1}^k \sum_{S} \| x - \mu_i\|
+	\end{equation}
+	
+	where $x$ is the color vector of the voxel and $\mu$ is the $ith$ centroid. During this process the background is automatically assigned to the 0 label, by passing a mask which assume False on the volxel background and True for the other one. At the end of the assignment, only the cluster corresponding to GGO and CS is selected.
+	To summarize the process, the pseudocode of the script is reported in algorithm\,\ref{alg:labeling}
+	I've tested this algorithm on three different dataset, the results are described in the next chapter.
+	
+	\begin{algorithm}
+		
+		\SetAlgoLined
+		\DontPrintSemicolon
+		
+		\SetKwFunction{Flabel}{imlabeling}
+		\SetKwProg{Fn}{Function}{:}{}
+		
+		\KwData{CT scan to label, centroids}
+		\KwResult{GGO label}
+		
+		image$\leftarrow$build\_multi\_channel\;
+		\tcc{Compute distances and found the minimum}
+		\ForEach{$c\in centroids $}
+		{
+			distances$\leftarrow\| image - c\|^2$\;
+		}
+		
+		labels$\leftarrow\arg\min\,(distances)$\;
+		
+		\caption{Pseudo-code for the labeling script}\label{alg:labeling}
+		
+	\end{algorithm}
+	
+
+	The assignement process is performed by the \textsc{imlabeling} function, which takes care to assign the background to $0$, if the suitable parameter is passed.  The function is implemented as follows:
 		
 	\lstset{style=python}
-	\begin{lstlisting}[language=python, caption=kmenas\_on\_subsamples, label=code:kmeans]
+	\begin{lstlisting}[language=python, caption=imlabeling, label=code:imlabeling]
 		
 	import numpy as np
 	
@@ -26,39 +64,9 @@
 	
 	\end{lstlisting}
 	
-	The script takes as input the CT scan after the lung extraction and it build the multichannel image as described before. After that it assigns each voxel to the cluster of nearest centroids, which is the one that minimize the distance : 
-	\begin{equation}
-		cluster = \arg\min_{S}  \sum_{i=1}^k \sum_{S} \| x - \mu_i\|
-	\end{equation}
 
-	where $x$ is the color vector of the voxel and $\mu$ is the $ith$ centroid. During this process the background is automatically assigned to the 0 label, by passing a mask which assume False on the volxel background and True for the other one.
-	To summarize the process, the pseudocode of the script is reported in algorithm\,\ref{alg:labeling}
-	 I've tested this algorithm on three different dataset, the results are described in the next chapter.
-	 
-	 	\begin{algorithm}
-	 	
-	 	\SetAlgoLined
-	 	\DontPrintSemicolon
-	 	
-	 	\SetKwFunction{Flabel}{imlabeling}
-	 	\SetKwProg{Fn}{Function}{:}{}
-	
- 		\KwData{CT scan to label, centroids}
- 		\KwResult{GGO label}
- 		
- 		image$\leftarrow$build\_multi\_channel\;
-		\tcc{Compute distances and found the minimum}
- 		\ForEach{$c\in centroids $}
- 		{
- 			distances$\leftarrow\| image - c\|^2$\;
- 		}
- 		
- 		labels$\leftarrow\arg\min\,(distances)$\;
-	 
-	 	\caption{Pseudo-code for the labeling script}\label{alg:labeling}
-	 
-	 \end{algorithm}
-	 
+ The weight argument, if provided, must be a binary tensor. Each element must be $0$, if the corresponding voxel is a background voxel,  $1$ otherwise. 
+
 	
 	
 \end{document}

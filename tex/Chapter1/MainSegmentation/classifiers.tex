@@ -3,18 +3,19 @@
 
 \subsection{Classifiers Approach}
 
-Classifiers approaches use statistical pattern recognition techniques to segment images by using a mixture model that assume each pixels belonging to one of a known set of classes~\cite{INP:Withey}. To assign each pixel to the corresponding classes, use the so called \emph{feature space}, which is the space of any function of the image like intensity. An example of 1D feature space is image histogram. \\
-The feature of each pixel form a pattern that is classified by assign a probability measure for the inclusion of each pixel in each class~\cite{INP:Withey}.\\
-This approach assume a prior knowledge about the total number in the image and the probability of occurence of each class. Generally this quantity aren't known, so we need a set of training data to usa as reference. \\
-There are different techninques wich use this approach: 
+Classifiers approaches use statistical pattern recognition techniques to segment images by using a mixture model which assumes that each pixels belongs to one of a prior known set of classes~\cite{INP:Withey}. To assign each pixel to the corresponding class, it use the so called \emph{feature space}, which is the space of any function of the image. An example of 1D feature space is the image histogram. 
+
+The features of each pixel form a pattern that is classified by assigning a probability measure for the inclusion of each pixel in each class~\cite{INP:Withey}.\\
+This approach assumes a prior knowledge about the total numbers of features in the image and the probability of occurence of each class. Generally this quantity is not prior known, so we need a set of training data to use as reference. \\
+There are different techniques which use this approach: 
 \begin{itemize}
 
 \item \textbf{k-Nearest Neighborhood} : each pixel is classified in the same class as the training data with the closest intensity; 
 
-\item \textbf{Maximum likelihood or Bayesian} : Assume that pixel intensities are independent samples from a mixture of probability distributions and the  classification is obtained by assign each pixel to the class with the highest posterior probability. 
+\item \textbf{Maximum likelihood or Bayesian} : Assume that pixel intensities are independent samples from a mixture of probability distributions and the  classification is obtained by assigning each pixel to the class with the highest posterior probability. 
 \end{itemize}
 
-This approach requires a structure to segment with distinct and quantificable features. It is computational efficent and can be applied to multichannel images. 
-This approcach doesn't consider a spatial modelling and need a manual interaction to obtain the training data that must be several since the use of the same training set for a large number of scans can lead to biased results.  
+This approach requires a structure to segment with distinctive and quantificable features. It is computational efficient and can be applied to multichannels images. 
+This approach does not consider a spatial modelling and it requires a manual interaction to obtain the training data that must be several since the use of the same training set for a large number of scans can lead to biased results.  
 
 \end{document}
