@@ -11,9 +11,12 @@
 
 	In \figurename\,\ref{fig:HealthyControl} I have displayed two segmented scans from healthy control. We can see that, in a normal case, no lesion areas were detected; but in presence of artifacts, some misclassified regions appears.
 	
-	This result suggests that the main source of false positives is the presence of motion artifacts, caused by heartbeat and respiratory cycle.
+	This can be clearly seen by considering the percentage of misclassified areas. In normal case, the percentage of misclassified voxels is less than $0.01\%$; but, in presence of artifact, increase of $10$ times. 
 	
-	In the end we have verified that, in the most common case, no lesion areas were identified as we expect. On the other hand, in presence of motion artifacts, these may be misclassified as lesions and we have observed that this is one of the main source of false positives. 
+	This result suggests that the main source of false positives is the presence of motion artifacts, caused by heartbeat and respiratory cycle. 
+	However we have seen that these doesn't affect too much the specificity of the method. Further improvements may seek to remove these regions, in order to achieve a more accurate segmentation.
+	
+	In the end we have verified that, in the most common case, no lesion areas were identified as we expect. On the other hand, in presence of motion artifacts, these may be misclassified as lesions and we have observed that this is one of the main source of false positives. However the specificity of the pipeline remains very high. 
 	
 	
 	

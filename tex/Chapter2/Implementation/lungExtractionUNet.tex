@@ -2,7 +2,7 @@
 \begin{document}
 	\subsection{Lung Extraction}
 	
-	This script aims to achieve the HU registration, the lung segmentation and the bronchial removal. It takes as input the CT scan in each format supported by \textsc{SimpleITK}. As output will returns the stack after the lung extraction in \textit{nifti} format. Also other medical image format are supported. Its workflow is summarized in\ref{alg:lungExtraction}.
+	This script aims to achieve the HU registration, the lung segmentation and the bronchial removal. It takes as input the CT scan in each format supported by \textsc{SimpleITK}. As output will returns the stack after the lung extraction in \textit{nifti} format.  Its workflow is summarized in\ref{alg:lungExtraction}.
 	
 		 
 	\begin{algorithm}
@@ -35,9 +35,9 @@
 	\end{algorithm}
 	
 	
-	The lung mask was created by applying the suitable method from~\cite{REP:lungmask}. 
+	The lung mask was created by applying the a pre trained U-Net by using the suitable method from~\cite{REP:lungmask}. 
 
-	In order to achieve the first step, first of all all the values less than the air value are setted to this value, after that the air value is subtracted from all the voxels. These operation are performed on the image tensor by using \textsc{Numpy} ndarray method.  
+	In order to achieve th registration, first of all the values less than the air value are setted to this value, after that the air value is subtracted from all the voxels. These operation are performed on the image tensor by using \textsc{Numpy} ndarray method. After each value is rescaled in $[0, 255]$. 
 	
 	\lstset{style=python}
 	\begin{lstlisting}[language=python, caption=HU registering function, label=code:saf]
@@ -52,7 +52,7 @@
 		return tensor
 	\end{lstlisting}
 
-	More inreresting is the estimation of the eignevalues map. To achieve this purpose I've implemented a function based on \textsc{cv2.cornerEigenValsAndVec} in \textsc{OpenCV}. This function takes as input an $8-$bit gray scale image, so we have to rescale the GL value of the obtained image tensor. Since I don't want to lose information about the rescaled values, I've simply made a copy of this object. 
+	More inreresting is the estimation of the eignevalues map. To achieve this purpose I've implemented a function based on \textsc{cv2.cornerEigenValsAndVec} in \textsc{OpenCV}. This function takes as input an $8-$bit gray scale image, so we have to rescale the GL value of the obtained image tensor. 
 	
 	In the end the computing of the eigenvalues map is made by the following function: 
 		\lstset{style=python}

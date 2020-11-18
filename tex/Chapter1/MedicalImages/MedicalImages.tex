@@ -2,17 +2,24 @@
 \begin{document}
 	\section{Medical Images}
 	
-	A digital image is represented by 3 dimensional tensor, where the three dimensions correspond respectively to height, with and number of channel. A  Gray scale image is represented with a $h\times w$ matrix, while, an RGB image is composed by three $h\times w$ matrices, each of them represent a different primary color.
+	A medical image is the representation of internal structure or function of anatomic region in the form of array of picture elements (pixels/voxels). 
+	This discrete representation results from a process that map each numerical value in a position of the space. The number of pixels used for this representation is an expression of the details with which the anatomy of function can be depicted.  The physical meaning of the data changes according to the image acquisition modality (CT, MRI, PET, etc.); 	for instance, we can consider the computed tomography (CT) case: 
 	
-	Each value of the tensor is integer of floating point number belonging to a domain related to the image format. The most common are $[0, 255]$ for $8-$bit integer image, of $[0, 1]$ for float. Also other formats are available, like $16-$bit integers, widely used to represent medical images.
-
-	Medical images allows non invasive visualization of internal organs and tissues, providing a map of the subject anatomy computed on a uniformly x-y-z spatial space. At each point the data is represented by a $16-$bit integer. The meaning o the data changes according to the image acquisition modality (CT, MRI, PET, etc.).
-	
-	Computed Tomography (CT) is a medical imaging technique which aims to reproduce  cross-section images and the 3D anatomy of the examined subject. Each data represents the capability  of the corresponding volume to attenuate an x-ray beam. In order to match results from different scans the beam attenuation is measured in Housfied Units(HU) : 
+	 Computed Tomography (CT) is a medical imaging technique which aims to reproduce  cross-section images and the 3D anatomy of the examined subject. Each data represents the capability  of the corresponding volume to attenuate an x-ray beam. In order to match results from different scans the beam attenuation is measured in Housfied Units(HU) : 
 	\begin{equation}\label{eq:HU}
 		CT-number = k\times\frac{\mu - \mu_{H_2O}}{\mu_{H_2O}}
 	\end{equation}
 	
-	Where $\mu$ is the linear attenuation coefficient of the tissue, $\mu_{H_20}$ is the linear attenuation coefficient of the water, took as a reference, and $k$ is a constant which can be $1000$ or $1024$ according to manufacturer scan. The linear attenuation coefficient of the air is considered as $0$, so the corresponding CT number is $-1000$; for the bones, that have a density double than water, the CT number is $1000$. 
-		
+	Where $\mu$ is the linear attenuation coefficient of the tissue, $\mu_{H_20}$ is the linear attenuation coefficient of the water, took as a reference, and $k$ is a constant which can be $1000$ or $1024$ according to manufacturer scan. The linear attenuation coefficient of the air is considered as $0$, so the corresponding CT number is $-1000$; for the bones, that have a density double than water, the CT number is $1000$.
+	
+	Medical images can be characterized by $5$ properties : \emph{pixel depth, photometric, interpretation, metadata and pixel data}. 
+	
+	\paragraph*{Pixel depth} is the number of bits used to encode the information of each pixel. Each value of the tensor is integer of floating point number belonging to a domain related to the image format. It is related to the memory space necessary to store the image and the amout of information we want to store in each pixel. Higher bit allows to store more information, but requires more memory~\cite{ART:Larobina}. The most common are $[0, 255]$ for $8-$bit integer image, of $[0, 1]$ for float. Also other formats are available, like $16-$bit integers, widely used to represent medical images. 
+	
+	\paragraph{Photometric Interpetation} The photometric interpretation specifies how the pixel data should be interpreted for the correct image display as a mono95 chrome or color image. We have to introduce the concept of \emph{number of channel}. Monochrome images have only one sample per pixel (GL intensity). To encode color information into pixels, we typically need multiple samples per pixel and to adopt a color model that specifies how to obtain colors combining the samples. Color may be used to encode blood flow direction and velocity in doppler ultrasound~\cite{ART:Larobina}. In this works I have used this feature to consider also voxels neighbouring information. 
+	
+	\paragraph{Metadata} Are the information that describe the image. Metadata is tipically stored at the beginning of the the file and contains (at least) the image matrix dimension and photometric interpretation. In medical image formats it contains also informations how the image was produced or about the patient~\cite{ART:Larobina}.
+	
+	\paragraph{Pixel Data} Numerical values of the pixels that are stored according to data type. 
+			
 \end{document}

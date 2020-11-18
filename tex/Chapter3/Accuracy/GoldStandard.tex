@@ -32,37 +32,60 @@
 		\end{tabular}\caption{Sensitivity and Specificity for the pipeline segmentation and annotation. As a ground truth was used a sem-automatic segmentation made and evaluated by $5$ experts with at least $2$ years of experience.}\label{tab:Measures}
 		
 	\end{table}
+
+	The first thing we can notice is that both segmentation and annotation method have an high specificity. So are both able to correctly reject healthy pixels. Moreover we can see from the sensitivity that the annotation is still better to recognize GGO and CS areas. However, in case of annotation I have to point out that this values are subjected to the operator experience. The automatic method is not, since does not requares any trained operator.  
+	
+	In \figurename\,\ref{fig:conf1}, we can see a comparison between the ground truth (blue), the predicted segmentation (pink) and the annotation (yellow). As we can see the GGO and CS areas are correctly classified. We can notice that no healthy area is misclassified as lesion. e can also see that, even if the pipleline identifies a smaller lesion area, the segmentation results are in agreement with ground truth.
+	
+	\begin{figure}[h!]
+		\includegraphics[width=\linewidth]{GTCOMP1.png}
+		
+		\caption{Comparison between the ground truth (blue), the pipeline segmentation (pink) and the manual annotation (yellow). We can see that the GGO an CS areas are correctly identified.}\label{fig:conf1}
+	\end{figure}
+	
+	I have provide an other comparison in \figurename\,\ref{fig:conf2}. In this case we can see that the identified area is smaller for the annotation. 
+
+		\begin{figure}[h!]
+		\includegraphics[width=\linewidth]{GTCOM2.png}
+		
+		\caption{Comparison between the ground truth (blue), the pipeline segmentation (pink) and the manual annotation (yellow). We can see that the segmentation obtained by the automatic pipeline is better that the one of the manual annotation.}\label{fig:conf2}
+	\end{figure}
 	
 	
-	The first thing we can notice is that the segmentation performances achieved by the semi-automatic method seems to have better quality perfomances, achieving a better capability to detect lesion areas. However we have to point out that the semi-automatic method requires several hours and the involved of trained experts. The proposed pipeline requires only few minutes and no trained personnel.
 	
-	We have also to point out that the achieved semiautomatic segmentation is subject on the experience of the operator. Only few patients per days may be segmented without lack of performances, since after several subsequent segmentation the level of concentration will drop.
+	
+	
+	
+	
+	%The first thing we can notice is that the segmentation performances achieved by the semi-automatic method seems to have better quality perfomances, achieving a better capability to detect lesion areas. However we have to point out that the semi-automatic method requires several hours and the involved of trained experts. The proposed pipeline requires only few minutes and no trained personnel.
+	
+	%We have also to point out that the achieved semiautomatic segmentation is subject on the experience of the operator. Only few patients per days may be segmented without lack of performances, since after several subsequent segmentation the level of concentration will drop.
 	
 	
 	 
-	We have also to point out that the developed pipeline may segment several patient without lack of performances. The training personnel may segment only one or two patient per days, 
+	%We have also to point out that the developed pipeline may segment several patient without lack of performances. The training personnel may segment only one or two patient per days, 
 	
-	The specificity values allow us to think that the developed pipeline doesn't produce an high number of false positives. The  sensitivity may suggest that some lesion areas may be missed. We will see that each area is identified, however there is an uder-estimation of the total lesion volume. +
+	%The specificity values allow us to think that the developed pipeline doesn't produce an high number of false positives. The  sensitivity may suggest that some lesion areas may be missed. We will see that each area is identified, however there is an uder-estimation of the total lesion volume. +
 		
-	\begin{figure}[h!]
-		\centering
-		\includegraphics[width=.8\linewidth]{PATIENT1.png}  
-		\caption{Comparison between the gold standard segmentation(blue) and the pipeline results(pink) for axial, sagittal and coronal view of a patient with a low involvement of lung parenchima. We can see that te main lesion areas are identified, even if an understimation of the total volume is present together with some small misclassified points.}\label{fig:pat1}
-	\end{figure}
+	%\begin{figure}[h!]
+	%	\centering
+	%	\includegraphics[width=.8\linewidth]{PATIENT1.png}  
+	%	\caption{Comparison between the gold standard segmentation(blue) and the pipeline results(pink) for axial, sagittal and coronal view of a patient with a low involvement of lung parenchima. We can see that te main lesion areas are identified, even if an understimation of the total volume is present together with some small misclassified points.}\label{fig:pat1}
+	%\end{figure}
 	
- 	In \figurename\,\ref{fig:pat1} I've reported a comparison between the ground truth (blue) and the pipeline segmentation (pink) for the first patient in axial, sagittal and coronal view. We can see how the main lesion areas are correctly identified, however a low underestimation of the total lesion volume is presents, toghether with the presence of false positives in the lowest back regions. This is a particular case, since the involvement of lung volume is very low, as well as the contrast between lesions and healthy lung.
+ 	%In \figurename\,\ref{fig:pat1} I've reported a comparison between the ground truth (blue) and the pipeline segmentation (pink) for the first patient in axial, sagittal and coronal view. We can see how the main lesion areas are correctly identified, however a low underestimation of the total lesion volume is presents, toghether with the presence of false positives in the lowest back regions. This is a particular case, since the involvement of lung volume is very low, as well as the contrast between lesions and healthy lung.
  	
  	
- 	\begin{figure}
- 		\centering
- 		\includegraphics[width=.8\linewidth]{PATIENT3.png}  
- 		\caption{Comparison between the gold standard segmentation(blue) and the pipeline results(pink) for axial, sagittal and coronal view for a patient with a large involvement of lung parenchima. We can see how the lesion areas are correctly identified}\label{fig:pat3}
- 	\end{figure}
+ 	%\begin{figure}
+ 	%	\centering
+ 	%	\includegraphics[width=.8\linewidth]{PATIENT3.png}  
+ 	%	\caption{Comparison between the gold standard segmentation(blue) and the pipeline results(pink) for axial, sagittal and coronal view for a %patient with a large involvement of lung parenchima. We can see how the lesion areas are correctly identified}\label{fig:pat3}
+ 	%\end{figure}
  	
  	
  
  	
- 	In \figurename\,\ref{fig:pat3} I've reported a comparison between the ground truth (blue) and the pipeline segmentation (pink) for the third patient in axial, sagittal and coronal view. The patient presents an high involvement of lung regions.  The lesion areas, which  in this case presents an high contrast with the lung regions, are correctly selected. In this case no misclassified points are detected. This suggest that the pipeline is able to correctly identify the lesion areas. 
+ 	%In \figurename\,\ref{fig:pat3} I've reported a comparison between the ground truth (blue) and the pipeline segmentation (pink) for the third patient in axial, sagittal and coronal view. The patient presents an high involvement of lung regions.  The lesion areas, which  in this case presents an high contrast with the lung regions, are correctly selected. In this case no misclassified points are detected. This suggest that the pipeline is able to correctly identify the lesion areas. 
  	
  	
 	

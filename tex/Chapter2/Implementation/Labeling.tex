@@ -12,7 +12,7 @@
 		cluster = \arg\min_{S}  \sum_{i=1}^k \sum_{S} \| x - \mu_i\|
 	\end{equation}
 	
-	where $x$ is the color vector of the voxel and $\mu$ is the $ith$ centroid. During this process the background is automatically assigned to the 0 label, by passing a mask which assume False on the volxel background and True for the other one. At the end of the assignment, only the cluster corresponding to GGO and CS is selected.
+	where $x$ is the color vector of the voxel and $\mu$ is the $ith$ centroid. During this process the background is automatically assigned to the 0 label, by passing a mask which assume $0$ on the volxel background and $1$ for the other one. At the end of the assignment, only the cluster corresponding to GGO and CS is selected.
 	To summarize the process, the pseudocode of the script is reported in algorithm\,\ref{alg:labeling}
 	I've tested this algorithm on three different dataset, the results are described in the next chapter.
 	
@@ -51,21 +51,23 @@
 	def imlabeling(image, centroids, weight = None) :
 
 
-	if weight  is not None :
-		distances = np.asarray([np.linalg.norm(image[weight != 0] -c, axis = 1) for c in centroids])
+		if weight  is not None :
+			distances = np.asarray([np.linalg.norm(image[weight != 0] -c, axis = 1) 
+									for c in centroids])
 		
-		weight[weight != 0] = np.argmin(distances, axis = 0)
-		return weight
-	else :
-		distances = np.asarray([np.linalg.norm(image -c, axis = 3) for c in centroids])
-		labels = np.argmin(distances, axis = 0)
-		return labels
+			weight[weight != 0] = np.argmin(distances, axis = 0)
+			return weight
+		else :
+			distances = np.asarray([np.linalg.norm(image -c, axis = 3) 
+									for c in centroids])
+			labels = np.argmin(distances, axis = 0)
+			return labels
 	
 	
 	\end{lstlisting}
 	
 
- The weight argument, if provided, must be a binary tensor. Each element must be $0$, if the corresponding voxel is a background voxel,  $1$ otherwise. 
+
 
 	
 	

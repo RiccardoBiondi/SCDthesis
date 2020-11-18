@@ -1,18 +1,19 @@
 \documentclass{standalone}
 \begin{document}
-	\subsection{Kernel Size Optimization}
+	\subsection{Kernel Size}
 	
 	During the building of the multi channel image, I had to compute different image features, that requires the setting of different parameters, like median or standard filter kernel sizes. In order to achieve the best segmentation, I have performed an optimization step that aims to find the parameters that allows to obtain the best segmentation. 
 	
 	Notice that this process is not necessary and a good segmentation can be achieved also by setting this parameters manually.
 
-	In order to perform the optimization, I have used \textsc{scikit-optimize}~\cite{skopt}, more specifically the \textsc{gc\_minimize method.}.
+	In order to perform the optimization, I have used \textsc{scikit-optimize}~\cite{skopt}, more specifically the \textsc{gc\_minimize method}.
 	
 	This method seeks to perform a Bayesian optimization by using a Gaussian process to approximate an objective function. The function values are assumed to follow a multivariate Gaussian. The covariance of the function values are given by a GP kernel between the parameters. Then a smart choice to choose the next parameter to evaluate can be made by the acquisition function over the Gaussian prior which is much quicker to evaluate~\cite{skopt}.
 
-	In the end an objective function is minimized. I have used the objective function defined in\,\ref{alg:optimize in which is also reported the whole minimization pseudocode. The used function aim to minimize $1 - IoU$ where the IoU(Intersection over Union) is computed between the output labels and a reference one :
+	In the end an objective function is minimized. I have used the objective function defined in\,\ref{alg:optimize} in which is also reported the whole minimization pseudocode. The used function aim to minimize $1 - IoU$ where the IoU(Intersection over Union) is computed between the output labels and a reference one :
 	\begin{equation*}
 			IoU = \frac{Area\,of\,Overlap}{Area\,of\,Union}
+			\label{eq:IoU}
 	\end{equation*}
 		
 	
@@ -45,7 +46,7 @@
 	\end{algorithm}
 		
 		
-	This process allows to optimize the parameters in order to obtain the best results as possible. As reference labels I have used the ones valuated as gold standard from two experts radiologists whith more than $5$ years of experience.
+	This process allows to optimize the parameters in order to obtain the better results. As reference labels I have used the ones evaluated as gold standard from five experts radiologists at least $2$ years of experience.
 	
 	This procedure allows only to tune the parameters for a better segmentation, but the learning process remains unsupervised.
 

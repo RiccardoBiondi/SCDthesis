@@ -33,7 +33,7 @@
 	
 	We can consider different properties beside the single voxel intensity. As we can see, lesion areas involves many closest voxels. It is interesting to incorporates also neighborhood voxel information in the color quantization. Moreover, contrast between sick and healthy areas may change according to the severity of the disease. As a consequence it is interesting to incorporates also different gamma of the image, in order to enhance these regions.
 	
-	Digital images may have more than one \textit{sample per pixel}. For a color image each voxel is represented by 3 sample, one for each primary color. I can use color to encode also more informations, exploited with the application of different functions in the image. In this way I've build a color space which encode different image features.
+	Adopting a color model for the digital image, allows to encode color information in the pixels. Color can be used to encode also voxel neighborhood information. Each image channel stores a different image function.
 	
 	Once I have build the color space, I have to find the characteristic color of each tissue under study, which is represented by a centroids in the color space. I have created a training dataset made of CT scans from different patients and applied a  k-means clustering, since it provides a good balance between segmentation performance and computational efficiency. K-means clustering requires a prior knowledge about the number of cluster, which in our case is given by the anatomical structure of the lung. I have consider a different cluster for each anatomical structure : 
 		\begin{itemize}
@@ -45,13 +45,13 @@
 		
 		\item Bronchi.
 		
-		\item  Ground Glass Opacities and consolidation;
+		\item  Ground Glass Opacities and Consolidation;
 		
 	\end{itemize}
 		
 	Once I have estimated the centroids for each tissue, I have used them for the  segmentation: each voxel of the image  is assigned  to the cluster of the closest centroids.
 	
-	The final pipeline structure is summarized in \figurename\,\ref{Pipeline}.
+	The final pipeline structure is summarized in \figurename\,\ref{fig:Pipeline}.
 	
 	\begin{figure}[h!]
 		\centering
@@ -60,7 +60,7 @@
 	\end{figure}
 
 
-	Once the centroids are estimated, the training step does not nedds to be repeated. Moreover, in the implementation, the building of the multichannel image is incorporated in the labeling step. As a consequence the final pipline structure looks like in \figurename\,\ref{fig:FinalPipeline}.
+	Once the centroids are estimated, the training step does not needs to be repeated. Moreover, in the implementation, the building of the multichannel image is incorporated in the labeling step. As a consequence the final pipline structure looks like in \figurename\,\ref{fig:FinalPipeline}.
 	
 	\begin{figure}[h!]
 		\centering

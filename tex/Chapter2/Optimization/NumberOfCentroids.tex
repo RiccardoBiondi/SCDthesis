@@ -1,6 +1,6 @@
 \documentclass{standalone}
 \begin{document}
-	\subsection{Estimation of the Number of Clusters}
+	\subsection{Number of Clusters}
 	
 	The designed algorithm for the centroids estimation is the k-means clustering that requires a prior knowledge about the number of clusters to use. This is very important since a bad choice will badly affect the whole segmentation results. In order to chose the proper number of clusters, I've consider two different sources of information: the anatomical knowledge about the lung and the internal variability of the lung.
 	
@@ -13,9 +13,10 @@
 		
 		\item Vessel surrounding bronchial structures;
 		
-		\item  Ground Glass Opacities and consolidation;
 		
 		\item Bronchi.
+		
+		\item  Ground Glass Opacities and Consolidation;
 	\end{itemize}
 
 	Notice that the background of the image is not considered as a cluster since it is removed from the segmentation for the reasons explained before.

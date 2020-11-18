@@ -2,7 +2,7 @@
 \begin{document}
 	\subsection*{Training}
 	
-	This step involves the estimation of the centroid set. To achieve this purpose, a k-means clustering was performed on a training set made on multichannel images from many CT scans. During this I have to takes into account that k-means clustering requires a balance in the different cluster representation. As we can see in \figurename\,\ref{fig:ClusterRepr}, the main part of the image is composed to background, that over-represented. Moreover we can observe that the amount of involved lung volume may change according to the  severity of the disease: the first scan presents a low amount pf GGO and CS; se second one have a larger region involved. 
+	This step involves the estimation of the centroid set. To achieve this purpose, a k-means clustering was performed on a training set made on multichannel images from many CT scans. During this I have to takes into account that k-means clustering requires a balance in the different cluster representation. As we can see in \figurename\,\ref{fig:ClusterRepr}, the main part of the image is composed to background, that si an over-represented cluster. Moreover we can observe that the amount of involved lung volume may change according to the  severity of the disease: the first scan presents a low amount pf GGO and CS; se second one have a larger region involved. 
 	\begin{figure}[h!]
 		\centering
 		\includegraphics[scale=.4]{ClusterRepr.png}
@@ -10,8 +10,8 @@
 	\end{figure}
 
 	
-	To overcome these issue, I have simply removed the background from the segmentation and carefully selected the scans of the training set to ensure an balanced representation of each cluster. The main rule used for the selection is that in each scan must be present a large lesion areas and also a well representation of artifacts, in order to takes into account all the possible features.
+	To overcome these issues, I have simply removed the background from the segmentation and carefully selected the scans of the training set to ensure a balanced representation of each cluster. The main rule used for the selection is that in each scan must be present a large lesion areas and also a well representation of artifacts, in order to takes into account all the possible features.
 	
 	The images of the training set are then shuffled and splitted into many subsamples and the clustering is performed independently on each one of them. As a final centroid set I have consider the one that minimize the intra cluster variance. This step is justified since the results of the k-means clustering depends on the initial choice centroids. During the minimization of the potential function the algorithm may find a local minimum rather than the global one. The different clustering allows to estimate more than one possible solution and to chose the best one. 		
-	Moreover the creation of several sub-samples is made since the creation of a single, large array with several images is not always possible, since requires a huge quantity of memory to be allocated, so we have chose to divide all the images into several sub-samples and chose the optimal ones.
+	Moreover the creation of several sub-samples is made since the creation of a single, large array with several images is not always possible, since requires a huge quantity of memory to be allocated.
 \end{document}	
