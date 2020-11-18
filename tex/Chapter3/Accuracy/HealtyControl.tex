@@ -1,22 +1,9 @@
 \begin{document}
-	\subsection{Healty Control}
+	\subsection{Healthy-Control}
 	
-	In this subsection I will discuss the results of the segmentation made on $8$ healthy controls scans. This kind of  test was performed as benchmark, in order to ensure that, in absence of lesion, no areas were detected. On the other hand, this kind of segmentation is useful since allows to find the main sources of misclassified areas, which we will see are represented by motion artifacts
-	
-	\begin{figure}[h!]
-		\centering
-			\includegraphics[scale=.4]{HeathyConrol.png}
-			\caption{Segmented CT scans from healthy controls: Without motion artifacts(left), with motion artifacts(right). In the first case we can see that no area is identified since no lesion is present; In second one we can see how, in presence of motion artifacts, some false positives may raise.  }\label{fig:HealthyControl}
-	\end{figure}
+	As we have seen, the pipeline seems to have an high specificity. As a benchmark I have performed the segmentation on CT scans of healthy-control. Since no ground glass areas is present. Considering the specificity I will expect a small rate of false positives ($\sim 10^{-4}$).
 
-	In \figurename\,\ref{fig:HealthyControl} I have displayed two segmented scans from healthy control. We can see that, in a normal case, no lesion areas were detected; but in presence of artifacts, some misclassified regions appears.
 	
-	This can be clearly seen by considering the percentage of misclassified areas. In normal case, the percentage of misclassified voxels is less than $0.01\%$; but, in presence of artifact, increase of $10$ times. 
-	
-	This result suggests that the main source of false positives is the presence of motion artifacts, caused by heartbeat and respiratory cycle. 
-	However we have seen that these doesn't affect too much the specificity of the method. Further improvements may seek to remove these regions, in order to achieve a more accurate segmentation.
-	
-	In the end we have verified that, in the most common case, no lesion areas were identified as we expect. On the other hand, in presence of motion artifacts, these may be misclassified as lesions and we have observed that this is one of the main source of false positives. However the specificity of the pipeline remains very high. 
 	
 	
 	
