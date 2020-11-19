@@ -2,7 +2,7 @@
 \begin{document}
 	\subsection{Lung Extraction}
 	
-	This script aims to achieve the HU registration, the lung segmentation and the bronchial removal. It takes as input the CT scan in each format supported by \textsc{SimpleITK}. As output will returns the stack after the lung extraction in \textit{nifti} format.  Its workflow is summarized in\ref{alg:lungExtraction}.
+	This script aims to achieve the HU registration, the lung segmentation and the bronchial removal. It takes as input the CT scan in each format supported by \textsc{SimpleITK}.  As output will returns the stack after the lung extraction, saved as \textit{nifti}.  Its workflow is summarized in\ref{alg:lungExtraction}.
 	
 		 
 	\begin{algorithm}
@@ -52,7 +52,7 @@
 		return tensor
 	\end{lstlisting}
 
-	More inreresting is the estimation of the eignevalues map. To achieve this purpose I've implemented a function based on \textsc{cv2.cornerEigenValsAndVec} in \textsc{OpenCV}. This function takes as input an $8-$bit gray scale image, so we have to rescale the GL value of the obtained image tensor. 
+	More inreresting is the estimation of the eignevalues map. To achieve this purpose I've implemented a function based on \textsc{cv2.cornerEigenValsAndVec} in \textsc{OpenCV}. This function takes as input an $8-$bit gray scale image, so we have to rescale the GL value of the image tensor. 
 	
 	In the end the computing of the eigenvalues map is made by the following function: 
 		\lstset{style=python}

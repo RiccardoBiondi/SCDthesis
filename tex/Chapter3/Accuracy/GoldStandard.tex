@@ -2,7 +2,7 @@
 \begin{document}
 	\subsection{Comparison with Manual Annotations}
 	
-	In order to check the pipeline performances I have compared the  obtained segmentation with the manual annotation. To do that I have considere $5$ scans from the sant'Orsola dataset for which was available also a ground truth. This ground truth consist in an semi-automatic segmentation made with a certified software and refined by an expert with more than $5$ years of experience. After that the segmentation was validated by $5$ experts with at least one year of experience. This segmentation process takes several days. 
+	In order to check the pipeline performances I have compared the  obtained segmentation with the manual annotation. To do that I have considere $5$ scans from the sant'Orsola dataset for which was available also a ground truth. This ground truth consist in an semi-automatic segmentation made with a certified software and refined by an expert with more than $5$ years of experience. After that the segmentation was validated by $5$ experts with at least $2$ year of experience. This segmentation process takes several days. 
 	
 	In order to compare annotation and pipeline segmentation, I have computed the \emph{sensitivity} and \emph{specificity}: 
 	
@@ -33,10 +33,10 @@
 		
 	\end{table}
 
- 	The first thing we can notice is that both the method have an high specificity. That means that  they rarely gives positives results for healthy regions (lower type I error rate): means that there is a low probability to obtain false positives. 
+ 	The first thing we can notice is that both the method have an high specificity. That means that  they rarely gives positives results for healthy regions (lower type I error rate): there is a low probability to obtain false positives. 
  	The situation changes when we consider specificity. We can see that the annotation have achieved a better sensitivity than the pipeline. That means that they rarely gives negative results for GGO regions (lower type II error rate). However this coefficient does not takes into account the rate of false positives, that means we cannot ensure that the detected GGO areas are really sick.
  	
- 	This in agreement to the fact that, generally , the operator tends to include large lesion areas. However that is not always the case, since will depends to operator that performs the segmentation.
+ 	This in agreement to the fact that, generally , the operator tends to include large lesion areas. However that is not always the case, since will depends to operator that performs the segmentation (subjectivity of these techniques).
  	
  	
  	\begin{figure}[h!]
@@ -63,7 +63,7 @@
  	
  	Up to now I have considered only two case in which the GGO and CS regions are well defined with high contrast respect to healthy lung volume. In \figurename\,\ref{fig:pat1} I have reported axial, sagittal and coronal view of the ground truth (blue) and pipeline segmentation (pink) for the first patient. This patient presents a low volume of GGO and CS. Moreover the identification is difficult due to the low contrast between lesion areas healthy lung volume. As we can see the lesion areas are correctly identified even if some misclassified regions are presents. 
  	
- 	In the end I have to point out that the annotation and ground truth, since are obtained by semi-automatic method, requires  trained personnel and several hours (the first) or days (the seconds).  
+ 	In the end I have to point out that the annotation and ground truth, since are obtained by semi-automatic method, requires  trained personnel and several hours (the first) or days (the seconds).  Morover the automatic method has the advantages of the speed and of the independence from an external operator.
  	
 	
 

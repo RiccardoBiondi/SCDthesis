@@ -2,7 +2,8 @@
 \begin{document}
 	\subsection*{Training}
 	
-	This step involves the estimation of the centroid set. To achieve this purpose, a k-means clustering was performed on a training set made on multichannel images from many CT scans. During this I have to takes into account that k-means clustering requires a balance in the different cluster representation. As we can see in \figurename\,\ref{fig:ClusterRepr}, the main part of the image is composed to background, that si an over-represented cluster. Moreover we can observe that the amount of involved lung volume may change according to the  severity of the disease: the first scan presents a low amount pf GGO and CS; se second one have a larger region involved. 
+	This step involves the estimation of the centroid set. To achieve this purpose, a k-means clustering was performed on a training set made on multichannel images from many CT scans. During this task I have to takes into account that k-means clustering requires a balance in the different cluster representation. As we can see in \figurename\,\ref{fig:ClusterRepr}, the main part of the image is composed to background, that is an over-represented cluster. Moreover we can observe that the amount of involved lung volume may change according to the  severity of the disease: the first scan presents a low amount pf GGO and CS; the second one have a larger lung region involved.ù
+	 
 	\begin{figure}[h!]
 		\centering
 		\includegraphics[scale=.4]{ClusterRepr.png}

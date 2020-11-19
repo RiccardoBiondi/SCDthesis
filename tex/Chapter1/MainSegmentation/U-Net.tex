@@ -10,7 +10,7 @@
 		Convolutional Networks are usually applied to classification tasks. In biological and medical purposes, the segmentation should include localization and a class label should be assigned on each voxel.
 		To achieve this purposes, in $2015$ for the ISB cell tracking challenge, Olaf Ronneberger, Philipp Fischer, and Thomas Brox have developed this kind of network~\cite{ART:Johannes}.
 		
-		The U-Net models are modified and simplified version of a fully connected convolutional neural network, able to work with only small set of training samples.
+		The U-Net is able to work with only small set of training samples. 	In order to work with few training data,we have to make a huge data augmentation, by applying an elastic deformation to the training images.
 	
 		The whole structure is divided into two main parts:
 		\begin{itemize}
@@ -32,8 +32,6 @@
 					\caption{UNEt network architecture: We can see the U-shape made by symmetricity between expansion and contraction path. The gray arrows indicates the shortcut used to prevent information loss}\label{fig:UNet}
 		\end{figure}
 	
-		One of the important modification of this network is that in the upsampling part  have also a large number of feature channels, which allow the network to propagate context information to higher resolution layers, as a consequence the expansive path is symmetric to the contractive one, making the U shape, as we can see in the structure diplayed in \figurename\,\ref{fig:UNet}. In a U-Net the segmentation map only contains the pixels for which the full context is available~\cite{ART:Johannes}.
 		
-		
-		In order to work with few training data,we have to make a huge data augmentation, by applying an elastic deformation to the training images.
+	
 \end{document}
