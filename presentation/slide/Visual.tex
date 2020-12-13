@@ -1,0 +1,28 @@
+\documentclass{standalone}
+\begin{document}
+	\setbeamertemplate{itemize/enumerate body begin}{\scriptsize}
+	\setbeamertemplate{itemize/enumerate subbody begin}{\scriptsize}
+	\begin{frame}{Results}{Visual Comparison}
+
+		%\begin{block}{}
+		%	\centering\scriptsize{Comparison between the achieved results and manual annotation}
+		%\end{block}
+
+		\begin{columns}
+			\begin{column}{.5\textwidth}
+				\centering\includegraphics[width=\linewidth]{./img/3Dlesion}
+			\end{column}
+			\begin{column}{.4\textwidth}
+				\begin{block}{}<1>
+					\begin{itemize}
+						\item \textcolor{green}{green}: semi-automated segmentation made by experts (some hours)
+						\item \textcolor{red}{red}: automated pipeline results (less than \textit{3\,min})
+					\end{itemize}
+				\end{block}
+			
+			\end{column}
+		\end{columns}
+		\centering\includegraphics[width=\linewidth]{./img/zoom}
+		\vspace{2mm}
+	\end{frame}
+\end{document}

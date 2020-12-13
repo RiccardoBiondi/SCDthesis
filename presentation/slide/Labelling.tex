@@ -1,0 +1,36 @@
+\documentclass{standalone}
+\begin{document}
+	\begin{frame}{Labelling}
+		\begin{columns}
+			\begin{column}{.4\textwidth}
+				\centering\includegraphics[width=.7\linewidth]{./img/labelling.png}
+			\end{column}
+		
+			\begin{column}{.4\textwidth}
+				
+				\begin{block}{Input}
+					\begin{itemize}
+						\item Lung Extracted CT scan
+						
+						\item Centroids Set
+					\end{itemize}
+				\end{block}
+				\begin{block}{}
+					\begin{itemize}
+						\item Build Multi Channel Image	
+						
+						\item Labelling by minimizing : 
+						$\sum_{i=1}^{k}\sum_{S} \| x - \mu_i\|$		
+						
+						\item Select the labels corresponding to GGO as CS
+						
+						\item $45.65\pm 0.05\,ms$ per slice
+						
+						\item $DSC = 0.63 \pm 0.12$
+								
+					\end{itemize}
+				\end{block}
+			\end{column}
+		\end{columns}
+	\end{frame}
+\end{document}

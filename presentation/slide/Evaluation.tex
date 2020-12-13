@@ -1,0 +1,58 @@
+\documentclass{standalone}
+\begin{document}
+	%\begin{frame}{Results}{Expert Blind Evaluation}
+	%	\begin{block}{}
+	%		\centering\scriptsize{Blind evaluation by $3$ experts with at least $2$ years of experience}			
+	%	\end{block}
+	
+	%	\centering\includegraphics[width=.7\linewidth]{./img/BlindEval}
+		
+	%	\begin{block}{Blind Evaluation Results}
+	%		\centering
+	%		\begin{itemize}
+	%			\item \scriptsize{Internal accordance less than $50\,\%$ in 4 of 7 cases}
+	%			\item \scriptsize{Better Pipeline performance in 3 out of 7 cases}
+	%		\end{itemize}
+	%	\end{block}
+	%\end{frame}
+	\setbeamertemplate{itemize/enumerate body begin}{\scriptsize}
+	\setbeamertemplate{itemize/enumerate subbody begin}{\scriptsize}
+	\begin{frame}{Results}{Experts Blind Evaluation}
+		%\begin{block}{}\scriptsize
+		%	$7$ segmentations submitted to $3$ experts with at least $2$ years of experience
+		%\end{block}
+		\begin{block}{}
+			\begin{itemize}
+				\item $7$ segmentations submitted to $3$ experts (\emph{with at least $2$ years of experience})
+				\item $3$ independent evaluations for each scans 
+				\item Internal accordance lower than $50\%$
+				
+			\end{itemize}
+		\end{block}
+		\begin{columns}
+			\begin{column}{.6\textwidth}
+				\centering\includegraphics[width=\linewidth]{./img/BlindEval}
+			\end{column}
+			\begin{column}{.3\textwidth}
+				\begin{block}{}\scriptsize
+					Percentage of positive assessments
+					\begin{table}
+						\begin{tabular}{|l|l|}
+							\hline
+							pipeline 	& $32 \%$\\ \hline
+							annotation 	& $33 \%$\\ \hline
+							none 		& $35 \%$\\	\hline			
+						\end{tabular}
+					\end{table}
+				\end{block}
+			\end{column}
+		\end{columns}
+		%\begin{block}{}
+		%	\begin{itemize}
+		%		\item $3$ independent evaluations for each scans 
+		%		\item Internal accordance lower than $50\%$
+		%	\end{itemize}
+		%\end{block}
+	\end{frame}
+
+\end{document}

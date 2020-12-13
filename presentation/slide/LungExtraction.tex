@@ -1,0 +1,37 @@
+\documentclass{standalone}
+\begin{document}
+	\setbeamertemplate{itemize/enumerate body begin}{\scriptsize}
+	\setbeamertemplate{itemize/enumerate subbody begin}{\scriptsize}
+	\begin{frame}{Lung Extraction}{Focusing on the Region of Interest}
+				\begin{columns}
+			\begin{column}{.5\textwidth}
+				\begin{block}{Lung Extraction}
+					\begin{itemize}
+						
+						\item Remove extra-lung regions
+						\begin{itemize}\tiny
+							\item[-] Pre-Trained U-Net: $DSC = 0.98\pm 0.03$
+						\end{itemize}
+						
+						\item Remove Bronchial Structures
+						\begin{itemize}\tiny
+							\item[-] Maximum Eigenvalues Map
+						\end{itemize}
+											
+						\item $449.94\pm 0.03\,ms$ per slice
+						
+					\end{itemize}
+				\end{block}
+				\centering\includegraphics[width=.8\linewidth]{./img/3DLung.png}
+			\end{column}
+			\begin{column}{0.5\textwidth}
+				
+				\centering\includegraphics[width=.8\linewidth]{./img/LUNG.png}
+				
+				\centering\includegraphics[width=.8\linewidth]{./img/BRREM.png}
+				
+			\end{column}
+		\end{columns}
+		
+	\end{frame}
+\end{document}

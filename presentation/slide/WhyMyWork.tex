@@ -1,0 +1,40 @@
+\documentclass{standalone}
+\begin{document}
+	\setbeamertemplate{itemize/enumerate body begin}{\scriptsize}
+	\setbeamertemplate{itemize/enumerate subbody begin}{\scriptsize}	
+	%block settings	
+	\setbeamercolor{block title}{fg=white, bg=mediumslateblue}
+	\setbeamercolor{block body}{fg=black, bg=white}
+	%alert block settings
+	\setbeamercolor{block title alerted}{fg=white, bg=lightcarminepink}
+	\setbeamercolor{block body alerted}{fg=black, bg=white}
+	% example block settings
+	\setbeamercolor{block title example}{fg=white, bg=mediumseagreen}
+	\setbeamercolor{block body example}{fg=black, bg=white}
+	
+	\begin{frame}{State of the Art}{Current Methods, Problems and Solution}
+		
+		\begin{alertblock}{Current Segmentation Methods}
+			Manual or Semi-automatic: 
+			\begin{itemize}
+				\item Time Consuming
+				\item Requires Trained Personnel
+				\item Subjected to Operator Expertise
+			\end{itemize}
+		\end{alertblock}
+		
+		\begin{block}{Characteristics of the Pipeline Implemented}
+			\begin{itemize}
+				\item Fully Automated: \emph{remove subjectivity and dependency of external operator}
+				\item Fast: \emph{obtain results in a small amount of time }
+			\end{itemize}
+		\end{block}
+	
+		\begin{exampleblock}{Dataset}
+			\begin{itemize}
+				\item $83$ CT scans with annotation provided by \emph{Department of Experimental, Diagnostic and Specialty Medicine}
+				\item $2$ Public Dataset
+			\end{itemize}
+		\end{exampleblock}
+	\end{frame}
+\end{document}

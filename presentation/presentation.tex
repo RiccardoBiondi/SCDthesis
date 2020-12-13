@@ -1,0 +1,102 @@
+%!TEX TS-program = xelatex
+\documentclass[slidescentered]{beamer}
+\usepackage{standalone}
+\usepackage{color}
+
+% Define Colors 
+\definecolor{mediumseagreen}{rgb}{0.24, 0.7, 0.44}%green
+\definecolor{mediumslateblue}{rgb}{0.48, 0.41, 0.93}%blue
+\definecolor{lightcarminepink}{rgb}{0.9, 0.4, 0.38}%red
+
+%set template characteristics
+\usetheme{CambridgeUS}
+\setbeamertemplate{blocks}[rounded][shadow=true]
+
+%block
+\setbeamerfont{block body example}{size=\small}
+\setbeamerfont{block body}{size=\small}
+\setbeamerfont{block body alerted}{size=\small}
+\setbeamertemplate{items}[ball] %itemize
+
+\usepackage{appendixnumberbeamer}% better frame numbering
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+%flowchart
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows}
+
+%Author, Supervisor and co-supervisior
+\newsavebox{\authbox}
+\sbox{\authbox}{%
+\centering
+\begin{minipage}{0.45\linewidth}
+\centering\scriptsize
+\emph{SUBMITTED BY} \par
+\small
+Riccardo Biondi
+\end{minipage}
+\hfill
+\begin{minipage}{0.45\linewidth}
+\centering\scriptsize\emph{SUPERVISOR}\par
+\small
+Prof. Gastone Castellani \\
+\vspace{2mm}
+\scriptsize\emph{CO-SUPERVISOR}\par
+\small
+Dr. Nico Curti
+\end{minipage}
+}
+
+\title[]{Implementation of an Automated Pipeline for the Identification of Ground Glass Opacities on CT scans of Patient Affected by COVID-19}
+\author[Riccardo Biondi]{%
+\usebox{\authbox}
+}
+\institute[]{ALMA MATER STUDIORUM $\cdot$ UNIVERSIT\'{A} DI BOLOGNA}
+\date{11 December 2020}
+
+
+\begin{document}
+		
+\input{./slide/Title.tex}
+
+\input{./slide/GGO.tex} % What are GGO and why identiphy them?
+
+\input{./slide/WhyMyWork.tex}% Why my work is important?
+
+\input{./slide/BasicIdea.tex} %Colour Quantization for Image Segmentation
+
+\input{./slide/Workflow.tex}% The Workflow of the pipeline
+
+\input{./slide/LungExtraction.tex} %Lung Segmentation How and Why
+
+\input{./slide/MultiChannel.tex} % how the multichannel image is build
+
+\input{./slide/Training.tex} % Centroid estimation
+
+\input{./slide/Labelling.tex} % 
+
+\input{./slide/Visual.tex} % visual comparison of the results
+
+\input{./slide/Evaluation.tex}  % expert evaluation results
+
+\input{./slide/Conclusion.tex}
+
+
+% starting backup slice
+\appendix
+\setbeamertemplate{page number in head/foot}{} % no numbering
+
+%\input{./slide/Implementation.tex}
+
+
+%\input{./slide/FutureDevelopement.tex} % 
+
+\input{./slide/EigMap.tex}% Max Eigenvalues Map for bronchial removal
+
+\input{./slide/Timing.tex} % How I have measured time performances
+
+\input{./slide/Spec.tex} % Specificity and sensitivity
+
+\end{document}
