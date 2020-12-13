@@ -2,14 +2,17 @@
 \begin{document}
 	\chapter*{Conclusions}\addcontentsline{toc}{chapter}{Conclusions}
 	\markboth{Conclusions}{Conclusions}
-	
-	In this thesis work I have developed a fully automated pipeline for the identification GGO and CS in CT scans of patients affected by COVID-19.
-	As primary step a lung segmentation was performed using a pre trained U-Net. This is followed by a bronchial removal, which successfully reduce the number of false positives.  
-	In order to achieve the identification I have used the colour quantization as medical image segmentation technique.  It allows to identify the different areas inside the lung grouping them by colour similarity. Since the lesions involves many closest voxels, I have used the colour of the image to encode also neighbourhood information. This was done by assign at each channel a different functions of the image (median blurring, gamma correction, neighbourhood standard deviation and CLAHE). To achieve the segmentation I have found the characteristic colour of each tissue, performing a k-means clustering in the colour space. This set can be used to segment several scans by assigning each voxel to the nearest colour. 
-	
-	The pipeline was tested over $3$ datasets, by comparing the results with the annotation provided within. It has shown to correctly identify the GGO areas, with an high specificity, reducing the number of false positives. Even if the segmentation accuracy is not as the one of manual method, the time performances and the independence from an external expert operator make it suitable to obtain good estimations in a small amount of time. 
+		
+	In this work of thesis, I have developed, implemented and tested an automated pipeline for the identification of Ground Glass Opacities and Consolidation in chest CT scans of patients affected by COVID-19. 
 
-	In the end color quantization has shown to be a suitable approach to face this kind of problem. 
-	
+	As a preliminary step, I have performed a lung segmentation by using a pre-trained U-Net. This step is followed by a bronchial removal, to reduce the number of false positives. To perform the GGO and CS segmentation, I have applied the colour quantization. It allows identifying the different areas inside the lung, grouping them by colour similarity. Since the lesions involve many closest voxels, I have used the multi-channel properties of digital images to encode also neighbouring information, this was done by assigning at each channel a different function of the image (median blurring, gamma correction, neighbourhood standard deviation and CLAHE). To achieve the segmentation, I have found the characteristic colour of each tissue, performing a k-means clustering in the colour space. This set can be used to segment several scans by assigning each voxel to the nearest colour.
 
+	The pipeline was tested of $3$ datasets by comparing the segmentation with manual annotation, using specificity, sensitivity and a blind evaluation made by experts. 
+
+	The pipeline has shown to achieve segmentation consistent with the annotation in a small amount of time (less than $3\,min$) and does not require the interaction with trained personnel. The segmentation presents a high specificity with a small rate of false positives. Even if the lesion areas are underestimated, the expert evaluation has shown that better segmentation were achieved in the $31\%$ of the slices by the pipeline and for the $33\%$ by the annotation. In the remaining $35\%$ equal performances were detected. However, in any case, the segmentation and annotation seem to be consistent.
+
+
+	Further developing is possible, like embedding of spatial information (not considered in this work), fine training and sensitivity. 
+	In the end, after these preliminary tests, the colour quantization has shown to be a suitable approach to face this kind of problems. 
+	
 \end{document}

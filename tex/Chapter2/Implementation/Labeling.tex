@@ -1,21 +1,19 @@
 \begin{document}
 	
-	\subsection{Labeling}
+	\subsection{Labelling}
 	
 	
 	
-	
-	This is the last step of the pipeline and involves assigning of  each voxels to the cluster corresponding to the nearest centroids, in this way an hard segmentation is achieved.
-	
-	The script takes as input the CT scan after the lung extraction and it build the multichannel image as described before. After that it assigns each voxel to the cluster of nearest centroids, which is the one that minimize the distance : 
+ 
+	This is the last step of the pipeline and involves assigning of each voxel to the cluster corresponding to the nearest centroids, in this way a hard segmentation is achieved.
+
+	The script takes as input the CT scan after the lung extraction and it builds the multichannel image as described before. After that it assigns each voxel to the cluster of nearest centroids, which is the one that minimizes the distance: 
 	\begin{equation}
 		cluster = \arg\min_{S}  \sum_{i=1}^k \sum_{S} \| x - \mu_i\|
 	\end{equation}
 	
-	where $x$ is the color vector of the voxel and $\mu$ is the $ith$ centroid. During this process the background is automatically assigned to the 0 label, by passing a mask which assume $0$ on the volxel background and $1$ for the other one. At the end of the assignment, only the cluster corresponding to GGO and CS is selected.
-	To summarize the process, the pseudocode of the script is reported in algorithm\,\ref{alg:labeling}.
-	I've tested this algorithm on three different dataset, the results are described in the next chapter.
-	
+	where $x$ is the colour vector of the voxel and $\mu$ is the $ith$ centroid. During this process, the background is automatically assigned to the 0 labels, passing a mask which assumes $0$ on the voxels background and $1$ for the other one. At the end of the assignment, only the cluster corresponding to GGO and CS is selected.To summarize the process, the pseudocode of the script is reported in the algorithm,\ref{alg:labeling}.
+	I have tested this algorithm on three different datasets. The results are described in the next chapter.
 	\begin{algorithm}
 		
 		\SetAlgoLined
@@ -41,8 +39,8 @@
 	\end{algorithm}
 	
 
-	The assignement process is performed by the \textsc{imlabeling} function, which takes care to assign the background to $0$, if the suitable parameter is passed.  The function is implemented as follows:
-		
+ 	The assignment process is performed by the \textsc{imlabeling} function, which takes care to assign the background to $0$, if the suitable parameter is passed. The function is implemented as follows:
+
 	\lstset{style=python}
 	\begin{lstlisting}[language=python, caption=imlabeling, label=code:imlabeling]
 		

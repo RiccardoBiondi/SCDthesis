@@ -1,10 +1,12 @@
 \documentclass{standalone}
 \begin{document}
 	
-	\subsection{Markov Random Field}
+\subsection{Markov Random Field}
 	
-		Markov Random Field (MRF) is not a proper segmentation method, but it is a statistical model that is used within segmentation methods which models the spatial interaction between neighbouring pixels. It is often incorporated in clustering algorithms such as K-means with a Bayesian prior probability.\\
-		This model is used when most pixels belong to the same class as their neighbouring pixels, in this casesany anatomical structure that consist of only one pixel has a very low probability of occourring~\cite{ART:Pham}.\\
-		A difficulty of this model is that it is very sensitive to the parameters that controls the strenght of the spatial interactions. An other MRF disavvantage is that it is a very computationally expansive algorithms. However, despite these disavantages, MRF are widely used to model segmentation classes and intensity inhomogeneities~\cite{ART:Pham}. 
+	Markov Random Field (MRF) is not a proper segmentation method, but it is a statistical model that is used within segmentation methods which model the spatial interaction between neighbouring pixels. It is often incorporated in clustering algorithms such as K-means with a Bayesian prior probability.
+		
+	This model is used when most pixels belong to the same class as their neighbouring pixels, in this cases, any anatomical structure that consists of only one pixel has a very low probability of occourring~\cite{ART:Pham}.
+	
+	A difficulty of this model is that it is very sensitive to the parameters that control the strength of the spatial interactions. The other MRF disadvantage is that it is a very computationally expansive algorithm. However, despite these disadvantages, MRF are widely used to model segmentation classes and intensity inhomogeneities~\cite{ART:Pham}. 
 		 
 \end{document}

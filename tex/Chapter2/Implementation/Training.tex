@@ -1,13 +1,12 @@
 \documentclass{standalone}
 \begin{document}
 	\subsection{Training}
+	This script allows for estimating the set of centroids. It requires as input a path to the training dataset. Each training scan must be saved in a format supported by \textsc{SimpleITK}. This script will return as output the set of centroids in \textit{.npy} format.
+
+	This script will read the training dataset, construct the multichannel image, create the subsamples and cluster them independently. Notice that during the clustering process the background must be removed. This script is summarized in \ref{alg:training}.
 	
-	This script allows to estimate the set of centroids. It requires as input a path to the training dataset. Each training scan must be saved in a format supported by \textsc{SimpleITK}. This script will returns as output the set of centroids in \textit{.npy} format.
 	
-	This script will read the training dataset,  construct the multichannel image, create the subsamples and cluster them independently. Notice that during the clustering process the background must be removed. These script is summarized in \ref{alg:training}.
-	
-	
-		\begin{algorithm}
+		\begin{algorithm}[h!]
 		
 		\SetAlgoLined
 		\DontPrintSemicolon
@@ -40,7 +39,7 @@
 		
 	\end{algorithm}
 
-	The clustering process is managed by the \textsc{kmeans\_on\_subsamples} fucntions, implemented as follows. 
+	The clustering process is managed by the \textsc{kmeans\_on\_subsamples} function, implemented as follows. 
 	\lstset{style=python}
 	\begin{lstlisting}[language=python, caption=kmenas\_on\_subsamples, label=code:kmeans]
 		
@@ -75,12 +74,9 @@
 		return np.asarray(final_center, dtype= np.float32)
 		
 	\end{lstlisting}
-
-
-	This function takes as input the array containing the subsamples, and apply kmeans clustering on each of them, storing all the values.
-	To remove the background it use a weight tensor. The values of this tensor must be $0$ for the voxel corresponding to the background, and $1$ otherwise. 
-	At the end of the procedure, the centroid set which provide the minum value of the sum of square error is selected.
-
+	This function takes as input the array containing the subsamples and apply k-means clustering on each of them, storing all the values.
+	To remove the background, it uses a weight tensor. The values of this tensor must be $0$ for the voxel corresponding to the background, and $1$ otherwise. 
+	At the end of the procedure, the centroid set which provides the minim value of the sum of square error is selected.
 
 
 	

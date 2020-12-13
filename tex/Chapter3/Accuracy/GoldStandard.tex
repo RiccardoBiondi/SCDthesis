@@ -2,23 +2,25 @@
 \begin{document}
 	\subsection{Comparison with Manual Annotations}
 	
-	In order to check the pipeline performances I have compared the  obtained segmentation with the manual annotation. To do that I have considere $5$ scans from the sant'Orsola dataset for which was available also a ground truth. This ground truth consist in an semi-automatic segmentation made with a certified software and refined by an expert with more than $5$ years of experience. After that the segmentation was validated by $5$ experts with at least $2$ year of experience. This segmentation process takes several days. 
+
+	To check the pipeline performances, I have compared the obtained segmentation with the manual annotation. To do that I have considered $5$ scans from the Sant Orsola dataset for which was available also a ground truth. This ground truth consists in a semi-automatic segmentation made with a certified software and refined by an expert with more than $5$ years of experience. After that, the segmentation was validated by $5$ experts with at least $2$ year of experience. This segmentation process takes several days. 
+
+	To compare annotation and pipeline segmentation, I have computed the \emph{sensitivity} and \emph{specificity}: 
 	
-	In order to compare annotation and pipeline segmentation, I have computed the \emph{sensitivity} and \emph{specificity}: 
-	
-	\paragraph{Sensitivity} refers to the ability to correctly detect ill areas. It is defined as total number of voxels correctly classified as opacities (True Potitives), over the total number of positives (True Positives + False Negatives) : 
+	\paragraph{Sensitivity} refers to the ability to correctly detect ill areas. It is defined as the total number of voxels correctly classified as opacities (True Positives), over the total number of positives (True Positives + False Negatives) : 
 	\begin{equation}\label{eq:sensitivity}
-		Sensitivity : \frac{True Positive}{True Positive + False Negatives}
+		Sensitivity = \frac{True Positive}{True Positive + False Negatives}
 	\end{equation}
 
-	\paragraph{Specificity} relates to the  ability to correctly reject healthy areas. Is defined as the number of rejected pixels(True Negative) against the total number of healthy areas (True Negative + False Positives) : 
+	\paragraph{Specificity} relates to the ability to correctly reject healthy areas. Is defined as the number of rejected pixels(True Negative) against the total number of healthy areas (True Negative + False Positives) : 
 	\begin{equation}
-		spcificity : \frac{True Negative}{True Negative + False Positives}
+		Specificity = \frac{True Negative}{True Negative + False Positives}
 	\end{equation}
 
-	I have displayed the results in table\,\ref{tab:Measures}. 
-	
-		\begin{table}[h!]
+
+	The results are displayed in \tablename\,\ref{tab:Measures}.
+		
+	\begin{table}[h!]
 		\centering
 		\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -33,38 +35,38 @@
 		
 	\end{table}
 
- 	The first thing we can notice is that both the method have an high specificity. That means that  they rarely gives positives results for healthy regions (lower type I error rate): there is a low probability to obtain false positives. 
- 	The situation changes when we consider specificity. We can see that the annotation have achieved a better sensitivity than the pipeline. That means that they rarely gives negative results for GGO regions (lower type II error rate). However this coefficient does not takes into account the rate of false positives, that means we cannot ensure that the detected GGO areas are really sick.
- 	
- 	This in agreement to the fact that, generally , the operator tends to include large lesion areas. However that is not always the case, since will depends to operator that performs the segmentation (subjectivity of these techniques).
- 	
+ 
+ 
+ 	The first thing we can notice is that both the method have a high specificity. That means that they rarely give positives results for healthy regions (lower type I error rate): there is a low probability to obtain false positives. 
+ 	The situation changes when we consider specificity. We can see that the annotation has achieved a better sensitivity than the pipeline. That means that they rarely give negative results for GGO regions (lower type II error rate). However, this coefficient does not take into account the rate of false positives, that means we cannot ensure that the detected GGO areas are really sick.
+ 
+	 This in agreement to the fact that, generally, the operator tends to include large lesion areas. However, that is not always the case, since will depends on the operator that performs the segmentation (subjectivity of these techniques).
+ 
  	
  	\begin{figure}[h!]
  		\includegraphics[width=\linewidth, height=.25\textheight]{GTCOM2.png}
  		
- 		\caption{Comparison between the ground truth (blue), the pipeline segmentation (pink) and the manual annotation (yellow). We can see that the segmentation obtained by the automatic pipeline is better that the one of the manual annotation.}\label{fig:conf2}
+ 		\caption{Comparison between the ground truth (blue), the pipeline segmentation (pink) and the manual annotation (yellow). We can see that the segmentation obtained by the automatic pipeline is better than the one of the manual annotation.}\label{fig:conf2}
  	\end{figure}
- 
- 	In \figurename\,\ref{fig:conf2} I have reported the results of the segmentation of Patient $4$. We can see the ground truth (blue), the pipeline segmentation (pink) and the annotation (yellow). In this case we can see that both the pipeline and the annotation correctly identified the lesion areas. However we can see that the annotation is missing a lot of lesion. On the other hand the segmentation achieved by the pipeline seems to cerrectly segment the whole areas. 
- 	
+	In \figurename\,\ref{fig:conf2} I have reported the results of the segmentation of Patient $4$. We can see the ground truth (blue), the pipeline segmentation (pink) and the annotation (yellow). In this case, we can see that both the pipeline and the annotation correctly identified the lesion areas. However, we can see that the annotation is missing a lot of lesions. On the other hand, the segmentation achieved by the pipeline seems to correctly segment the whole areas. 
  	\begin{figure}[h!]
  		\includegraphics[width=\linewidth]{GTCOMP1.png}
  		
  		\caption{Comparison between the ground truth (blue), the pipeline segmentation (pink) and the manual annotation (yellow). We can see that the GGO an CS areas are correctly identified.}\label{fig:conf1}
  	\end{figure}
  
- 	In \figurename\,\ref{fig:conf1} vI have reported the segmentation results for the third patient. We can see the ground truth (blue), the pipeline segmentation (pink) and the annotation (yellow). Also in this case the pipeline seem to correctly identify the opacity. In this case also the annotation seems to be in agreement with the ground truth.
- 	
+	In \figurename\,\ref{fig:conf1} vI have reported the segmentation results for the third patient. We can see the ground truth (blue), the pipeline segmentation (pink) and the annotation (yellow). Also, in this case, the pipeline seems to correctly identify the opacity. In this case, also, the annotation seems to agree with the ground truth.
+	
  	\begin{figure}[h!]
  		\centering
  		\includegraphics[width=.8\linewidth]{PATIENT1.png}  
- 		\caption{Comparison between the gold standard segmentation(blue) and the pipeline results(pink) for axial, sagittal and coronal view of a patient with a low involvement of lung volume. We can see that te main lesion areas are identified, even if an underestimation of the total volume is present together with some small misclassified points.}\label{fig:pat1}
+ 		\caption{Comparison between the gold standard segmentation(blue) and the pipeline results(pink) for an axial, sagittal and coronal view of a patient with a low involvement of lung volume. We can see that the main lesion areas are identified, even if an underestimation of the total volume is present together with some small misclassified points.}\label{fig:pat1}
  	\end{figure}
  	
- 	Up to now I have considered only two case in which the GGO and CS regions are well defined with high contrast respect to healthy lung volume. In \figurename\,\ref{fig:pat1} I have reported axial, sagittal and coronal view of the ground truth (blue) and pipeline segmentation (pink) for the first patient. This patient presents a low volume of GGO and CS. Moreover the identification is difficult due to the low contrast between lesion areas healthy lung volume. As we can see the lesion areas are correctly identified even if some misclassified regions are presents. 
+ 
+ 	Up to now, I have considered only two cases in which the GGO and CS regions are well defined with high contrast respect to healthy lung volume. In \figurename\,\ref{fig:pat1} I have reported axial, sagittal and coronal view of the ground truth (blue) and pipeline segmentation (pink) for the first patient. This patient presents a low volume of GGO and CS. Moreover, the identification is difficult due to the low contrast between lesion areas healthy lung volume. As we can see the lesion areas are correctly identified even if some misclassified regions are presents. 
  	
- 	In the end I have to point out that the annotation and ground truth, since are obtained by semi-automatic method, requires  trained personnel and several hours (the first) or days (the seconds).  Morover the automatic method has the advantages of the speed and of the independence from an external operator.
- 	
+ 	In the end, I have to point out that the annotation and ground truth since are obtained by the semi-automatic method, requires trained personnel and several hours (the first) or days (the seconds). Moreover, the automatic method has the advantages of the speed and independence from an external operator.
 	
 
 \end{document}

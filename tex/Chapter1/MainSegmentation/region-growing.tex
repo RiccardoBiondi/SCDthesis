@@ -3,12 +3,12 @@
 
 \subsection{Region Growing Approach}
 
-Region growing approach allows to extract connected regions from an image. This algorithm starts at seed location in the image (usually manually selected) and checks the adjacent pixels against a predefined homogeneity criteria~\cite{INP:Withey}, based on intensity, and/or edges.   If the pixels met the criteria, they are added to the region. A continuos application of the rule allows the region to grow. 
+	Region growing approach allows extracting connected regions from an image. This algorithm starts at seed location in the image (usually manually selected) and checks the adjacent pixels against a predefined homogeneity criteria~\cite{INP:Withey}, based on intensity, and/or edges.   If the pixels met the criteria, they are added to the region. A continuous application of the rule allows the region to grow. 
 
-Like thresholding, region growing is used in combination with other image segmentation operations, and it usually allows the delineation of small and simple structures such as tumor and lesions~\cite{ART:Pham}.
+	Like thresholding, region growing is used in combination with other image segmentation operations, and it usually allows the delineation of small and simple structures such as tumour and lesions~\cite{ART:Pham}.
 
-Regions growing can also be sensitive to noise: the extracted regions may have holes or even become disconnected. May also happen that disjoint areas become connected due to partial volume effect. 
+	Regions growing can also be sensitive to noise: the extracted regions may have holes or even become disconnected. May also happen that disjoint areas become connected due to the partial volume effect. 
 
-When we use this approach we have to consider that for each region we want to segment a seed must be planted. There are some algorithms, related to region growing, that does not require a seed point, like split and merge one. Split and merge operates in a recursive fashion. The first step is to check the pixel intensity homogeneity: if they are not homogeneous, the region is splitted into two equal sized sub-regions. This step leads to an oversegmentation, so a merging step is performed, which merge together adjacent regions with similar intensities~\cite{INP:Withey}. 
+	When we use this approach we have to consider that for each region we want to segment a seed must be planted. There are some algorithms, related to the region growing, that does not require a seed point, like split and merge one. Split and merge operates recursively. The first step is to check the pixel intensity homogeneity: if they are not homogeneous, the region is split into two equal-sized sub-regions. This step leads to an over-segmentation, so a merging step is performed, which merge adjacent regions with similar intensities~\cite{INP:Withey}. 
 
 \end{document}

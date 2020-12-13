@@ -3,21 +3,20 @@
 
 \subsection{Thresholding}
 
-Thresholding approach is very simple and it basically segments a scalar image by creating a binary partitioning of image intensities~\cite{ART:Pham}. It can be applied on an image to distinguish regions with contrasting intensities and thus differentiate between tissue regions represented within the image~\cite{INP:Withey}. \figurename\,\ref{fig:Histogram} shows an histogram of a scalar image with two classes, threshold based approach attempts to determine an intensity value, called \emph{threshold} which splits the desired classes~\cite{ART:Pham}. To achieve the segmentation we can group all the pixels with intensity higher than the threshold in one class an all the remaining ones into other class. 
+	Thresholding approach is very simple and it basically segments a scalar image by creating a binary partitioning of image intensities~\cite{ART:Pham}. It can be applied on an image to distinguish regions with contrasting intensities and thus differentiate between tissue regions represented within the image~\cite{INP:Withey}. \figurename\,\ref{fig:Histogram} shows a histogram of a scalar image with two classes, the threshold-based approach attempts to determine an intensity value, called \emph{threshold} which splits the desired classes~\cite{ART:Pham}. To achieve the segmentation we can group all the pixels with intensity higher than the threshold in one class an all the remaining ones into other class
 
-\begin{figure}[h!]
+	\begin{figure}[h!]
+		\centering
+			\includegraphics[scale=.35]{hist.png}
+		\caption{Histogram of a GL image with two well delineated regions.The threshold value(red line) was set visually at -400 HU}\label{fig:Histogram}
+	\end{figure}
 
-	\centering
-		\includegraphics[scale=.35]{hist.png}
-	\caption{Histogram of a GL image with two well delineated regions.The threshold value(red line) was setvisually at -400 HU}\label{fig:Histogram}
-\end{figure}
+	The threshold value is usually setting by visual assessment, but can also be automatized by algorithms like Otsu one.
+	Sometimes may happen that more than two classes are present in the image, so we can set more than one threshold values to achieve a multi-class segmentation, also, in this case, there are algorithms to automatized this process, as an extension of the previous one called \emph{multi Otsu threshold}.
 
-The threshold value is usually setting by visual assessment, but can also be automatized by algorithms like Otsu one.
-Sometimes may happen that more than two classes are present in the image, so we can set more than one threshold values in order to achieve a multi-class segmentation, also in this case there are algorithms to automatized this process, like an extension of the previous one called \emph{multi Otsu threshold}.
+	This is a simple but very effective approach to segment images when different structures have high contrast in intensities. Threshold does not take into account the spatial characteristics of the image, so it is sensitive to noise and intensity inhomogeneity, that corrupt the image histogram and make difficult the separation~\cite{ART:Pham}. To overcome these issues several variations of the threshold have been proposed based on local intensities and connectivity.
 
-This is a simple but very effective approach to segment images when different structures have an high contrast in intensities. Threshold does not takes into account the spatial characteristics of the image, so it is sensitive to noise and intensity inhomogeneity, that corrupt the image histogram of the image and that make difficult the separation~\cite{ART:Pham}. To overcome these issues several variations of threshold have been proposed based on local intensities and connectivity.
-
-Threshold is usually used as initial step in sequency of image processing operations, followed by other segmentation techniques that improve the segmentation quality. 
-Since threshold uses only intensity information, it can be considered a pixel classification technique. 
+	A threshold is usually used as an initial step in sequences of image processing operations, followed by other segmentation techniques that improve the segmentation quality. 
+Since threshold uses only intensity information, it can be considered a pixel classification technique.
 
 \end{document}
