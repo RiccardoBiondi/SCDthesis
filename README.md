@@ -21,3 +21,16 @@ In this scenario, the correct and fast identification of these patterns is a fun
 In this work of thesis, I have developed and implemented an automated pipeline for the identification of GGO and CS patterns in chest CT scans. To achieve this purpose, I have applied colour quantization and obtained a hard classification based on voxel intensities. I have used the way in which digital images encodes colour to takes into account also properties related to the voxel neighbourhood, useful since lesions involve many close voxels.
 
 The pipeline was tested on three different datasets and compared with manual annotation by checking specificity and sensitivity and with a blind evaluation made by experts. The results of these preliminary tests show that the pipeline is able to achieve segmentation with high specificity in less than $3\,min$. Even if the total lesion volume is underestimated, the pipeline has shown to achieve segmentation consistent with annotation.
+
+## Citation
+
+If you have found this work useful in your research, please consider to cite it:
+
+@mastersthesis{mastersthesis,
+  author       = {Riccardo Biondi},
+  title        = {Implementation of an Authomated Pipeline for the Identification of Ground Glass Opacities in Chest CT Scans of Patient Affected by COVID-19},
+  school       = {Alma Mater Studiorum - Università di Bologna, School of Science},
+  year         = 2020,
+  address      = {riccardo.biondi7@unibo.it},
+  month        = 12,
+}
