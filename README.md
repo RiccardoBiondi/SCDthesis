@@ -26,6 +26,7 @@ The pipeline was tested on three different datasets and compared with manual ann
 
 If you have found this work useful in your research, please consider to cite it:
 
+```BibTeX
 @mastersthesis{mastersthesis,
   author       = {Riccardo Biondi},
   title        = {Implementation of an Authomated Pipeline for the Identification of Ground Glass Opacities in Chest CT Scans of Patient Affected by COVID-19},
@@ -34,3 +35,4 @@ If you have found this work useful in your research, please consider to cite it:
   address      = {riccardo.biondi7@unibo.it},
   month        = 12,
 }
+```
